@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: 2ravens-main
+  labels:
+    app: 2ravens-main
+    role: main
+    tier: backend
+spec:
+  ports:
+    # the port that this service should serve on
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: 2ravens-main
+    role: main
+    tier: backend
