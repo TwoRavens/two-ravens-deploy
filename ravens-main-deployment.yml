@@ -26,7 +26,7 @@ spec:
         role: main
         tier: backend
     spec:
-      restartPolicy: Never
+      restartPolicy: Always
       volumes:
         # TA3 specification 'shared-vol' volume mount
         # (this is now added by the NIST script)
