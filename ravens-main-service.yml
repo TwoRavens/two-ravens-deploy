@@ -1,4 +1,4 @@
-apiVersion: apiVersion: extensions/v1beta1
+apiVersion: extensions/v1beta1
 kind: Service
 metadata:
   name: 2ravens-main
