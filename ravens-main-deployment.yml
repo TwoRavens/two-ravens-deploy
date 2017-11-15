@@ -25,22 +25,22 @@ spec:
         app: 2ravens-main
         role: main
         tier: backend
-    restartPolicy: Never
-    volumes:
-      # TA3 specification 'shared-vol' volume mount
-      # (this is now added by the NIST script)
-      # Additional Volume mounted for TwoRavens sharing
-      - emptyDir: {}
-        name: shared-vol
-      - emptyDir: {}
-        name: ravens-volume
-      #- name: "shared-vol"
-      #  hostPath:
-      #    path: "/ravens_volume/shared-nist"
-      #- name: "ravens-volume"
-      #  hostPath:
-      #    path: "/ravens_volume"
     spec:
+      restartPolicy: Never
+      volumes:
+        # TA3 specification 'shared-vol' volume mount
+        # (this is now added by the NIST script)
+        # Additional Volume mounted for TwoRavens sharing
+        - emptyDir: {}
+          name: shared-vol
+        - emptyDir: {}
+          name: ravens-volume
+        #- name: "shared-vol"
+        #  hostPath:
+        #    path: "/ravens_volume/shared-nist"
+        #- name: "ravens-volume"
+        #  hostPath:
+        #    path: "/ravens_volume"
       containers:
       - name: ta3-main
         image: tworavens/ravens-main:latest
