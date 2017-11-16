@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: raven-pod1
+  metadata:
+    labels:
+      app: ravens-main
+      role: main
+      tier: backend
+spec:
+  restartPolicy: Always
+  volumes:
+    # TA3 specification 'shared-vol' volume mount
+    # (this is now added by the NIST script)
+    # Additional Volume mounted for TwoRavens sharing
+    - name: shared-vol
+      emptyDir: {}
+    - name: ravens-volume
+      emptyDir: {}
+    #- name: ravens-volume
+    #  # This GCE PD must already exist.
+    #  gcePersistentDisk:
+    #    pdName: raven-disk-01
+    #    fsType: ext4
+  containers:
+  - name: ta3-main
+    image: tworavens/ravens-main:latest
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    # current tworavens has a mount at /ravens_volume
+    volumeMounts:
+      - mountPath: /shared_dir
+        name: shared-vol
+        readOnly: false
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+    # environment variables passed to container
+    env:
+      # eval id
+      - name: EVAL_ID
+        value: raven1
+      # Turn off test mode
+      - name: TA2_STATIC_TEST_MODE
+        value: "True"
+      # Reference to the gRPC server using the pod name and TA2 port
+      #- name: TA2_TEST_SERVER_URL
+      #  value: "raven1:50051"
+      # Url to TA3 R/rook web service
+      - name: R_DEV_SERVER_BASE
+        value: "http://localhost:8000/custom/"
+    livenessProbe:
+      # restart if not responding
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 5
+      timeoutSeconds: 1
+      periodSeconds: 10
+      failureThreshold: 3
+    readinessProbe:
+      # ready for traffic
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+  # -------------------------
+  # ROOK CONTAINER SPECS
+  # -------------------------
+  - name: rook-service
+    image: tworavens/ravens-r-service:latest
+    # same mounts as ta3-main and ta2-main
+    volumeMounts:
+      - mountPath: /shared_dir
+        name: shared-vol
+        readOnly: false
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+    # web port
+    ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+    # environment variables passed to container
+    env:
+      # NIST eval id
+      - name: EVAL_ID
+        value: raven1
+      # Also set to "yes" in the Dockefile
+      - name: ROOK_USE_PRODUCTION_MODE
+        value: "yes"
+    # liveness is for restart
+    livenessProbe:
+      httpGet:
+        path: /custom/healthcheckapp
+        port: 8000
+      initialDelaySeconds: 5
+      timeoutSeconds: 1
+      periodSeconds: 10
+      failureThreshold: 3
+    # readiness: ready for traffic
+    readinessProbe:
+      httpGet:
+        path: /custom/healthcheckapp
+        port: 8000
+      initialDelaySeconds: 20
+      periodSeconds: 10

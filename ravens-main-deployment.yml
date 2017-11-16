@@ -1,8 +1,7 @@
 apiVersion: extensions/v1beta1
-#kind: Deployment
-kind: Pod
+kind: Deployment
 metadata:
-  name: raven-pod1
+  name: ravens-main
   # these labels can be applied automatically
   # from the labels in the pod template if not set
   # labels:
@@ -23,7 +22,7 @@ spec:
   template:
     metadata:
       labels:
-        app: raven-pod1
+        app: ravens-main
         role: main
         tier: backend
     spec:
