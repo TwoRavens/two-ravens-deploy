@@ -35,10 +35,10 @@ spec:
           emptyDir: {}
         #- name: ravens-volume
         #  emptyDir: {}
-        - name: travens-volume
+        - name: ravens-volume
           # This GCE PD must already exist.
           gcePersistentDisk:
-            pdName: my-data-disk
+            pdName: raven-disk-01
             fsType: ext4
       containers:
       - name: ta3-main
