@@ -35,6 +35,7 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
     ```
   - Initially, the EXTERNAL-IP for *ravens-main* will say `<pending>`
   - Repeat the show services command until an IP appears--and try that IP in the browser
+    - Note: /ravens_volume files aren't accessible w/o additional commands. going to add that directly to Dockerfile
 
 ### Various commands
 
