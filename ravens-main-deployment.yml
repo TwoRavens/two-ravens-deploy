@@ -1,5 +1,6 @@
 apiVersion: extensions/v1beta1
-kind: Deployment
+#kind: Deployment
+kind: Pod
 metadata:
   name: ravens-main
   # these labels can be applied automatically
@@ -33,13 +34,13 @@ spec:
         # Additional Volume mounted for TwoRavens sharing
         - name: shared-vol
           emptyDir: {}
-        #- name: ravens-volume
-        #  emptyDir: {}
         - name: ravens-volume
-          # This GCE PD must already exist.
-          gcePersistentDisk:
-            pdName: raven-disk-01
-            fsType: ext4
+          emptyDir: {}
+        #- name: ravens-volume
+        #  # This GCE PD must already exist.
+        #  gcePersistentDisk:
+        #    pdName: raven-disk-01
+        #    fsType: ext4
       containers:
       - name: ta3-main
         image: tworavens/ravens-main:latest

@@ -54,7 +54,7 @@ kubectl get deploy
 # ----------
 
 # container specific logs
-kubectl logs raven1 tworavens
+kubectl logs raven1 ta3-main
 
 # ----------
 # delete

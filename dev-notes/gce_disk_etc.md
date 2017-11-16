@@ -31,4 +31,21 @@
   ```
   gcloud compute disks create --size=500GB --zone=us-central1-a raven-disk-01
   ```
--
+
+### Format disk
+
+(do this an easier way next time)
+
+- Run the cluster
+- Connect to the container with attached disk
+  - e.g. `kubectl exec -it ravens-main-3834649790-lwb4v --container=ta3-main bash`
+- Once in the container:
+    ```
+    # list the disks
+    lsblk
+    # find the DEVICE ID, e.g. `sdb`
+    # run this command substituting the actual DEVICE ID:
+    #   sudo mkfs.ext4 -m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/[DEVICE_ID]
+    #
+    #
+    mkfs.ext4 -m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/sdb
