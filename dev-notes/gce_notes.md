@@ -7,7 +7,7 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
 
 1. Go to: https://console.cloud.google.com/kubernetes/list
 2. Click "Create Cluster"
-   - Initially used zone `us-east1-b`
+   - Initially used zone `us-central1-a`
 3. Active the "Google Shell Shell", click icon in the top right ">_"
 4. From the UI above, click "connect to cluster" and copy first line into the shell.
   - Sample line: `gcloud container clusters get-credentials raven1 --zone us-east1-b --project raven2-186120`
@@ -20,8 +20,8 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
 
 1. Clone app:
     ```
-    git clone https://github.com/TwoRavens/test-deploy.git
-    cd test-deploy
+    git clone https://github.com/TwoRavens/two-ravens-deploy.git
+    cd two-ravens-deploy
     export PROJECT_ID="$(gcloud config get-value project -q)"
     ```
 2. Deploy & Run
