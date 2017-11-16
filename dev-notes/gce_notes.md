@@ -33,7 +33,7 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
     ```
     kubectl get svc -o wide
     ```
-  - Initially, the EXTERNAL-IP for *ravens-main* will say '<pending>'
+  - Initially, the EXTERNAL-IP for *ravens-main* will say `<pending>`
   - Repeat the show services command until an IP appears--and try that IP in the browser
 
 ### Various commands
