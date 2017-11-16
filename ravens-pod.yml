@@ -2,11 +2,9 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: raven-pod1
-  metadata:
-    labels:
-      app: ravens-main
-      role: main
-      tier: backend
+  labels:
+    app: ravens-main
+    role: main
 spec:
   restartPolicy: Always
   volumes:
