@@ -90,3 +90,45 @@ spec:
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
+      # -------------------------
+      # ROOK CONTAINER SPECS
+      # -------------------------
+      - name: rook-service
+        image: tworavens/ravens-r-service:latest
+        # same mounts as ta3-main and ta2-main
+        volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
+          - mountPath: "/ravens_volume"
+            name: "ravens-volume"
+            readOnly: false
+        # web port
+        ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+        # environment variables passed to container
+        env:
+          # NIST eval id
+          - name: EVAL_ID
+            value: raven1
+          # Also set to "yes" in the Dockefile
+          - name: ROOK_USE_PRODUCTION_MODE
+            value: "yes"
+        # liveness is for restart
+        livenessProbe:
+          httpGet:
+            path: /custom/healthcheckapp
+            port: 8000
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
+        # readiness: ready for traffic
+        readinessProbe:
+          httpGet:
+            path: /custom/healthcheckapp
+            port: 8000
+          initialDelaySeconds: 20
+          periodSeconds: 10
