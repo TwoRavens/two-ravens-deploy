@@ -1,4 +1,7 @@
-## GCE steps
+## Deploying on Google Compute engine
+
+This is currently a naive setup--e.g. no external db, env variables, etc.
+
 
 ### Create a cluster
 
