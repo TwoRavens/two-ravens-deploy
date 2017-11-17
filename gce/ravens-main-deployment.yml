@@ -25,10 +25,11 @@ spec:
         # Additional Volume mounted for TwoRavens sharing
         - name: shared-vol
           emptyDir: {}
+        # Use for testing with ephemeral volume between containers
+        #- name: ravens-volume
+        #  emptyDir: {}
+        # Use gcePersistentDisk...which must already exist.
         - name: ravens-volume
-          emptyDir: {}
-        - name: raven-gce-volume
-        # This GCE PD must already exist.
           gcePersistentDisk:
             pdName: raven-disk-dev
             fsType: ext4
@@ -53,11 +54,10 @@ spec:
           - mountPath: /shared_dir
             name: shared-vol
             readOnly: false
+          # ravens volume shared with rook
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
             readOnly: false
-          - mountPath: /raven_gce_volume
-            name: raven-gce-volume
         # environment variables passed to container
         env:
           # eval id
@@ -98,6 +98,7 @@ spec:
           - mountPath: /shared_dir
             name: shared-vol
             readOnly: false
+           ravens volume shared w/ ta3-main
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
             readOnly: false
