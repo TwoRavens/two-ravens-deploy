@@ -11,16 +11,7 @@ metadata:
   #   role: master
   #   tier: backend
 spec:
-  # this replicas value is default
-  # modify it according to your case
   replicas: 1
-  # selector can be applied automatically
-  # from the labels in the pod template if not set
-  # selector:
-  #   matchLabels:
-  #     app: guestbook
-  #     role: master
-  #     tier: backend
   template:
     metadata:
       labels:
@@ -36,6 +27,11 @@ spec:
           emptyDir: {}
         - name: ravens-volume
           emptyDir: {}
+        - name: raven-gce-volume
+        # This GCE PD must already exist.
+          gcePersistentDisk:
+            pdName: raven-disk-dev
+            fsType: ext4
         #- name: ravens-volume
         #  # This GCE PD must already exist.
         #  gcePersistentDisk:
@@ -60,6 +56,8 @@ spec:
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
             readOnly: false
+          - mountPath: /raven_gce_volume
+            name: raven-gce-volume
         # environment variables passed to container
         env:
           # eval id

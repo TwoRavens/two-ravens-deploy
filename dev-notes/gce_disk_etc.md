@@ -27,10 +27,43 @@
     - formatting: https://cloud.google.com/compute/docs/disks/add-persistent-disk#formatting
   - general info: https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk
 
-- Initial command using gcloud SDK:
-  ```
-  gcloud compute disks create --size=500GB --zone=us-central1-a raven-disk-01
-  ```
+- Initial command using gcloud SDK
+
+1. Create disk via gcloud
+    ```
+    gcloud compute disks create --size 200GB raven-disk-dev
+    ```
+1. List instances running the cluster
+    ```
+    gcloud compute instances list
+    ```
+    - Example output:
+        ```
+        NAME                                      ZONE           MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+      gke-cluster-1-default-pool-e584caed-34pq  us-central1-a  n1-standard-1               10.128.0.3   35.192.182.137  RUNNING
+      gke-cluster-1-default-pool-e584caed-7j5c  us-central1-a  n1-standard-1               10.128.0.2   35.202.102.80   RUNNING
+      gke-cluster-1-default-pool-e584caed-c6ls  us-central1-a  n1-standard-1               10.128.0.4   104.197.19.140  RUNNING
+      ```
+1. Attach the disk to one of the instances
+    ```
+    # example
+    gcloud compute instances attach-disk gke-cluster-1-default-pool-e584caed-34pq --disk raven-disk-dev
+    ```
+1. Use the console to SSH into the instance
+  - https://console.cloud.google.com/compute/instances
+1. Run the format commands
+    ```
+    # list attached disks
+    lsblk
+    # format disk
+    sudo mkfs.ext4 -m 0 -F -E lazy_itable_init=0,lazy_journal_ini
+t=0,discard /dev/sdb
+1. Now detach the disk--don't really want it on this instance
+    ```
+    # example
+    gcloud compute instances detach-disk gke-cluster-1-default-pool-e584caed-34pq --disk raven-disk-dev
+    ```
+1. Add the disk mount to the deploy file
 
 ### Format disk
 
