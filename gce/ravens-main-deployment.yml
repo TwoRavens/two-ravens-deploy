@@ -98,7 +98,7 @@ spec:
           - mountPath: /shared_dir
             name: shared-vol
             readOnly: false
-           ravens volume shared w/ ta3-main
+          # ravens volume shared w/ ta3-main
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
             readOnly: false
