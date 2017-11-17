@@ -21,15 +21,17 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
 1. Clone app:
     ```
     git clone https://github.com/TwoRavens/two-ravens-deploy.git
-    cd two-ravens-deploy
+    cd two-ravens-deploy/gce
     export PROJECT_ID="$(gcloud config get-value project -q)"
     ```
 2. Deploy & Run
     ```
+    # make containerized apps
     kubectl create -f ravens-main-deployment.yml
-    kubectl expose deployment ravens-main --type=LoadBalancer --port 80 --target-port 8080
+    # expose it to static IP
+    kubectl create -f ravens-main-service.yml
 
-    kubectl expose deployment tworavens --type=LoadBalancer --port 80 --target-port 8080
+    #kubectl expose deployment tworavens --type=LoadBalancer --port 80 --target-port 8080
     ```
 3. Show services
     ```

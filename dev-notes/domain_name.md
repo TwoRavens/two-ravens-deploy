@@ -9,6 +9,6 @@
 
 - 11/17/2017
   - *name*: raven-static-ip-with-domain
-  - *ip address*: 104.197.235.238
+  - *ip address*: 35.190.87.43
 
 - https://cloud.google.com/dns/quickstart
