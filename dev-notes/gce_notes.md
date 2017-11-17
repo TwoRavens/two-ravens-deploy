@@ -28,6 +28,8 @@ This is currently a naive setup--e.g. no external db, env variables, etc.
     ```
     kubectl create -f ravens-main-deployment.yml
     kubectl expose deployment ravens-main --type=LoadBalancer --port 80 --target-port 8080
+
+    kubectl expose deployment tworavens --type=LoadBalancer --port 80 --target-port 8080
     ```
 3. Show services
     ```

@@ -1,7 +1,9 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: tworavens
+  name: tworavensweb
+  labels:
+    app: tworavens
   # these labels can be applied automatically
   # from the labels in the pod template if not set
   # labels:
@@ -23,7 +25,7 @@ spec:
     metadata:
       labels:
         app: tworavens
-        role: main
+        tier: web
     spec:
       restartPolicy: Always
       volumes:
