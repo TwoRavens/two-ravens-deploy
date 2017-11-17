@@ -1,3 +1,30 @@
+---
+# Service for raven-pod1>ravens-main
+apiVersion: v1
+kind: Service
+metadata:
+  name: raven-pod1
+spec:
+  # NodePort type allows to expose service outside the cluster
+  type: NodePort
+  selector:
+    name: raven-pod1
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: raven-pod1
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    name: raven-pod1
+---
 apiVersion: v1
 kind: Pod
 metadata:

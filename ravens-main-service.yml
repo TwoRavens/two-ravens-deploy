@@ -1,17 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ravens-main
+  name: ravens-web
   labels:
-    app: ravens-main
-    role: main
-    tier: backend
+    app: tworavens
 spec:
-  ports:
-    # the port that this service should serve on
-  - port: 8080
-    targetPort: 8080
   selector:
-    app: ravens-main
-    role: main
-    tier: backend
+    app: tworavens
+    tier: web
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer
+  loadBalancerIP: 104.197.235.238
