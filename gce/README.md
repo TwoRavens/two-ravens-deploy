@@ -1,7 +1,7 @@
 ## Deployment and service files for Google Compute Engine.
 
 ```
-cd test-deploy/gce
+cd two-ravens-deploy/gce
 git pull
 kubectl apply -f ravens-main-deployment.yml
 kubectl apply -f ravens-main-service.yml
