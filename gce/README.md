@@ -9,3 +9,24 @@ kubectl get svc
 ```
 
 - Note: The service uses a LoadBalancer with static IP as specified in `ravens-main-service.yml`
+
+
+```
+kubectl logs tworavensweb ta3-main
+```
+
+## downsize cluster
+
+- Set size to zero
+
+```
+gcloud container clusters resize cluster-1 --size=0 --zone=us-central1-a
+```
+
+## get cluster going again
+
+- Set size back to 3 (or 2)
+
+```
+gcloud container clusters resize cluster-1 --size=2 --zone=us-central1-a
+```
