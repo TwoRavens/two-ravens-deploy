@@ -68,7 +68,7 @@ spec:
             value: "True"
           # Reference to the gRPC server using the pod name and TA2 port
           #- name: TA2_TEST_SERVER_URL
-          #  value: "raven1:50051"
+          #  value: "raven1:45042"
           # Url to TA3 R/rook web service
           - name: R_DEV_SERVER_BASE
             value: "http://localhost:8000/custom/"

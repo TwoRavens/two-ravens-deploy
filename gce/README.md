@@ -1,4 +1,6 @@
-## Deployment and service files for Google Compute Engine.
+# Deployment and service files for Google Compute Engine.
+
+## Deploy
 
 ```
 cd two-ravens-deploy/gce
@@ -12,9 +14,19 @@ kubectl get svc
 
 - Note: The service uses a LoadBalancer with static IP as specified in `ravens-main-service.yml`
 
+## Delete
 
 ```
-kubectl logs tworavensweb ta3-main
+kubectl delete -f ravens-main-deployment.yml
+kubectl delete -f ravens-main-service.yml
+```
+
+## log example
+
+```
+kubectl logs tworavensweb-xxxxxxx ta3-main
+kubectl logs tworavensweb-xxxxxxx rook-service
+
 ```
 
 ## downsize cluster
