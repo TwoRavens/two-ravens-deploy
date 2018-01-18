@@ -30,9 +30,10 @@ spec:
         #  emptyDir: {}
         # Use gcePersistentDisk...which must already exist.
         - name: ravens-volume
-          gcePersistentDisk:
-            pdName: raven-disk-dev
-            fsType: ext4
+          emptyDir: {}
+          #gcePersistentDisk:
+          #  pdName: raven-disk-dev
+          #  fsType: ext4
         #- name: ravens-volume
         #  # This GCE PD must already exist.
         #  gcePersistentDisk:
