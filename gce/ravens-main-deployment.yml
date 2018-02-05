@@ -42,6 +42,8 @@ spec:
       containers:
       - name: ta3-main
         image: tworavens/ravens-main:latest
+        command: ["tail"]
+        args: ["-f", "/dev/null"]
         resources:
           requests:
             cpu: 100m
@@ -73,22 +75,22 @@ spec:
           # Url to TA3 R/rook web service
           - name: R_DEV_SERVER_BASE
             value: "http://localhost:8000/custom/"
-        livenessProbe:
-          # restart if not responding
-          httpGet:
-            path: /monitoring/alive
-            port: 8080
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
-          periodSeconds: 10
-          failureThreshold: 3
-        readinessProbe:
-          # ready for traffic
-          httpGet:
-            path: /monitoring/alive
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 10
+        #livenessProbe:
+        #  # restart if not responding
+        #  httpGet:
+        #    path: /monitoring/alive
+        #    port: 8080
+        #  initialDelaySeconds: 5
+        #  timeoutSeconds: 1
+        #  periodSeconds: 10
+        #  failureThreshold: 3
+        #readinessProbe:
+        #  # ready for traffic
+        #  httpGet:
+        #    path: /monitoring/alive
+        #    port: 8080
+        #  initialDelaySeconds: 10
+        #  periodSeconds: 10
       # -------------------------
       # ROOK CONTAINER SPECS
       # -------------------------

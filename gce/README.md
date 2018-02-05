@@ -29,6 +29,23 @@ kubectl logs tworavensweb-xxxxxxx rook-service
 
 ```
 
+## login, etc
+
+```
+# Log into running pod
+kubectl exec -it tworavensweb-xxxxxxx -c ta3-main -- /bin/bash
+
+# Make some test configs...
+fab make_d3m_config_files
+
+# Copy test data to the shared volume
+cp -r ravens_volume/. /ravens_volume
+
+# describe containers in pod
+kubectl describe pod/ravens-ta3
+
+```
+
 ## downsize cluster
 
 - Set size to zero
