@@ -118,19 +118,3 @@ spec:
           # Also set to "yes" in the Dockefile
           - name: ROOK_USE_PRODUCTION_MODE
             value: "yes"
-        # liveness is for restart
-        livenessProbe:
-          httpGet:
-            path: /custom/healthcheckapp
-            port: 8000
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
-          periodSeconds: 10
-          failureThreshold: 3
-        # readiness: ready for traffic
-        readinessProbe:
-          httpGet:
-            path: /custom/healthcheckapp
-            port: 8000
-          initialDelaySeconds: 20
-          periodSeconds: 10

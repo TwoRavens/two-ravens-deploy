@@ -33,7 +33,9 @@ kubectl logs tworavensweb-xxxxxxx rook-service
 
 ```
 # Log into running pod
-kubectl exec -it tworavensweb-xxxxxxx -c ta3-main -- /bin/bash
+kubectl exec -it tworavensweb-xxxxxxx -c ta3-main /bin/bash
+
+kubectl exec -ti  tworavensweb-2390003843-wrlf9 -c ta3-main /bin/bash
 
 # Make some test configs...
 fab make_d3m_config_files
@@ -43,6 +45,9 @@ cp -r ravens_volume/. /ravens_volume
 
 # describe containers in pod
 kubectl describe pod/ravens-ta3
+
+# run ta3_search
+kubectl exec -ti tworavensweb-2390003843-wrlf9 --container ta3-main -- ta3_search /ravens_volume/config_185_baseball.json
 
 ```
 
