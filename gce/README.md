@@ -6,16 +6,15 @@
 cd two-ravens-deploy/gce
 git pull
 
-# no TA2:
-kubectl apply -f ravens-main-deployment.yml
+# Pick 1 of these:
+kubectl apply -f ravens-main-deployment.yml # NO TA2
+kubectl apply -f ravens-deploy-with-ta2.yml # Real TA2
 
-# or with TA2:
-kubectl apply -f ravens-deploy-with-ta2.yml
-
-#----
+# Run this:
 kubectl apply -f ravens-main-service.yml
-#
-# wait for service to have IP assigned
+
+
+# Wait for service to have IP assigned
 kubectl get svc
 ```
 
