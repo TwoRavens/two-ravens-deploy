@@ -1,0 +1,132 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tworavensweb
+  labels:
+    app: tworavens
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: redis
+  #   role: master
+  #   tier: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tworavens
+        tier: web
+    spec:
+      restartPolicy: Always
+      volumes:
+        # TA3 specification 'shared-vol' volume mount
+        # (this is now added by the NIST script)
+        # Additional Volume mounted for TwoRavens sharing
+        - name: shared-vol
+          emptyDir: {}
+        # Use for testing with ephemeral volume between containers
+        #- name: ravens-volume
+        #  emptyDir: {}
+        # Use gcePersistentDisk...which must already exist.
+        - name: ravens-volume
+          emptyDir: {}
+          #gcePersistentDisk:
+          #  pdName: raven-disk-dev
+          #  fsType: ext4
+        #- name: ravens-volume
+        #  # This GCE PD must already exist.
+        #  gcePersistentDisk:
+        #    pdName: raven-disk-01
+        #    fsType: ext4
+      containers:
+      - name: ta3-main
+        image: tworavens/ravens-main:latest
+        command: ["/usr/bin/gce_start.sh"]
+        #args: ["-f", "/dev/null"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        # current tworavens has a mount at /ravens_volume
+        volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
+          # ravens volume shared with rook
+          - mountPath: "/ravens_volume"
+            name: "ravens-volume"
+            readOnly: false
+        # environment variables passed to container
+        env:
+          # eval id
+          - name: EVAL_ID
+            value: raven1
+          # Turn off test mode
+          - name: TA2_STATIC_TEST_MODE
+            value: "False"
+          # Reference to the gRPC server using the pod name and TA2 port
+          - name: TA2_TEST_SERVER_URL
+            value: "ta2-main:45042"
+          # Url to TA3 R/rook web service
+          - name: R_DEV_SERVER_BASE
+            value: "http://localhost:8000/custom/"
+          - name: CONFIG_JSON_PATH
+            value: "/ravens_volume/config_185_baseball.json"
+      # -------------------------
+      # ROOK CONTAINER SPECS
+      # -------------------------
+      - name: rook-service
+        image: tworavens/ravens-r-service:latest
+        # same mounts as ta3-main and ta2-main
+        volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
+          # ravens volume shared w/ ta3-main
+          - mountPath: "/ravens_volume"
+            name: "ravens-volume"
+            readOnly: false
+        # web port
+        ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+        # environment variables passed to container
+        env:
+          # NIST eval id
+          - name: EVAL_ID
+            value: raven1
+          # Also set to "yes" in the Dockefile
+          - name: ROOK_USE_PRODUCTION_MODE
+            value: "yes"
+      # -------------------------
+      # TA2 CONTAINER SPECS
+      # -------------------------
+      - name: ta2-main
+        image: tworavens/isi_ta2:latest
+        volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
+          # ravens volume shared w/ ta3-main
+          - mountPath: "/ravens_volume"
+            name: "ravens-volume"
+            readOnly: false
+        # web port
+        ports:
+          - containerPort: 45042
+            name: grpc
+            protocol: TCP
+        # environment variables passed to container
+        env:
+          # NIST eval id
+          - name: EVAL_ID
+            value: raven1
+          # Also set to "yes" in the Dockerfile
+          - name: CONFIG_JSON_PATH
+            value: "/ravens_volume/config_185_baseball.json"

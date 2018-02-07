@@ -33,9 +33,9 @@ kubectl logs tworavensweb-xxxxxxx rook-service
 
 ```
 # Log into running pod
-kubectl exec -it tworavensweb-xxxxxxx -c ta3-main /bin/bash
+#kubectl exec -it tworavensweb-xxxxxxx -c ta3-main /bin/bash
 
-kubectl exec -ti  tworavensweb-2390003843-wrlf9 -c ta3-main /bin/bash
+kubectl exec -ti  tworavensweb-1872123671-2rq5p -c ta3-main /bin/bash
 
 # Make some test configs...
 fab make_d3m_config_files
