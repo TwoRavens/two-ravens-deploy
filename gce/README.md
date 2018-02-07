@@ -5,7 +5,14 @@
 ```
 cd two-ravens-deploy/gce
 git pull
+
+# no TA2:
 kubectl apply -f ravens-main-deployment.yml
+
+# or with TA2:
+kubectl apply -f ravens-deploy-with-ta2.yml
+
+#----
 kubectl apply -f ravens-main-service.yml
 #
 # wait for service to have IP assigned
@@ -17,6 +24,7 @@ kubectl get svc
 ## Delete
 
 ```
+kubectl delete -f ravens-deploy-with-ta2.yml
 kubectl delete -f ravens-main-deployment.yml
 kubectl delete -f ravens-main-service.yml
 ```

@@ -108,7 +108,7 @@ spec:
       # TA2 CONTAINER SPECS
       # -------------------------
       - name: ta2-main
-        image: tworavens/isi_ta2:latest
+        image: tworavens/ta2_isi:latest
         volumeMounts:
           - mountPath: /shared_dir
             name: shared-vol
@@ -119,7 +119,7 @@ spec:
             readOnly: false
         # web port
         ports:
-          - containerPort: 45042
+          - containerPort: "45042"
             name: grpc
             protocol: TCP
         # environment variables passed to container
