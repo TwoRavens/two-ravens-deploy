@@ -4,6 +4,12 @@ metadata:
   name: tworavensweb
   labels:
     app: tworavens
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+  #   app: redis
+  #   role: master
+  #   tier: backend
 spec:
   replicas: 1
   template:
@@ -14,8 +20,20 @@ spec:
     spec:
       restartPolicy: Always
       volumes:
+        # TA3 specification 'shared-vol' volume mount
+        # (this is now added by the NIST script)
+        # Additional Volume mounted for TwoRavens sharing
+        - name: shared-vol
+          emptyDir: {}
+        # Use for testing with ephemeral volume between containers
+        #- name: ravens-volume
+        #  emptyDir: {}
+        # Use gcePersistentDisk...which must already exist.
         - name: ravens-volume
           emptyDir: {}
+          #gcePersistentDisk:
+          #  pdName: raven-disk-dev
+          #  fsType: ext4
         #- name: ravens-volume
         #  # This GCE PD must already exist.
         #  gcePersistentDisk:
@@ -24,22 +42,30 @@ spec:
       containers:
       - name: ta3-main
         image: tworavens/ravens-main:latest
-        command: ["gce_start.sh"]
-        #args: ["-f", "/dev/null"]
+        command: ["tail"]
+        args: ["-f", "/dev/null"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
         ports:
           - containerPort: 8080
             name: http
             protocol: TCP
         # current tworavens has a mount at /ravens_volume
         volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
+          # ravens volume shared with rook
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
             readOnly: false
         # environment variables passed to container
         env:
-          # CONFIG_JSON_PATH
-          - name: CONFIG_JSON_PATH
-            value: /ravens_volume/config_185_baseball.json
+          # eval id
+          - name: EVAL_ID
+            value: raven1
           # Turn off test mode
           - name: TA2_STATIC_TEST_MODE
             value: "True"
@@ -72,6 +98,9 @@ spec:
         image: tworavens/ravens-r-service:latest
         # same mounts as ta3-main and ta2-main
         volumeMounts:
+          - mountPath: /shared_dir
+            name: shared-vol
+            readOnly: false
           # ravens volume shared w/ ta3-main
           - mountPath: "/ravens_volume"
             name: "ravens-volume"

@@ -1,6 +1,7 @@
 # Build Images
 
 ```invoke minikube docker env
+minikube start --vm-driver=xhyve --memory=11000
 eval $(minikube docker-env)
 ```
 

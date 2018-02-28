@@ -93,7 +93,7 @@ spec:
       # TA2 CONTAINER SPECS
       # -------------------------
       - name: ta2-main
-        image: tworavens/ta2_isi:latest
+        image: isi_ta2:stable
         volumeMounts:
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
