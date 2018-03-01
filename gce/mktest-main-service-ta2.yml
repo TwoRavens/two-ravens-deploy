@@ -93,7 +93,7 @@ spec:
       # TA2 CONTAINER SPECS
       # -------------------------
       - name: ta2-main
-        image: isi_ta2:stable
+       image: gcr.io/raven2-186120/test-service-t2:latest
         volumeMounts:
           - mountPath: "/ravens_volume"
             name: "ravens-volume"
