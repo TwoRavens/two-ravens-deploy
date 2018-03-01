@@ -1,0 +1,43 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tworavens-ta2
+  labels:
+    app: tworavens-ta2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tworavens-ta2
+        tier: web
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: ravens-volume
+          emptyDir: {}
+        #- name: ravens-volume
+        #  # This GCE PD must already exist.
+        #  gcePersistentDisk:
+        #    pdName: raven-disk-01
+        #    fsType: ext4
+      containers:
+      # -------------------------
+      # TA2 CONTAINER SPECS
+      # -------------------------
+      - name: ta2-main
+        image: isi_ta2:stable
+        volumeMounts:
+          - mountPath: "/ravens_volume"
+            name: "ravens-volume"
+            readOnly: false
+        # web port
+        ports:
+          - containerPort: 45042
+            name: grpc
+            protocol: TCP
+        # environment variables passed to container
+        env:
+          # Also set to "yes" in the Dockerfile
+          - name: CONFIG_JSON_PATH
+            value: "/ravens_volume/config_185_baseball.json"

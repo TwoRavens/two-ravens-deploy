@@ -34,3 +34,16 @@ kubectl exec -it [pod_name] -c ta3-main -- /bin/bash
 ```
 docker rmi docker rmi $(docker images -f "dangling=true" -q)
 ```
+
+## push ta2 to hub
+
+```
+# tag it
+docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable tworavens/test-service-t2:latest
+
+# log in
+docker login rprasad7
+
+# push image
+docker push tworavens/test-service-t2:latest
+```
