@@ -23,7 +23,7 @@ spec:
         #    fsType: ext4
       containers:
       - name: ta3-main
-        image: tworavens/ravens-main:gce
+        image: tworavens/ravens-main:latest
         command: ["gce_start.sh"]
         #args: ["-f", "/dev/null"]
         ports:
