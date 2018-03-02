@@ -7,15 +7,23 @@ cd two-ravens-deploy/gce
 git pull
 
 # Pick 1 of these:
-kubectl apply -f ravens-main-deployment.yml # NO TA2
+kubectl apply -f ravens-deploy.yml # NO TA2
 kubectl apply -f ravens-deploy-with-ta2.yml # Real TA2
 
 # Run this:
+#
 kubectl apply -f ravens-main-service.yml
 
 
 # Wait for service to have IP assigned
+#
 kubectl get svc
+
+# Check progress
+# Note: It takes a while to pull the "Real TA2" container which is ~8gb
+#
+kubectl get pods
+kubectl describe pod/[pod name from previous command]
 ```
 
 - Note: The service uses a LoadBalancer with static IP as specified in `ravens-main-service.yml`
@@ -23,8 +31,8 @@ kubectl get svc
 ## Delete
 
 ```
-kubectl delete -f ravens-deploy-with-ta2.yml
-kubectl delete -f ravens-main-deployment.yml
+kubectl delete -f ravens-deploy.yml # NO TA2
+kubectl delete -f ravens-deploy-with-ta2.yml  # Real TA2
 kubectl delete -f ravens-main-service.yml
 ```
 

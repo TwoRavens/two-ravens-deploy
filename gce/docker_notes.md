@@ -1,19 +1,12 @@
+# GCE and Docker registries
 
-## push ta2 to docker hub
-
-```
-# tag it
-docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable tworavens/test-service-t2:latest
-
-# log in
-docker login rprasad7
-
-# push image
-docker push tworavens/test-service-t2:latest
-```
+Currently, the k8s deploy specs pull from two registries:
+  - Docker hub for the TwoRavens images
+  - Google's registry for the TA2.
+    - This registry is used b/c of the size of the TA2 (~8 gb)
 
 
-## push ta2 to gce repository
+## Push the TA2 to google's registry
 
 ```
 # tag it
@@ -21,4 +14,20 @@ docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable gcr.io/ra
 
 # push image
 gcloud docker -- push gcr.io/raven2-186120/test-service-t2:latest
+```
+
+
+## Push the TA2 to docker hub
+
+_not currently used_
+
+```
+# tag it
+docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable tworavens/test-service-t2:latest
+
+# log in
+docker login [username]
+
+# push image
+docker push tworavens/test-service-t2:latest
 ```
