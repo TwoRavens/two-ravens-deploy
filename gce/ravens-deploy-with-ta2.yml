@@ -39,7 +39,7 @@ spec:
         env:
           # CONFIG_JSON_PATH
           - name: CONFIG_JSON_PATH
-            value: /ravens_volume/config_185_baseball.json
+            value: /ravens_volume/config_57_hypothyroid.json
           # Turn off test mode
           - name: TA2_STATIC_TEST_MODE
             value: "False"
@@ -110,4 +110,4 @@ spec:
             value: raven1
           # Also set to "yes" in the Dockerfile
           - name: CONFIG_JSON_PATH
-            value: "/ravens_volume/config_185_baseball.json"
+            value: "/ravens_volume/config_57_hypothyroid.json"
