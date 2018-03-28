@@ -1,0 +1,71 @@
+# ---------------------------------------------------------
+# EventData - Kubernetes Pod File
+# ---------------------------------------------------------
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ravens-eventdata-web
+  labels:
+    app: eventdata
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eventdata
+        tier: web
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: ravens-volume
+          emptyDir: {}
+      containers:
+      # -------------------------
+      # 1 of 3: Ravens nginx
+      # - reverse proxy for ta3-main
+      # -------------------------
+      - name: ravens-nginx
+        image: tworavens/eventdata-ravens-nginx:latest
+        ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+      # -------------------------
+      # 2 of 3: TA3 main container
+      # - includes entry point for evaluation
+      # -------------------------
+      - name: ta3-main
+        image: tworavens/eventdata-ravens-main:latest
+        ports:
+          # Main web port; nginx makes this available via port 80
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        env:
+          # environment variables passed to container
+          - name: TA2_STATIC_TEST_MODE
+            value: "True"
+        volumeMounts:
+          - name: "ravens-volume"
+            mountPath: "/ravens_volume"
+            readOnly: false
+      # -------------------------
+      # 3 of 3: Rook R services
+      # -------------------------
+      - name: rook-service
+        image: tworavens/eventdata-ravens-r-service:latest
+        # same mounts as ta3-main and ta2-main
+        volumeMounts:
+          - name: "ravens-volume"
+            mountPath: "/ravens_volume"
+            readOnly: false
+        # web port
+        ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+        # environment variables passed to container
+        env:
+          # Also set to "yes" in the Dockefile
+          - name: ROOK_USE_PRODUCTION_MODE
+            value: "yes"

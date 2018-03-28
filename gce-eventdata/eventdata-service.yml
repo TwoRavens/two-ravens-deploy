@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventdataweb
+  labels:
+    app: eventdata
+spec:
+  selector:
+    app: eventdata
+    tier: web
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+  loadBalancerIP: 104.197.235.238
