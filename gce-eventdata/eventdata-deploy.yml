@@ -85,6 +85,8 @@ spec:
           # Also set to "yes" in the Dockefile
           - name: ROOK_USE_PRODUCTION_MODE
             value: "yes"
+          - name: EVENTDATA_ROOK_URL_BASE
+            value: "http://eventdata.2ravens.org"
         # restart if this is failing
         #livenessProbe:
         #  httpGet:
