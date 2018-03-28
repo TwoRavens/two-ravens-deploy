@@ -12,4 +12,8 @@ spec:
   - port: 80
     targetPort: 80
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238
+  # eventdata.2ravens.org
+  loadBalancerIP: 35.188.4.189
+  #
+  # 2ravens.org
+  #loadBalancerIP: 104.197.235.238
