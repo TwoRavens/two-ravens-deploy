@@ -1,4 +1,4 @@
-# Deploying Event Data Google Compute Engine (gce)
+# Deploying EventData on Google Compute Engine (gce)
 
 - Prerequisite: admin permissions on the gce kubernetes cluster running event data
 
