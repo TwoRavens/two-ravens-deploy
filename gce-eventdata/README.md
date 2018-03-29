@@ -1,6 +1,9 @@
 # Deploying EventData on Google Compute Engine (gce)
 
-- Prerequisite: admin permissions on the gce kubernetes cluster running event data
+These steps deploy the TwoRavens EventData application using Docker images from https://hub.docker.com/r/tworavens/
+
+- **Prerequisite**: admin permissions on the gce kubernetes cluster running event data
+
 
 ## Shortcuts (if you've done it before)
 
