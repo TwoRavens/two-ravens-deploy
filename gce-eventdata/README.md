@@ -57,7 +57,7 @@ kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ravens-nginx /bin/bash
 
 1. Go to the cluster list:
     - https://console.cloud.google.com/kubernetes/list
-    -`cluster-1` should appear as a row in the main part of the page
+    - `cluster-1` should appear as a row in the main part of the page
 1. Click "connect" which opens a shell in the browser
 1. Click "Run in Cloud Shell"
     - A Terminal window opens in the browser
