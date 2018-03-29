@@ -48,7 +48,7 @@ kubectl logs ravens-eventdata-web-xxxxxx-xxxx ta3-main  # python server log
 kubectl logs ravens-eventdata-web-xxxxxx-xxxx ravens-nginx  # nginx log
 
 # Log into a running container with full admin rights
-#   - e.g. look around, see if files being created, etc
+#   - e.g. look around, see if files are being created, stop/start things, etc
 #
 kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c rook-service /bin/bash
 kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ta3-main /bin/bash
