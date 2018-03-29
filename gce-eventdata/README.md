@@ -5,7 +5,7 @@
 ## Shortcuts (if you've done it before)
 
 1. Go to the cluster list and "connect" to a Terminal
-  - https://console.cloud.google.com/kubernetes/list
+    - https://console.cloud.google.com/kubernetes/list
 
 ```
 # pull the latest config code
@@ -56,17 +56,17 @@ kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ravens-nginx /bin/bash
 ## Open a Terminal within a browser (Chrome)
 
 1. Go to the cluster list:
-  - https://console.cloud.google.com/kubernetes/list
-  -`cluster-1` should appear as a row in the main part of the page
+    - https://console.cloud.google.com/kubernetes/list
+    -`cluster-1` should appear as a row in the main part of the page
 1. Click "connect" which opens a shell in the browser
 1. Click "Run in Cloud Shell"
-  - A Terminal window opens in the browser
+    - A Terminal window opens in the browser
 1. Press the "return" key to execute the auto-added line.  Usually something like this:
-  - `gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project raven2-186120`
+    - `gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project raven2-186120`
 
 ## Create the eventdata "Deployment"
 
-- Run these steps from the Terminal.  These steps pull the appropriate Docker images (nginx, python server, rook server) from Docker hub
+- Run these steps from the Terminal (previous step).  These steps pull the appropriate Docker images (nginx, python server, rook server) from Docker hub
 
 ```
 cd two-ravens-deploy/gce-eventdata
