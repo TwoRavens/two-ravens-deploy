@@ -19,7 +19,7 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
     - When complete, this will kick off builds for:
         - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and 
         - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
-1. Check that the images have been recently built:
+1. Check that the 3 required images have been recently built:
     - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
     - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/) 
     - [tworavens/eventdata-ravens-r-service/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)
