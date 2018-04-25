@@ -4,8 +4,20 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 
 - **Prerequisite**: admin permissions on the gce kubernetes cluster running event data
 
+## (1) Steps to Build Docker Images
 
-## Shortcuts (if you've done it before)
+1. In your dev environment, run `fab webpack_prod` to build the latest code into a webpack distribution.
+     - Check in any new js/css dist files, if needed
+1. **Only if new R packages were added to this file:**
+    - https://github.com/TwoRavens/TwoRavens/blob/EventData_Mithril/setup/r-base/Dockerfile-eventdata
+    - Then rebuild this image by clicking the "Trigger" button (right, mid side of screen):
+        -https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/
+1. Build the eventdata docker hub images by clicking the "Trigger" button (right, mid side of screen):
+    - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main/~/settings/automated-builds/
+    - When complete, this will kick off builds for [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
+
+
+## (2) GCE Deploy - Shortcuts (if you've done it before)
 
 1. Go to the cluster list and "connect" to a Terminal
     - https://console.cloud.google.com/kubernetes/list
@@ -19,7 +31,7 @@ git pull
 # deployment
 #
 kubectl delete -f eventdata-deploy.yml  # stop the current deployment
-kubectl apply -f eventdata-service.yml  # start a new deployment
+kubectl apply -f eventdata-deploy.yml  # start a new deployment
 
 # create service, e.g. expose the deployment to the web
 # - usually already running
@@ -55,6 +67,7 @@ kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ta3-main /bin/bash
 kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ravens-nginx /bin/bash
 
 ```
+## (2) GCE Deploy - Longer explanation
 
 ## Open a Terminal within a browser (Chrome)
 
