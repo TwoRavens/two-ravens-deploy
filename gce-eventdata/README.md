@@ -18,9 +18,9 @@ These steps deploy the TwoRavens EventData application using Docker images from 
         - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and 
         - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
 1. Check that the images have been recently built:
-    - [tworavens/eventdata-ravens-main](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
-    - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/) 
-    - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)
+    - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
+    - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/) 
+    - [tworavens/eventdata-ravens-r-service/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)
 
 ## (2) GCE Deploy - Shortcuts (if you've done it before)
 
