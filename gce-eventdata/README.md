@@ -14,7 +14,9 @@ These steps deploy the TwoRavens EventData application using Docker images from 
         -https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/
 1. Build the eventdata docker hub images by clicking the "Trigger" button (right, mid side of screen):
     - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main/~/settings/automated-builds/
-    - When complete, this will kick off builds for [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
+    - When complete, this will kick off builds for:
+        - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and 
+        - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
 1. Check that the images have been recently built:
     - [tworavens/eventdata-ravens-main](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
     - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/) 
