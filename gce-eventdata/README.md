@@ -8,7 +8,7 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 
 1. In your dev environment, run `fab webpack_prod` to build the latest code into a webpack distribution.
      - Check in any new js/css dist files, if needed
-1. **Only if new R packages were added to this file:**
+1. **(rare)** If new R packages were added to this file:
     - https://github.com/TwoRavens/TwoRavens/blob/EventData_Mithril/setup/r-base/Dockerfile-eventdata
     - Then rebuild this image by clicking the "Trigger" button (right, mid side of screen):
         -https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/
