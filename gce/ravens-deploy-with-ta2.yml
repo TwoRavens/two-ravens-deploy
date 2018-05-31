@@ -49,6 +49,9 @@ spec:
           # Url to TA3 R/rook web service
           - name: R_DEV_SERVER_BASE
             value: "http://localhost:8000/custom/"
+          # test variable
+          - name: TEST_ENV_VARIABLE
+            value: "TEST_ENV_VARIABLE1"
         #livenessProbe:
         #  # restart if not responding
         #  httpGet:
