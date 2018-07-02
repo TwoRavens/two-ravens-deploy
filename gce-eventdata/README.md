@@ -6,7 +6,7 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 
 ## (1) Steps to Build Docker Images
 
-Note: These builds are not automated to avoid deploying bad code--e.g. it's not the master branch 
+Note: These builds are not automated to avoid deploying bad code--e.g. it's not the master branch
 
 1. In your dev environment, run `fab webpack_prod` to build the latest code into a webpack distribution.
      - Check in any new js/css dist files, if needed
@@ -17,11 +17,11 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
 1. Build the eventdata docker hub images by clicking the "Trigger" button (right, mid side of screen):
     - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main/~/settings/automated-builds/
     - When complete, this will kick off builds for:
-        - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and 
+        - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and
         - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
 1. Check that the 3 required images have been recently built:
     - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
-    - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/) 
+    - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/)
     - [tworavens/eventdata-ravens-r-service/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)
 
 ## (2) GCE Deploy - Shortcuts (if you've done it before)
@@ -35,43 +35,37 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
 cd two-ravens-deploy/gce-eventdata
 git pull
 
-# deployment
-#
-kubectl delete -f eventdata-deploy.yml  # stop the current deployment
-kubectl apply -f eventdata-deploy.yml  # start a new deployment
-
-# create service, e.g. expose the deployment to the web
-# - usually already running
-#
-kubectl apply -f eventdata-service.yml  # expose the app to the web/external IP
-kubectl delete -f eventdata-service.yml # stop the service
+# pod + svc
+# 
+kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
+kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 
 # ---------------
 # other
 # ---------------
 
-# list pods, the name of the eventdata pod is "ravens-eventdata-web-xxxxxx-xxxx"
+# list pods, the name of the eventdata pod is "ravens-eventdata-web"
 #
 kubectl get pods
 
 # describe pod using name from "kubectl get pods"
 #   - will tell if there are errors starting containers
 #
-kubectl describe pod ravens-eventdata-web-xxxxxx-xxxx
+kubectl describe pod ravens-eventdata-web
 
 # See a log for a container, e.g. what you see in the rook Terminal when running locally
 #   - `kubectl logs -f .....` will stream the log
 #
-kubectl logs ravens-eventdata-web-xxxxxx-xxxx rook-service  # rook server log
-kubectl logs ravens-eventdata-web-xxxxxx-xxxx ta3-main  # python server log
-kubectl logs ravens-eventdata-web-xxxxxx-xxxx ravens-nginx  # nginx log
+kubectl logs ravens-eventdata-web rook-service  # rook server log
+kubectl logs ravens-eventdata-web ta3-main  # python server log
+kubectl logs ravens-eventdata-web ravens-nginx  # nginx log
 
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
 #
-kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c rook-service /bin/bash
-kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ta3-main /bin/bash
-kubectl exec -ti  ravens-eventdata-web-xxxxxx-xxxx -c ravens-nginx /bin/bash
+kubectl exec -ti  ravens-eventdata-web -c rook-service /bin/bash
+kubectl exec -ti  ravens-eventdata-web -c ta3-main /bin/bash
+kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
 
 ```
 ## (2) GCE Deploy - Longer explanation
