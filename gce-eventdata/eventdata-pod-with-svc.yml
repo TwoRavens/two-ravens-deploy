@@ -68,6 +68,7 @@ spec:
   # -------------------------
   - name: ta3-main
     image: tworavens/eventdata-ravens-main:latest
+    imagePullPolicy: Always
     command: ["event_data_start.sh"]
     ports:
     # Main web port; nginx makes this available via port 80
