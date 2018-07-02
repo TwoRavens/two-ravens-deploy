@@ -36,6 +36,9 @@ spec:
   volumes:
     - name: ravens-volume
       emptyDir: {}
+    - name: eventdata-sql-instance-credentials
+      secret:
+        secretName: eventdata-sql-instance-credentials
   containers:
   # -------------------------
   # 1 of 4: Ravens nginx
@@ -56,9 +59,9 @@ spec:
               "-instances=raven2-186120:us-central1:raven-sql-eventdata=tcp:3306",
               "-credential_file=/secrets/cloudsql/credentials.json"]
     volumeMounts:
-      - name: eventdata-sql-instance-credentials
-        mountPath: /secrets/cloudsql
-        readOnly: true
+    - name: eventdata-sql-instance-credentials
+      mountPath: /secrets/cloudsql
+      readOnly: true
   # -------------------------
   # 3 of 4: TA3 main container
   # - includes entry point for evaluation
@@ -67,30 +70,30 @@ spec:
     image: tworavens/eventdata-ravens-main:latest
     command: ["event_data_start.sh"]
     ports:
-      # Main web port; nginx makes this available via port 80
-      - containerPort: 8080
-        name: http
-        protocol: TCP
+    # Main web port; nginx makes this available via port 80
+    - containerPort: 8080
+      name: http
+      protocol: TCP
     env:
-      # environment variables passed to container
-      - name: DJANGO_SETTINGS_MODULE
-        value: tworavensproject.settings.event_data_gce
-      - name: TA2_STATIC_TEST_MODE
-        value: "True"
-      - name: DB_HOST
-        value: "127.0.0.1"
-      - name: DB_PORT
-        value: "3306"
-      - name: DB_USER
-        valueFrom:
-          secretKeyRef:
-            name: eventdata-sql-db-credentials
-            key: username
-      - name: DB_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: eventdata-sql-db-credentials
-            key: password
+    # environment variables passed to container
+    - name: DJANGO_SETTINGS_MODULE
+      value: tworavensproject.settings.event_data_gce
+    - name: TA2_STATIC_TEST_MODE
+      value: "True"
+    - name: DB_HOST
+      value: "127.0.0.1"
+    - name: DB_PORT
+      value: "3306"
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-sql-db-credentials
+          key: username
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-sql-db-credentials
+          key: password
     volumeMounts:
       - name: "ravens-volume"
         mountPath: "/ravens_volume"

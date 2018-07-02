@@ -36,7 +36,7 @@ cd two-ravens-deploy/gce-eventdata
 git pull
 
 # pod + svc
-# 
+#
 kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 
