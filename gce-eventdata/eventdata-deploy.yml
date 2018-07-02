@@ -19,6 +19,9 @@ spec:
       volumes:
         - name: ravens-volume
           emptyDir: {}
+        - name: eventdata-sql-instance-credentials
+          secret:
+            secretName: eventdata-sql-instance-credentials
       containers:
       # -------------------------
       # 1 of 4: Ravens nginx
