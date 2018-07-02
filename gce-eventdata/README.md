@@ -68,7 +68,10 @@ kubectl exec -ti  ravens-eventdata-web -c rook-service /bin/bash
 kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
 
 ```
-## (2) GCE Deploy - Longer explanation
+
+## (2) xGCE Deploy - Longer explanation
+
+### This part is a bit outdated
 
 ## Open a Terminal within a browser (Chrome)
 
