@@ -1,0 +1,31 @@
+FROM alpine:3.6
+MAINTAINER Raman Prasad <raman_prasad@harvard.edu>
+
+# based on:
+# https://github.com/cagataygurturk/docker-ssh-tunnel/blob/master/Dockerfile
+
+RUN apk add --update openssh-client sshpass && \
+    rm -rf /var/cache/apk/*
+
+#  sshpass -p $SSH_TUNNEL_PW ssh -L 27017:178.128.144.175:27017 eventuser@178.128.144.175
+# ssh -L 27017:178.128.144.175:27017 eventuser@178.128.144.175
+
+ENV SSH_TUNNEL_USERNAME=some-pass
+ENV SSH_TUNNEL_PW=some-pass
+
+
+EXPOSE 27017
+
+CMD sshpass -p $SSH_TUNNEL_PW \
+    ssh \
+    -vv \
+    -o StrictHostKeyChecking=no \
+    -L 27017:178.128.144.175:27017 $SSH_TUNNEL_USERNAME@178.128.144.175 && \
+    while true; do sleep 30; done;
+
+#
+#  To run:
+#   >export SSH_TUNNEL_USERNAME=[ssh username]
+#   >export SSH_TUNNEL_PW=[ssh pw]
+#   >docker build -t tunnel -f Dockerfile-ssh-tunnel .
+#   >docker run --rm -e SSH_TUNNEL_PW -p 27017:27017 tunnel
