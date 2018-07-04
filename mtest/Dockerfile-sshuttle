@@ -23,6 +23,11 @@ COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # -------------------------------------
+# expose port for mongo
+# -------------------------------------
+EXPOSE 27017
+
+# -------------------------------------
 # Set environment variables
 # -------------------------------------
 
@@ -37,6 +42,5 @@ ENV REMOTE_USER=eventuser \
     LOCAL_IP=0 \
     SUBNET_MASK=0 \
     PRIVATE_KEY=/var/apps/sshuttle/tkey.txt
-
 
 CMD sshuttle -r $REMOTE_USER@$REMOTE_IP $LOCAL_IP/$SUBNET_MASK --ssh-cmd "ssh -o CheckHostIP=no -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $PRIVATE_KEY"
