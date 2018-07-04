@@ -120,6 +120,7 @@ spec:
   # -------------------------
   - name: rook-service
     image: tworavens/eventdata-ravens-r-service:latest
+    imagePullPolicy: Always
     # same mounts as ta3-main and ta2-main
     volumeMounts:
       - name: "ravens-volume"
