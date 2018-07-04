@@ -1,0 +1,42 @@
+FROM python:3.6.6
+MAINTAINER Raman Prasad (raman_prasad@harvard.edu)
+
+# -------------------------------------
+# Install iptables + openssh
+# -------------------------------------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    apt-utils\
+    iptables \
+    openssh-client \
+    vim
+
+# -------------------------------------
+# Set the workdir
+# -------------------------------------
+WORKDIR /var/apps/sshuttle
+
+# -------------------------------------
+# Copy over the requirements and run them
+# -------------------------------------
+COPY requirements.txt requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# -------------------------------------
+# Set environment variables
+# -------------------------------------
+
+# very bad, copying key over for a test
+#
+COPY tkey.txt tkey.txt
+
+RUN chmod 400 /var/apps/sshuttle/tkey.txt
+
+ENV REMOTE_USER=eventuser \
+    REMOTE_IP=178.128.144.175 \
+    LOCAL_IP=0 \
+    SUBNET_MASK=0 \
+    PRIVATE_KEY=/var/apps/sshuttle/tkey.txt
+
+
+CMD sshuttle -r $REMOTE_USER@$REMOTE_IP $LOCAL_IP/$SUBNET_MASK --ssh-cmd "ssh -o CheckHostIP=no -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $PRIVATE_KEY"
