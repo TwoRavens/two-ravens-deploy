@@ -37,8 +37,11 @@ git pull
 
 # pod + svc
 #
-kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
+kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
+
+# stop the pod/svc immediately
+kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
 
 # ---------------
 # other
@@ -69,7 +72,7 @@ kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
 
 ```
 
-## (2) xGCE Deploy - Longer explanation
+## (2) GCE Deploy - Longer explanation
 
 ### This part is a bit outdated
 
@@ -84,7 +87,7 @@ kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
 1. Press the "return" key to execute the auto-added line.  Usually something like this:
     - `gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project raven2-186120`
 
-## Create the eventdata "Deployment"
+## Create the eventdata Pod and Service
 
 - Run these steps from the Terminal (previous step).  These steps pull the appropriate Docker images (nginx, python server, rook server) from Docker hub
 
@@ -96,17 +99,16 @@ git pull  # get the latest k8s config info
 #   - if nothing was running, you'll see "Error from server (NotFound):..."
 #     - that's fine
 #
-kubectl delete -f eventdata-deploy.yml
+kubectl delete -f eventdata-pod-with-svc.yml
 
+# Note: check `kubectl get pods` to make sure the pod
+# is deleted before restarting.  This can take a minute
 
-# Create a new deployment
+# Create a new pod + svc
 #   - should see a message like: deployment "ravens-eventdata-web" created
+#   - The website can take a couple of minutes to start
 #
-kubectl apply -f eventdata-deploy.yml
-
-# Run service:
-#
-kubectl apply -f eventdata-service.yml
+kubectl apply -f eventdata-pod-with-svc.yml
 
 
 # Wait for service to have IP assigned
@@ -116,24 +118,18 @@ kubectl get svc
 # Check progress
 #
 kubectl get pods
-kubectl describe pod [pod name from previous command]
+kubectl describe pod ravens-eventdata-web
 ```
 
-## Stop the eventdata "Deployment"
+## Stop the Pod + Svc (again)
 
 - Open the gce Terminal from a browser (see steps above)
 
 ```
 cd two-ravens-deploy/gce-eventdata
-git pull  # get the latest k8s config info
 
-# Stop any running deployments
-#
-kubectl delete -f eventdata-deploy.yml
+kubectl delete -f eventdata-pod-with-svc.yml
 
-# Stop any running services
-#
-kubectl delete -f eventdata-deploy.yml
 ```
 
 ---
