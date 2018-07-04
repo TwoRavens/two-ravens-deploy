@@ -1,5 +1,5 @@
 
-Bad example with a key added to the image but to get it working
+Bad example with a key added to the image but just to test the idea
 
 ```
 docker build -t shuttle -f Dockerfile-sshuttle .
