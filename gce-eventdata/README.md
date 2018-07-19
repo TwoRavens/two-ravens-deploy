@@ -14,8 +14,10 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
     - https://github.com/TwoRavens/TwoRavens/blob/EventData_Mithril/setup/r-base/Dockerfile-eventdata
     - Then rebuild this image by clicking the "Trigger" button (right, mid side of screen):
         -https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/
-1. Build the eventdata docker hub images by clicking the "Trigger" button (right, mid side of screen):
-    - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main/~/settings/automated-builds/
+1. Checking in new code to the `EventData_generalization` branch, creates a new Docker Image here:
+    - https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/
+        - The image is created after a successful Travis build: https://travis-ci.org/TwoRavens/TwoRavens/builds
+    - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main
     - When complete, this will kick off builds for:
         - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and
         - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
