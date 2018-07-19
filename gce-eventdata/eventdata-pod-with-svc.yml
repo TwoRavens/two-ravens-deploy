@@ -171,10 +171,10 @@ spec:
       # Mongo url
       # --------------------
       - name: EVENTDATA_MONGO_DB_ADDRESS
-          valueFrom:
-            secretKeyRef:
-              name: eventdata-mongo-server
-              key: EVENTDATA_MONGO_DB_ADDRESS
+        valueFrom:
+          secretKeyRef:
+            name: eventdata-mongo-server
+            key: EVENTDATA_MONGO_DB_ADDRESS
       # --------------------
       # Mongo username
       # --------------------
