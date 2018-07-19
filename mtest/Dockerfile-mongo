@@ -7,6 +7,7 @@ MAINTAINER Raman Prasad (raman_prasad@harvard.edu)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     apt-utils\
+    mongodb \
     iptables \
     openssh-client \
     vim
@@ -14,7 +15,7 @@ RUN apt-get update && \
 # -------------------------------------
 # Set the workdir
 # -------------------------------------
-WORKDIR /var/apps/sshuttle
+WORKDIR /var/apps/mongo_test
 
 # -------------------------------------
 # Copy over the requirements and run them
@@ -22,25 +23,11 @@ WORKDIR /var/apps/sshuttle
 COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# -------------------------------------
-# expose port for mongo
-# -------------------------------------
-EXPOSE 27017
+COPY mongo_test.py mongo_test.py
 
 # -------------------------------------
 # Set environment variables
 # -------------------------------------
+ENV MONGO_PW=getfromenv
 
-# very bad, copying key over for a test
-#
-COPY tkey.txt tkey.txt
-
-RUN chmod 400 /var/apps/sshuttle/tkey.txt
-
-ENV REMOTE_USER=eventuser \
-    REMOTE_IP=0.0.0.0 \
-    LOCAL_IP=0 \
-    SUBNET_MASK=0 \
-    PRIVATE_KEY=/var/apps/sshuttle/tkey.txt
-
-CMD sshuttle -r $REMOTE_USER@$REMOTE_IP $LOCAL_IP/$SUBNET_MASK --ssh-cmd "ssh -o CheckHostIP=no -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $PRIVATE_KEY"
+CMD python mongo_test.py

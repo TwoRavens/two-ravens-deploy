@@ -11,12 +11,11 @@ def format_cred(cred_val):
     """format the credential value"""
     return urllib.parse.quote_plus(cred_val)
 
-username = format_cred(os.environ.get('MONGO_USERNAME', 'AdminEvent'))
+username = format_cred(os.environ.get('MONGO_USERNAME', ''))
 password = format_cred(os.environ.get('MONGO_PW', ''))
 
-mongo_server = '0.0.0.0'
-#mongo_server = '178.128.144.175'
-#mongo_server = 'mongo-link'
+#mongo_server = '0.0.0.0'
+mongo_server = 'the-tunnel'
 
 MCLIENT = MongoClient('mongodb://%s:%s@%s:27017/' % \
                      (username, password, mongo_server))

@@ -96,6 +96,34 @@ spec:
         secretKeyRef:
           name: eventdata-sql-db-credentials
           key: password
+    # --------------------
+    # Mongo env variables from secrets
+    # --------------------
+    #
+    # --------------------
+    # Mongo url
+    # --------------------
+    - name: EVENTDATA_MONGO_DB_ADDRESS
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-mongo-server
+          key: EVENTDATA_MONGO_DB_ADDRESS
+    # --------------------
+    # Mongo username
+    # --------------------
+    - name: EVENTDATA_MONGO_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-mongo-server
+          key: EVENTDATA_MONGO_USERNAME
+    # --------------------
+    # Mongo password
+    # --------------------
+    - name: EVENTDATA_MONGO_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-mongo-server
+          key: EVENTDATA_MONGO_PASSWORD
     volumeMounts:
       - name: "ravens-volume"
         mountPath: "/ravens_volume"
@@ -139,6 +167,30 @@ spec:
         value: "yes"
       - name: EVENTDATA_ROOK_URL_BASE
         value: "http://eventdata.2ravens.org"
+      # --------------------
+      # Mongo url
+      # --------------------
+      - name: EVENTDATA_MONGO_DB_ADDRESS
+          valueFrom:
+            secretKeyRef:
+              name: eventdata-mongo-server
+              key: EVENTDATA_MONGO_DB_ADDRESS
+      # --------------------
+      # Mongo username
+      # --------------------
+      - name: EVENTDATA_MONGO_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: eventdata-mongo-server
+            key: EVENTDATA_MONGO_USERNAME
+      # --------------------
+      # Mongo password
+      # --------------------
+      - name: EVENTDATA_MONGO_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: eventdata-mongo-server
+            key: EVENTDATA_MONGO_PASSWORD
     # restart if this is failing
     #livenessProbe:
     #  httpGet:
