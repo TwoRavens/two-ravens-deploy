@@ -9,7 +9,7 @@ metadata:
   labels:
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
-  name: raven-example-web
+  name: raven-web-service
 spec:
   type: LoadBalancer
   loadBalancerIP: 104.197.235.238 # 2ravens.org
@@ -81,10 +81,10 @@ spec:
     image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start.sh"]
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
     ports:
       - containerPort: 8080
         name: http
@@ -180,10 +180,10 @@ spec:
     image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
     ports:
       - containerPort: 8080
         name: http
@@ -254,10 +254,10 @@ spec:
   - name: rook-service
     image: tworavens/ravens-r-service:develop
     imagePullPolicy: Always
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
     volumeMounts:
       # ravens volume shared w/ ta3-main
       # ----------------------------------
