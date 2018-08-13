@@ -10,10 +10,15 @@ Currently, the k8s deploy specs pull from two registries:
 
 ```
 # tag it
-docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable gcr.io/raven2-186120/test-service-t2:latest
+
+#docker tag registry.datadrivendiscovery.org/j18_ta2eval/isi_ta2:stable gcr.io/raven2-186120/test-service-t2:latest
 
 # push image
-gcloud docker -- push gcr.io/raven2-186120/test-service-t2:latest
+#gcloud docker -- push gcr.io/raven2-186120/test-service-t2:latest
+
+#
+docker tag [image name] gcr.io/raven2-186120/test-ta2-r3:latest
+gcloud docker -- push gcr.io/raven2-186120/test-ta2-r3:latest
 ```
 
 
