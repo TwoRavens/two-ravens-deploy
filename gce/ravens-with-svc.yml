@@ -320,7 +320,7 @@ spec:
     resources:
       requests:
         memory: 512Mi
-        cpu: 1
+        #cpu: 1
     ports:
       - containerPort: 45042
         protocol: TCP
