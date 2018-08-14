@@ -2,8 +2,8 @@
 # Shared env variables
 # Used by containers:
 #  - ta3-main
-#  - ta2-main
 #  - celery-woker
+#  - ta2-main (ignores django/db related variables)
 # ------------------------
 apiVersion: v1
 kind: ConfigMap

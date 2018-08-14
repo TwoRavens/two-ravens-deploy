@@ -1,0 +1,37 @@
+# ------------------------
+# Django env variables
+# Used by containers:
+#  - ta3-main
+#  - ta2-main
+# ------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-django-config
+  namespace: default
+data:
+  # ------------------------
+  # Same env variables for django + celery
+  # ------------------------
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  TA2_STATIC_TEST_MODE: "False"
+  LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
+  #
+  # Reference to the gRPC server using the pod name and TA2 port
+  #
+  TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  #
+  # Url to TA3 R/rook web service
+  #
+  R_DEV_SERVER_BASE: "http://localhost:8000/custom/"
+  #
+  # Redis!
+  #
+  REDIS_HOST: localhost
+  # ----------------------------------
+  # GCE SQL db
+  # ----------------------------------
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  DB_NAME: "d3m_gce_ravendb"
+  # username and password secrets attached to container

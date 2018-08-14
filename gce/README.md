@@ -7,7 +7,8 @@ cd two-ravens-deploy/gce
 git pull
 
 # add config variables
-kubectl apply -f ravens-configmap.yml
+kubectl apply -f ravens-d3m-configmap.yml
+kubectl apply -f ravens-django-configmap.yml
 kubectl apply -f ravens-with-svc2.yml
 
 

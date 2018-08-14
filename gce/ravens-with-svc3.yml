@@ -1,0 +1,259 @@
+# This is a jump server test file to run
+# the TA3 in "test mode"--e.g. w/o a TA2
+# NOTE: If the IP in line 15 is reserved, comment out line 15
+#
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+  name: raven-web-service
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 104.197.235.238 # 2ravens.org
+  selector:
+    app: tworavens
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb
+  labels:
+    app: tworavens
+spec:
+  restartPolicy: Always
+  volumes:
+    - name: ravens-volume
+      emptyDir: {}
+    - name: cloudsql-instance-credentials
+      secret:
+        secretName: cloudsql-instance-credentials
+  containers:
+  # -------------------------
+  # 1 of 6: Ravens nginx
+  # -------------------------
+  - name: ravens-nginx
+    image: tworavens/ravens-nginx:develop
+    #resources:
+    #  requests:
+    #    memory: 256Mi
+    #    cpu: 1
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+  # -------------------------
+  # 2 of 6: redis
+  # -------------------------
+  - name: redis
+    image: redis:4.0
+    #resources:
+    #  requests:
+    #    memory: 100Mi
+    #    cpu: 1
+    ports:
+    - containerPort: 6379
+  # -------------------------
+  # 2a: Cloud SQL Proxy
+  # -------------------------
+  - name: cloudsql-proxy
+    image: gcr.io/cloudsql-docker/gce-proxy:1.11
+    command: ["/cloud_sql_proxy",
+              "-instances=raven2-186120:us-central1:raven-sql-d3m=tcp:3306",
+              "-credential_file=/secrets/cloudsql/credentials.json"]
+    volumeMounts:
+      - name: cloudsql-instance-credentials
+        mountPath: /secrets/cloudsql
+        readOnly: true
+  # -------------------------
+  # 3 of 6: TA3 main (web app)
+  # -------------------------
+  - name: ta3-main
+    image: tworavens/ravens-main:develop
+    imagePullPolicy: Always
+    command: ["d3m_start.sh"]
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        readOnly: false
+    # ----------------------------------
+    # environment variables passed to container
+    # ----------------------------------
+    env:
+      - name: DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: cloudsql-db-credentials
+            key: username
+      - name: DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: cloudsql-db-credentials
+            key: password
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-d3m-config
+    # ----------------------------------
+    # livenessProbe: restart if this is failing
+    # ----------------------------------
+    livenessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+      periodSeconds: 10
+      failureThreshold: 3
+    # ----------------------------------
+    # readinessProbe: ready for traffic
+    # ----------------------------------
+    readinessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+  # -------------------------
+  # 4 of 6: celery worker
+  # -------------------------
+  - name: celery-worker
+    image: tworavens/ravens-main:develop
+    imagePullPolicy: Always
+    command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        readOnly: false
+    # ----------------------------------
+    # environment variables passed to container
+    # ----------------------------------
+    env:
+      - name: DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: cloudsql-db-credentials
+            key: username
+      - name: DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: cloudsql-db-credentials
+            key: password
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-d3m-config
+
+  # -------------------------
+  # 5 of 6: rook
+  # -------------------------
+  - name: rook-service
+    image: tworavens/ravens-r-service:develop
+    imagePullPolicy: Always
+    #resources:
+    #  requests:
+    #    memory: 512Mi
+    #    cpu: 1
+    volumeMounts:
+      # ----------------------------------
+      # ravens volume shared w/ ta3-main
+      # ----------------------------------
+      - mountPath: /ravens_volume
+        name: ravens-volume
+        readOnly: false
+    ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+    env:
+      # ----------------------------------
+      # Also set to "yes" in the Dockerfile
+      # ----------------------------------
+      - name: ROOK_USE_PRODUCTION_MODE
+        value: "yes"
+    envFrom:
+      - configMapRef:
+          name: ravens-d3m-config
+    # ----------------------------------
+    # livenessProbe: restart if this is failing
+    # ----------------------------------
+    livenessProbe:
+      httpGet:
+        path: /custom/healthcheckapp
+        port: 8000
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+      periodSeconds: 20
+      failureThreshold: 3
+    # ----------------------------------
+    # readinessProbe: ready for traffic
+    # ----------------------------------
+    readinessProbe:
+      httpGet:
+        path: /custom/healthcheckapp
+        port: 8000
+      initialDelaySeconds: 10
+      periodSeconds: 10
+  # -------------------------
+  # 6 of 6: TA2 main
+  # -------------------------
+  - name: ta2-main
+    #image: gcr.io/raven2-186120/test-ta2-r3:latest
+    image: gcr.io/raven2-186120/test-ta2-br:latest
+    #image: registry.datadrivendiscovery.org/tworavens/tworavens-deploy/ta2_server:live
+    resources:
+      requests:
+        memory: 512Mi
+        #cpu: 1
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        readOnly: false
+    env:
+      # ----------------------------------
+      # D3M summer eval variables
+      # ref: https://goo.gl/L1J9i5
+      # ----------------------------------
+      - name: D3MPORT
+        value: "45042"
+    envFrom:
+      - configMapRef:
+          name: ravens-d3m-config
