@@ -39,8 +39,8 @@ kubectl delete -f ravens-main-service.yml
 ## log example
 
 ```
-kubectl logs tworavensweb-xxxxxxx ta3-main
-kubectl logs tworavensweb-xxxxxxx rook-service
+kubectl logs tworavensweb ta3-main
+kubectl logs tworavensweb rook-service
 
 ```
 
@@ -48,9 +48,9 @@ kubectl logs tworavensweb-xxxxxxx rook-service
 
 ```
 # Log into running pod
-#kubectl exec -it tworavensweb-xxxxxxx -c ta3-main /bin/bash
+#kubectl exec -it tworavensweb -c ta3-main /bin/bash
 
-kubectl exec -ti  tworavensweb-1872123671-2rq5p -c ta3-main /bin/bash
+kubectl exec -ti  tworavensweb -c ta3-main /bin/bash
 
 # Make some test configs...
 fab make_d3m_config_files
