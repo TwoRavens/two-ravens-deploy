@@ -6,20 +6,18 @@
 #  - celery-woker
 # ------------------------
 apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: ravens-d3m-config
-    namespace: default
-  data:
-    config: |-
-    ---
-    # ----------------------------------
-    # D3M summer eval variables
-    # ref: https://goo.gl/L1J9i5
-    # ----------------------------------
-    :D3MRUN: ta2ta3
-    :D3MINPUTDIR: "/input"
-    :D3MOUTPUTDIR: "/output"
-    :D3MCPU: "1"
-    :D3MRAM: "512Mi"
-    :D3MTIMEOUT: "10"
+kind: ConfigMap
+metadata:
+  name: ravens-d3m-config
+  namespace: default
+data:
+  # ----------------------------------
+  # D3M summer eval variables
+  # ref: https://goo.gl/L1J9i5
+  # ----------------------------------
+  D3MRUN: ta2ta3
+  D3MINPUTDIR: "/input"
+  D3MOUTPUTDIR: "/output"
+  D3MCPU: "1"
+  D3MRAM: "512Mi"
+  D3MTIMEOUT: "10"
