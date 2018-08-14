@@ -101,10 +101,10 @@ spec:
       # Jump server: input-data contains the D3M data
       # ----------------------------------
       - name: input-data
-        mountPath: /var/webapps/ravens_volume/test_data/185_baseball
+        mountPath: /ravens_volume/test_data/185_baseball
         readOnly: true
       - name: output-data
-        mountPath: /var/webapps/ravens_volume/test_data/test_output
+        mountPath: /ravens_volume/test_data/test_output
         readOnly: false
       # for debug
       #- name: seed-data
