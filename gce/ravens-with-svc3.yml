@@ -100,12 +100,12 @@ spec:
       - name: DB_USER
         valueFrom:
           secretKeyRef:
-            name: cloudsql-db-credentials
+            name: d3m-sql-db-credentials
             key: username
       - name: DB_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: cloudsql-db-credentials
+            name: d3m-sql-db-credentials
             key: password
     envFrom:
       - configMapRef:
@@ -162,12 +162,12 @@ spec:
       - name: DB_USER
         valueFrom:
           secretKeyRef:
-            name: cloudsql-db-credentials
+            name: d3m-sql-db-credentials
             key: username
       - name: DB_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: cloudsql-db-credentials
+            name: d3m-sql-db-credentials
             key: password
     envFrom:
       - configMapRef:
