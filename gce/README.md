@@ -27,9 +27,15 @@ kubectl describe pod/tworavensweb
 ## Delete
 
 ```
-kubectl delete -f ravens-deploy.yml # NO TA2
-kubectl delete -f ravens-deploy-with-ta2.yml  # Real TA2
-kubectl delete -f ravens-main-service.yml
+kubectl apply -f ravens-with-svc2.yml
+
+# immediate shutdown
+kubectl apply -f ravens-with-svc2.yml --grace-period=0 --force
+
+
+#kubectl delete -f ravens-deploy.yml # NO TA2
+#kubectl delete -f ravens-deploy-with-ta2.yml  # Real TA2
+#kubectl delete -f ravens-main-service.yml
 ```
 
 ## log example
