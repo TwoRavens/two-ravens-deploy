@@ -30,24 +30,6 @@ spec:
   volumes:
     - name: ravens-volume
       emptyDir: {}
-    # ----------------------------
-    # Volumes for jump server data
-    # ----------------------------
-    - name: input-data
-      emptyDir: {}
-    #- name: input-data
-    #  hostPath:
-    #    path: /opt/datasets/seed_datasets_current/185_baseball
-    #    type: Directory
-    - name: output-data
-      emptyDir: {}
-      #persistentVolumeClaim:
-      #  claimName: eval-output-pv-claim
-    # for debug
-    #- name: seed-data
-    #  hostPath:
-    #    path: /opt/datasets/seed_datasets_current
-    #    type: Directory
   containers:
   # -------------------------
   # 1 of 6: Ravens nginx
@@ -96,19 +78,6 @@ spec:
       - name: ravens-volume
         mountPath: /ravens_volume
         readOnly: false
-      # ----------------------------------
-      # Jump server: input-data contains the D3M data
-      # ----------------------------------
-      - name: input-data
-        mountPath: /ravens_volume/test_data/185_baseball
-        readOnly: true
-      - name: output-data
-        mountPath: /ravens_volume/test_data/test_output
-        readOnly: false
-      # for debug
-      #- name: seed-data
-      #  mountPath: /seed-data
-      #  readOnly: true
     # environment variables passed to container
     env:
       # ----------------------------------
@@ -134,24 +103,9 @@ spec:
       # ----------------------------------
       - name: REDIS_HOST
         value: localhost
-      # ----------------------------------
-      # D3M summer eval variables
-      # ref: https://goo.gl/L1J9i5
-      # ----------------------------------
-      - name: D3MRUN
-        value: "ta2ta3"
-      - name: D3MINPUTDIR
-        value: "/input"
-      - name: D3MOUTPUTDIR
-        value: "/output"
-      #- name: D3MTESTOPT
-      #  value: "/output/bestfit.py"
-      - name: D3MCPU
-        value: "1"
-      - name: D3MRAM
-        value: "512Mi"
-      - name: D3MTIMEOUT
-        value: "10"
+    envFrom:
+      - configMapRef:
+          name: ravens-d3m-config
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -195,15 +149,7 @@ spec:
       - name: ravens-volume
         mountPath: /ravens_volume
         readOnly: false
-      # ----------------------------------
-      # Jump server: input-data contains the D3M data
-      # ----------------------------------
-      - name: input-data
-        mountPath: /var/webapps/ravens_volume/test_data/185_baseball
-        readOnly: true
-      - name: output-data
-        mountPath: /var/webapps/ravens_volume/test_data/test_output
-        readOnly: false
+    #
     # environment variables passed to container
     env:
       # ----------------------------------
@@ -229,24 +175,10 @@ spec:
       # ----------------------------------
       - name: R_DEV_SERVER_BASE
         value: "http://localhost:8000/custom/"
-      # ----------------------------------
-      # D3M summer eval variables
-      # ref: https://goo.gl/L1J9i5
-      # ----------------------------------
-      - name: D3MRUN
-        value: "ta2ta3"
-      - name: D3MINPUTDIR
-        value: "/input"
-      - name: D3MOUTPUTDIR
-        value: "/output"
-      #- name: D3MTESTOPT
-      #  value: "/output/bestfit.py"
-      - name: D3MCPU
-        value: "1"
-      - name: D3MRAM
-        value: "512Mi"
-      - name: D3MTIMEOUT
-        value: "10"
+    envFrom:
+      - configMapRef:
+          name: ravens-d3m-config
+
   # -------------------------
   # 5 of 6: rook
   # -------------------------
@@ -258,20 +190,12 @@ spec:
     #    memory: 512Mi
     #    cpu: 1
     volumeMounts:
+      # ----------------------------------
       # ravens volume shared w/ ta3-main
       # ----------------------------------
       - mountPath: /ravens_volume
         name: ravens-volume
         readOnly: false
-      # ----------------------------------
-      # Jump server: input-data contains the data
-      # ----------------------------------
-      - name: input-data
-        mountPath: /input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        readOnly: false    # web port
     ports:
       - containerPort: 8000
         name: http
@@ -282,14 +206,9 @@ spec:
       # ----------------------------------
       - name: ROOK_USE_PRODUCTION_MODE
         value: "yes"
-      # ----------------------------------
-      # D3M summer eval variables
-      # ref: https://goo.gl/L1J9i5
-      # ----------------------------------
-      - name: D3MINPUTDIR
-        value: "/input"
-      - name: D3MOUTPUTDIR
-        value: "/output"
+    envFrom:
+      - configMapRef:
+          name: ravens-d3m-config
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -330,15 +249,6 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        readOnly: false
-      # ----------------------------------
-      # Jump server: input-data contains the data
-      # ----------------------------------
-      - name: input-data
-        mountPath: /input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
         readOnly: false
     env:
       # ----------------------------------

@@ -6,13 +6,9 @@
 cd two-ravens-deploy/gce
 git pull
 
-# Pick 1 of these:
-kubectl apply -f ravens-deploy.yml # NO TA2
-kubectl apply -f ravens-deploy-with-ta2.yml # Real TA2
-
-# Run this:
-#
-kubectl apply -f ravens-main-service.yml
+# add config variables
+kubectl apply -f ravens-configmap.yml
+kubectl apply -f ravens-with-svc2.yml
 
 
 # Wait for service to have IP assigned
@@ -23,7 +19,7 @@ kubectl get svc
 # Note: It takes a while to pull the "Real TA2" container which is ~8gb
 #
 kubectl get pods
-kubectl describe pod/[pod name from previous command]
+kubectl describe pod/tworavensweb
 ```
 
 - Note: The service uses a LoadBalancer with static IP as specified in `ravens-main-service.yml`
@@ -48,9 +44,8 @@ kubectl logs tworavensweb rook-service
 
 ```
 # Log into running pod
-#kubectl exec -it tworavensweb -c ta3-main /bin/bash
-
-kubectl exec -ti  tworavensweb -c ta3-main /bin/bash
+kubectl exec -it tworavensweb -c ta3-main /bin/bash
+kubectl exec -ti  tworavensweb -c ta2-main /bin/bash
 
 # Make some test configs...
 fab make_d3m_config_files
