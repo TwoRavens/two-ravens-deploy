@@ -30,9 +30,9 @@ spec:
   volumes:
     - name: ravens-volume
       emptyDir: {}
-    - name: cloudsql-instance-credentials
+    - name: d3m-sql-instance-credentials
       secret:
-        secretName: cloudsql-instance-credentials
+        secretName: d3m-sql-instance-credentials
   containers:
   # -------------------------
   # 1 of 6: Ravens nginx
@@ -67,7 +67,7 @@ spec:
               "-instances=raven2-186120:us-central1:raven-sql-d3m=tcp:3306",
               "-credential_file=/secrets/cloudsql/credentials.json"]
     volumeMounts:
-      - name: cloudsql-instance-credentials
+      - name: d3m-sql-instance-credentials
         mountPath: /secrets/cloudsql
         readOnly: true
   # -------------------------
