@@ -59,6 +59,9 @@ spec:
               "-instances=raven2-186120:us-central1:raven-sql-eventdata=tcp:3306",
               "-credential_file=/secrets/cloudsql/credentials.json"]
     volumeMounts:
+    - name: "ravens-volume"
+      mountPath: "/ravens_volume"
+      readOnly: false
     - name: eventdata-sql-instance-credentials
       mountPath: /secrets/cloudsql
       readOnly: true
@@ -85,12 +88,12 @@ spec:
     - name: SOCIAL_AUTH_GITHUB_KEY
       valueFrom:
         secretKeyRef:
-          name: gce-eventdata-social-auth-secrets
+          name: gce-eventdata-secrets
           key: SOCIAL_AUTH_GITHUB_KEY
     - name: SOCIAL_AUTH_GITHUB_SECRET
       valueFrom:
         secretKeyRef:
-          name: gce-eventdata-social-auth-secrets
+          name: gce-eventdata-secrets
           key: SOCIAL_AUTH_GITHUB_SECRET
     # ---------------------------
     # SQL db credentials
@@ -111,17 +114,17 @@ spec:
     - name: EVENTDATA_MONGO_DB_ADDRESS
       valueFrom:
         secretKeyRef:
-          name: eventdata-mongo-server
+          name: gce-eventdata-secrets
           key: EVENTDATA_MONGO_DB_ADDRESS
     - name: EVENTDATA_MONGO_USERNAME
       valueFrom:
         secretKeyRef:
-          name: eventdata-mongo-server
+          name: gce-eventdata-secrets
           key: EVENTDATA_MONGO_USERNAME
     - name: EVENTDATA_MONGO_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: eventdata-mongo-server
+          name: gce-eventdata-secrets
           key: EVENTDATA_MONGO_PASSWORD
     # ---------------------------
     volumeMounts:
@@ -129,18 +132,20 @@ spec:
         mountPath: "/ravens_volume"
         readOnly: false
     # liveness is for restart
+    #
     livenessProbe:
       httpGet:
         path: /monitoring/alive
         port: 8080
-      initialDelaySeconds: 5
+      initialDelaySeconds: 15
       timeoutSeconds: 1
       periodSeconds: 10
       failureThreshold: 3
     # readiness: ready for traffic
+    #
     readinessProbe:
       httpGet:
         path: /monitoring/alive
         port: 8080
-      initialDelaySeconds: 10
+      initialDelaySeconds: 15
       periodSeconds: 10

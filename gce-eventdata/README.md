@@ -10,21 +10,21 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
 
 1. In your dev environment, run `fab webpack_prod` to build the latest code into a webpack distribution.
      - Check in any new js/css dist files, if needed
-1. **(rare)** If new R packages were added to this file:
-    - https://github.com/TwoRavens/TwoRavens/blob/EventData_Mithril/setup/r-base/Dockerfile-eventdata
-    - Then rebuild this image by clicking the "Trigger" button (right, mid side of screen):
-        -https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/
+1. ~~**(rare)** If new R packages were added to this file:~~
+    - ~~https://github.com/TwoRavens/TwoRavens/blob/EventData_Mithril/setup/r-base/Dockerfile-eventdata~~
+    - ~~Then rebuild this image by clicking the "Trigger" button (right, mid side of screen):~~
+        - ~~https://hub.docker.com/r/tworavens/eventdata-r-service-base/~/settings/automated-builds/~~
 1. Checking in new code to the `EventData_generalization` branch, creates a new Docker Image here:
     - https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/
         - The image is created after a successful Travis build: https://travis-ci.org/TwoRavens/TwoRavens/builds
     - Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main
     - When complete, this will kick off builds for:
         - [tworavens/eventdata-ravens-nginx](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/) and
-        - [tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)
-1. Check that the 3 required images have been recently built:
+        - ~~[tworavens/eventdata-ravens-r-service](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/)~~
+1. Check that the 2 required images have been recently built:
     - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
     - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/)
-    - [tworavens/eventdata-ravens-r-service/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)
+    - ~~[tworavens/eventdata-ravens-r-service/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-r-service/tags/)~~
 
 ## (2) GCE Deploy - Shortcuts (if you've done it before)
 
@@ -37,12 +37,17 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
 cd two-ravens-deploy/gce-eventdata
 git pull
 
+# apply configmap
+#
+kubectl apply -f eventdata-django-configmap.yml
+
 # pod + svc
 #
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 
 # stop the pod/svc immediately
+#
 kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
 
 # ---------------
