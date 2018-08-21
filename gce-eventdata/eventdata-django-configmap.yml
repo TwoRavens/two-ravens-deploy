@@ -14,6 +14,7 @@ data:
   # Same env variables for django + celery
   #
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.event_data_gce"
+  RAVENS_SESSION_COOKIE_NAME: "gce_event_data"
   #
   # No TA2 used
   #
