@@ -83,6 +83,11 @@ spec:
       - configMapRef:
           name: eventdata-django-configmap
     env:
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: SECRET_KEY
     # ---------------------------
     # Social auth: github creds
     # ---------------------------

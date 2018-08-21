@@ -67,14 +67,12 @@ kubectl describe pod ravens-eventdata-web
 #   - `kubectl logs -f .....` will stream the log
 #
 kubectl logs ravens-eventdata-web ta3-main  # python server log
-kubectl logs ravens-eventdata-web rook-service  # rook server log
 kubectl logs ravens-eventdata-web ravens-nginx  # nginx log
 
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
 #
 kubectl exec -ti  ravens-eventdata-web -c ta3-main /bin/bash
-kubectl exec -ti  ravens-eventdata-web -c rook-service /bin/bash
 kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
 
 ```
