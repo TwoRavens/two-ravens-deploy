@@ -41,7 +41,7 @@ spec:
         secretName: eventdata-sql-instance-credentials
   containers:
   # --------------------------------
-  # 1 of 4: Ravens nginx
+  # 1 of 2: Ravens nginx
   # - reverse proxy for ta3-main
   # --------------------------------
   - name: ravens-nginx
@@ -51,7 +51,7 @@ spec:
         name: http
         protocol: TCP
   # --------------------------------
-  # 2 of 4: cloudsql proxy
+  # 2 of 3: cloudsql proxy
   # --------------------------------
   - name: cloudsql-proxy
     image: gcr.io/cloudsql-docker/gce-proxy:1.11
@@ -63,7 +63,7 @@ spec:
       mountPath: /secrets/cloudsql
       readOnly: true
   # --------------------------------
-  # 3 of 4: TA3 main container
+  # 3 of 3: TA3 main container
   # - includes entry point for evaluation
   # --------------------------------
   - name: ta3-main
@@ -144,63 +144,3 @@ spec:
         port: 8080
       initialDelaySeconds: 10
       periodSeconds: 10
-  # --------------------------------
-  # 4 of 4: Rook R services
-  # --------------------------------
-  - name: rook-service
-    image: tworavens/eventdata-ravens-r-service:latest
-    imagePullPolicy: Always
-    # same mounts as ta3-main and ta2-main
-    volumeMounts:
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        readOnly: false
-    # web port
-    ports:
-      - containerPort: 8000
-        name: http
-        protocol: TCP
-    # environment variables passed to container
-    env:
-      # Also set to "yes" in the Dockefile
-      - name: ROOK_USE_PRODUCTION_MODE
-        value: "yes"
-      - name: EVENTDATA_ROOK_URL_BASE
-        value: "http://eventdata.2ravens.org"
-      # ---------------------------
-      # Mongo address/username/password
-      # ---------------------------
-      - name: EVENTDATA_MONGO_DB_ADDRESS
-        valueFrom:
-          secretKeyRef:
-            name: eventdata-mongo-server
-            key: EVENTDATA_MONGO_DB_ADDRESS
-      # ---------------------------
-      - name: EVENTDATA_MONGO_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: eventdata-mongo-server
-            key: EVENTDATA_MONGO_USERNAME
-      # ---------------------------
-      - name: EVENTDATA_MONGO_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: eventdata-mongo-server
-            key: EVENTDATA_MONGO_PASSWORD
-      # ---------------------------
-    # restart if this is failing
-    #livenessProbe:
-    #  httpGet:
-    #    path: /custom/healthcheckapp
-    #    port: 8000
-    #  initialDelaySeconds: 5
-    #  timeoutSeconds: 1
-    #  periodSeconds: 10
-    #  failureThreshold: 3
-    # readiness: ready for traffic
-    #readinessProbe:
-    #  httpGet:
-    #    path: /custom/healthcheckapp
-    #    port: 8000
-    #  initialDelaySeconds: 20
-    #  periodSeconds: 10
