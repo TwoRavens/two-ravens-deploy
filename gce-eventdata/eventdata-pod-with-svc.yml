@@ -46,6 +46,7 @@ spec:
   # --------------------------------
   - name: ravens-nginx
     image: tworavens/eventdata-ravens-nginx:latest
+    imagePullPolicy: Always
     ports:
       - containerPort: 80
         name: http
