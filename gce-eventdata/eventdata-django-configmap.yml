@@ -1,0 +1,29 @@
+# ------------------------
+# Django env variables
+# Used by containers:
+#  - ta3-main
+#  - celery
+# ------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventdata-django-configmap
+  namespace: default
+data:
+  #
+  # Same env variables for django + celery
+  #
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.event_data_gce"
+  #
+  # No TA2 used
+  #
+  TA2_STATIC_TEST_MODE: "True"
+  #
+  # Open database settings
+  #
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  #
+  # Use python social auth, e.g. sign-in with GitHub
+  #
+  ALLOW_SOCIAL_AUTH: "True"

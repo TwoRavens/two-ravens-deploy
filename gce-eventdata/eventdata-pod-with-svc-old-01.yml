@@ -1,7 +1,7 @@
 ---
-# ---------------------------
+# ---------------------------------------------------------
 # EventData - Service
-# ---------------------------
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,14 +16,15 @@ spec:
   - port: 80
     targetPort: 80
   type: LoadBalancer
-  #
-  # IP mapped to eventdata.2ravens.org
-  #
+  # eventdata.2ravens.org
   loadBalancerIP: 35.188.4.189
+  #
+  # 2ravens.org
+  #loadBalancerIP: 104.197.235.238
 ---
-# ---------------------------
+# ---------------------------------------------------------
 # EventData - Kubernetes Pod File
-# ---------------------------
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
@@ -40,19 +41,19 @@ spec:
       secret:
         secretName: eventdata-sql-instance-credentials
   containers:
-  # --------------------------------
+  # -------------------------
   # 1 of 4: Ravens nginx
   # - reverse proxy for ta3-main
-  # --------------------------------
+  # -------------------------
   - name: ravens-nginx
     image: tworavens/eventdata-ravens-nginx:latest
     ports:
       - containerPort: 80
         name: http
         protocol: TCP
-  # --------------------------------
+  # -------------------------
   # 2 of 4: cloudsql proxy
-  # --------------------------------
+  # -------------------------
   - name: cloudsql-proxy
     image: gcr.io/cloudsql-docker/gce-proxy:1.11
     command: ["/cloud_sql_proxy",
@@ -62,10 +63,10 @@ spec:
     - name: eventdata-sql-instance-credentials
       mountPath: /secrets/cloudsql
       readOnly: true
-  # --------------------------------
+  # -------------------------
   # 3 of 4: TA3 main container
   # - includes entry point for evaluation
-  # --------------------------------
+  # -------------------------
   - name: ta3-main
     image: tworavens/eventdata-ravens-main:latest
     imagePullPolicy: Always
@@ -75,26 +76,16 @@ spec:
     - containerPort: 8080
       name: http
       protocol: TCP
-    envFrom:
-      - configMapRef:
-          name: eventdata-django-configmap
     env:
-    # ---------------------------
-    # Social auth: github creds
-    # ---------------------------
-    - name: SOCIAL_AUTH_GITHUB_KEY
-      valueFrom:
-        secretKeyRef:
-          name: gce-eventdata-social-auth-secrets
-          key: SOCIAL_AUTH_GITHUB_KEY
-    - name: SOCIAL_AUTH_GITHUB_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: gce-eventdata-social-auth-secrets
-          key: SOCIAL_AUTH_GITHUB_SECRET
-    # ---------------------------
-    # SQL db credentials
-    # ---------------------------
+    # environment variables passed to container
+    - name: DJANGO_SETTINGS_MODULE
+      value: tworavensproject.settings.event_data_gce
+    - name: TA2_STATIC_TEST_MODE
+      value: "True"
+    - name: DB_HOST
+      value: "127.0.0.1"
+    - name: DB_PORT
+      value: "3306"
     - name: DB_USER
       valueFrom:
         secretKeyRef:
@@ -105,25 +96,34 @@ spec:
         secretKeyRef:
           name: eventdata-sql-db-credentials
           key: password
-    # ---------------------------
-    # Mongo address/username/password
-    # ---------------------------
+    # --------------------
+    # Mongo env variables from secrets
+    # --------------------
+    #
+    # --------------------
+    # Mongo url
+    # --------------------
     - name: EVENTDATA_MONGO_DB_ADDRESS
       valueFrom:
         secretKeyRef:
           name: eventdata-mongo-server
           key: EVENTDATA_MONGO_DB_ADDRESS
+    # --------------------
+    # Mongo username
+    # --------------------
     - name: EVENTDATA_MONGO_USERNAME
       valueFrom:
         secretKeyRef:
           name: eventdata-mongo-server
           key: EVENTDATA_MONGO_USERNAME
+    # --------------------
+    # Mongo password
+    # --------------------
     - name: EVENTDATA_MONGO_PASSWORD
       valueFrom:
         secretKeyRef:
           name: eventdata-mongo-server
           key: EVENTDATA_MONGO_PASSWORD
-    # ---------------------------
     volumeMounts:
       - name: "ravens-volume"
         mountPath: "/ravens_volume"
@@ -144,9 +144,9 @@ spec:
         port: 8080
       initialDelaySeconds: 10
       periodSeconds: 10
-  # --------------------------------
+  # -------------------------
   # 4 of 4: Rook R services
-  # --------------------------------
+  # -------------------------
   - name: rook-service
     image: tworavens/eventdata-ravens-r-service:latest
     imagePullPolicy: Always
@@ -167,27 +167,30 @@ spec:
         value: "yes"
       - name: EVENTDATA_ROOK_URL_BASE
         value: "http://eventdata.2ravens.org"
-      # ---------------------------
-      # Mongo address/username/password
-      # ---------------------------
+      # --------------------
+      # Mongo url
+      # --------------------
       - name: EVENTDATA_MONGO_DB_ADDRESS
         valueFrom:
           secretKeyRef:
             name: eventdata-mongo-server
             key: EVENTDATA_MONGO_DB_ADDRESS
-      # ---------------------------
+      # --------------------
+      # Mongo username
+      # --------------------
       - name: EVENTDATA_MONGO_USERNAME
         valueFrom:
           secretKeyRef:
             name: eventdata-mongo-server
             key: EVENTDATA_MONGO_USERNAME
-      # ---------------------------
+      # --------------------
+      # Mongo password
+      # --------------------
       - name: EVENTDATA_MONGO_PASSWORD
         valueFrom:
           secretKeyRef:
             name: eventdata-mongo-server
             key: EVENTDATA_MONGO_PASSWORD
-      # ---------------------------
     # restart if this is failing
     #livenessProbe:
     #  httpGet:
