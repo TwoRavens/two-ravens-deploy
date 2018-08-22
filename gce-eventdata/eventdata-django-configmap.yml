@@ -28,3 +28,5 @@ data:
   # Use python social auth, e.g. sign-in with GitHub
   #
   ALLOW_SOCIAL_AUTH: "True"
+  GITHUB_REDIRECT_URI: "http://eventdata.2ravens.org/oauth/complete/github/"
+  #
