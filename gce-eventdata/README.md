@@ -36,15 +36,25 @@ kubectl apply -f eventdata-django-configmap.yml
 # (c) Restart the pod + svc
 #
 
-# If the site is running, stop the pod + svc -- this takes about a minute. 
+# Send the stop command 
+#  - This takes about a minute. 
 #
 kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
-kubectl get pods   # when the service stops, you will no longer see "ravens-eventdata-web" in the list
+
+# Check to make sure the pod is stopped
+#  - If the STATUS is "Terminating", keep waiting
+#
+kubectl get pods   # when the pod stops, you will no longer see "ravens-eventdata-web" in the list
 
 # Start the pod + svc
+#  - This also takes about a minute
 #
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 
+# Check the status
+#   - This can give you an idea of the state, whether containers are being pulled, etc
+#
+kubectl describe pod ravens-eventdata-web  
 
 # Alternative Stop: stops the pod + svc immediately
 #
