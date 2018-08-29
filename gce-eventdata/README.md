@@ -35,18 +35,20 @@ git pull
 #
 kubectl apply -f eventdata-django-configmap.yml
 
-# (c) Start / Stop the pod + svc
+# (c) Restart the pod + svc
 #
+
+# If the site is running, stop the pod + svc -- this takes about a minute. 
+#
+kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
+kubectl get pods   # when the service stops, you will no longer see "ravens-eventdata-web" in the list
 
 # Start the pod + svc
 #
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 
-# Stop the pod + svc -- this takes about a minute. 
-#
-kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 
-# Stop the pod + svc immediately
+# Alternative Stop: stops the pod + svc immediately
 #
 kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
 
