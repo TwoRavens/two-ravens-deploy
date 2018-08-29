@@ -27,7 +27,7 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 # (a) pull the latest config code
 #
 cd two-ravens-deploy/gce-eventdata
-git pull
+git pull # only changes when these instructions/config files change
 
 # (b) apply configmap - This only needs be done if the configmap has changed.
 #
