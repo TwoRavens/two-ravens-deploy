@@ -18,7 +18,8 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
 1. Check that the 2 required images have been recently built:
     - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
     - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/)
-    -
+    
+   
 ## (2) GCE Deploy - Shortcuts (if you've done it before)
 
 1. Go to the cluster list and "connect" to a Terminal
