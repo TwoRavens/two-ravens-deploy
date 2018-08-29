@@ -25,21 +25,27 @@ Note: These builds are not automated to avoid deploying bad code--e.g. it's not 
     - https://console.cloud.google.com/kubernetes/list
 
 ```
-# pull the latest config code
+# (a) pull the latest config code
 #
 cd two-ravens-deploy/gce-eventdata
 git pull
 
-# apply configmap
+# (b) apply configmap - This only needs be done if the configmap has changed.
 #
 kubectl apply -f eventdata-django-configmap.yml
 
-# pod + svc
+# (c) Start / Stop the pod + svc
+#
+
+# Start the pod + svc
 #
 kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
+
+# Stop the pod + svc -- this takes about a minute. 
+#
 kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 
-# stop the pod/svc immediately
+# Stop the pod + svc immediately
 #
 kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
 
