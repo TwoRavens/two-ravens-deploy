@@ -6,7 +6,7 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 
 ## (1) Steps to Build Docker Images
 
-1. In your dev environment, run `fab webpack_prod` to build the latest code into a webpack distribution.
+1. In your dev environment, run `fab webpack_prod` + `fab run` to build the latest code into a webpack distribution.
      - Check in any new js/css dist files, if needed
 1. Checking in new code to the `EventData_generalization` branch, creates 2 new Docker Images:
     1. Main Two Ravens: https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/
