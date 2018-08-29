@@ -56,6 +56,11 @@ kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 #
 kubectl describe pod ravens-eventdata-web  
 
+#   Note: It's ok to see the message below--I have to adjust some of the startup timings for the 1st check:
+# 
+#    "Warning  Unhealthy              1m    kubelet, gke-cluster-1-default-pool-e584caed-v4rq  Liveness probe failed: (etc)"
+
+
 # Alternative Stop: stops the pod + svc immediately
 #
 kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
