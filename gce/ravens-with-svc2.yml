@@ -36,7 +36,7 @@ spec:
   # 1 of 6: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:develop
+    image: tworavens/ravens-nginx:latest
     #resources:
     #  requests:
     #    memory: 256Mi
@@ -60,7 +60,7 @@ spec:
   # 3 of 6: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:develop
+    image: tworavens/ravens-main:latest
     imagePullPolicy: Always
     command: ["d3m_start.sh"]
     #resources:
@@ -131,7 +131,7 @@ spec:
   # 4 of 6: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:develop
+    image: tworavens/ravens-main:latest
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
@@ -184,7 +184,7 @@ spec:
   # 5 of 6: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:develop
+    image: tworavens/ravens-r-service:latest
     imagePullPolicy: Always
     #resources:
     #  requests:
