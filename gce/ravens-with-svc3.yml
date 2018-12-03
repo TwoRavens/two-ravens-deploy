@@ -93,7 +93,7 @@ spec:
             key: MONGO_CONNECTION_STRING
     envFrom:
       - configMapRef:
-          name: ravens-django-configmap
+          name: ravens-django-config
       - configMapRef:
           name: ravens-d3m-config
     # ----------------------------------
@@ -155,7 +155,7 @@ spec:
             key: MONGO_CONNECTION_STRING
     envFrom:
       - configMapRef:
-          name: ravens-django-configmap
+          name: ravens-django-config
       - configMapRef:
           name: ravens-d3m-config
   # -------------------------
