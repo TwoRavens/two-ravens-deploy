@@ -9,7 +9,7 @@ git pull
 # add config variables
 kubectl apply -f ravens-d3m-configmap.yml
 kubectl apply -f ravens-django-configmap.yml
-kubectl apply -f ravens-with-svc2.yml
+kubectl apply -f ravens-with-svc3.yml
 
 
 # Wait for service to have IP assigned
@@ -28,10 +28,10 @@ kubectl describe pod/tworavensweb
 ## Delete
 
 ```
-kubectl delete -f ravens-with-svc2.yml
+kubectl delete -f ravens-with-svc3.yml
 
 # immediate shutdown
-kubectl delete -f ravens-with-svc2.yml --grace-period=0 --force
+kubectl delete -f ravens-with-svc3.yml --grace-period=0 --force
 
 
 #kubectl delete -f ravens-deploy.yml # NO TA2
