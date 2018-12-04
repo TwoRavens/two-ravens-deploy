@@ -42,14 +42,19 @@ kubectl delete -f ravens-with-svc3.yml --grace-period=0 --force
 ## log example
 
 ```
+# View logs
+# Use "-f" to tail the log
+#
+kubectl logs tworavensweb ravens-nginx
+
 kubectl logs tworavensweb ta3-main
 kubectl logs tworavensweb rook-service
 
-kubectl logs tworavensweb ta2-main
-kubectl logs tworavensweb ravens-nginx
-
 kubectl logs tworavensweb celery-worker
 kubectl logs tworavensweb redis
+
+kubectl logs tworavensweb ta2-main
+
 
 ```
 
@@ -57,12 +62,17 @@ kubectl logs tworavensweb redis
 
 ```
 # Log into running pod
+#
+kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
+
 kubectl exec -it tworavensweb -c ta3-main /bin/bash
-kubectl exec -ti  tworavensweb -c ta2-main /bin/bash
 kubectl exec -ti  tworavensweb -c rook-service /bin/bash
+
 kubectl exec -ti  tworavensweb -c celery-worker  /bin/bash
 kubectl exec -ti  tworavensweb -c redis /bin/bash
-kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
+
+kubectl exec -ti  tworavensweb -c ta2-main /bin/bash
+
 
 
 # Make some test configs...
