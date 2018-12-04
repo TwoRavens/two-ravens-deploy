@@ -45,6 +45,14 @@ spec:
       - containerPort: 80
         name: http
         protocol: TCP
+    # ----------------------------------
+    # shared between TwoRavens and rook
+    # - also has static files to serve
+    # ----------------------------------
+    volumeMounts:
+    - name: ravens-volume
+      mountPath: /ravens_volume
+      readOnly: false
   # -------------------------
   # 2 of 6: redis
   # -------------------------
