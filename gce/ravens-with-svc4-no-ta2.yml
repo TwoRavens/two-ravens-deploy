@@ -11,19 +11,33 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: monitoring-raven
   name: raven-web-service
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 104.197.235.238 # 2ravens.org
+  type: NodePort
   selector:
     app: tworavens
   ports:
     - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  labels:
+#    kubernetes.io/cluster-service: 'true'
+#    kubernetes.io/name: monitoring-raven
+#  name: raven-web-service
+#spec:
+#  type: LoadBalancer
+#  loadBalancerIP: 104.197.235.238 # 2ravens.org
+#  selector:
+#    app: tworavens
+#  ports:
+#    - name: http
+#      port: 80
+#      targetPort: 80
 ---
 apiVersion: v1
 kind: Pod
