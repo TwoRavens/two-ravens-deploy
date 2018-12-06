@@ -14,7 +14,8 @@ data:
   # Same env variables for django + celery
   # ------------------------
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
-  TA2_STATIC_TEST_MODE: "False"
+  #TA2_STATIC_TEST_MODE: "False"
+  TA2_STATIC_TEST_MODE: "True"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   # Reference to the gRPC server using the pod name and TA2 port
