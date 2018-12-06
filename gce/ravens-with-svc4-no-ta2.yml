@@ -1,8 +1,13 @@
 ---
-# This is a jump server test file to run
-# the TA3 in "test mode"--e.g. w/o a TA2
-# NOTE: If the IP in line 15 is reserved, comment out line 15
-#
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic
+spec:
+  backend:
+    serviceName: raven-web-service
+    servicePort: 80
+---
 apiVersion: v1
 kind: Service
 metadata:

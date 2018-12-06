@@ -1,7 +1,4 @@
 ---
-# This is a jump server test file to run
-# the TA3 in "test mode"--e.g. w/o a TA2
-# NOTE: If the IP in line 15 is reserved, comment out line 15
 #
 apiVersion: v1
 kind: Service
