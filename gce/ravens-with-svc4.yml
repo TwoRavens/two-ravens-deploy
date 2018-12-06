@@ -9,7 +9,7 @@ metadata:
   name: raven-web-service
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238 # 2ravens.org
+  loadBalancerIP:  35.244.165.103  # 2ravens.org
   selector:
     app: tworavens
   ports:

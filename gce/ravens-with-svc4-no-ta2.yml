@@ -3,6 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: basic
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "ip-2ravens-org-global"
 spec:
   backend:
     serviceName: raven-web-service
@@ -21,6 +23,7 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
+      nodePort: 30080
 #---
 #apiVersion: v1
 #kind: Service

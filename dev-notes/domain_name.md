@@ -7,7 +7,11 @@
 1. Assign with k8s
   - https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
 
-- 11/17/2017
+  - 11/17/2017
+    - *name*: ip-2ravens-org-global
+    - *ip address*:  35.244.165.103 
+
+- 11/17/2017 - NO LONGER USED
   - *name*: raven-static-ip-with-domain
   - *ip address*: 35.190.87.43
 
