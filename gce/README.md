@@ -53,6 +53,8 @@ This can be done directly through the GCE k8s  interface.  However, if you want 
 
 Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` variables 4x in the deploy file
 
+#### Update steps: 
+
 1. `cd two-ravens-deploy/gce`
 2. Open the `ravens-d3m-configmap.yml` file
 3. Update the `D3MINPUTDIR` variable
