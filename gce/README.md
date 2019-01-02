@@ -3,13 +3,20 @@
 ## Deploy
 
 ```
+# one time: download the deploy repo:
+#
+git clone https://github.com/TwoRavens/two-ravens-deploy.git  
+
+# Go to the correct directory and update it
+#
 cd two-ravens-deploy/gce
 git pull
 
 # add config variables
+#
 kubectl apply -f ravens-d3m-configmap.yml
 kubectl apply -f ravens-django-configmap.yml
-kubectl apply -f ravens-with-svc3.yml
+kubectl apply -f ravens-with-svc4.yml
 
 
 # Wait for service to have IP assigned
@@ -28,16 +35,45 @@ kubectl describe pod/tworavensweb
 ## Delete
 
 ```
-kubectl delete -f ravens-with-svc3.yml
+kubectl delete -f ravens-with-svc4.yml
 
 # immediate shutdown
-kubectl delete -f ravens-with-svc3.yml --grace-period=0 --force
+kubectl delete -f ravens-with-svc4.yml --grace-period=0 --force
 
 
 #kubectl delete -f ravens-deploy.yml # NO TA2
 #kubectl delete -f ravens-deploy-with-ta2.yml  # Real TA2
 #kubectl delete -f ravens-main-service.yml
 ```
+
+## Change the problem dataset
+
+This changes the problem dataset for the TA3 and, more importantly, for the TA2.
+This can be done directly through the GCE k8s  interface.
+
+1. `cd two-ravens-deploy/gce`
+2. Open the `ravens-d3m-configmap.yml` file
+3. Update the `D3MINPUTDIR` variable
+4. Delete the old config:
+    ```
+    kubectl delete configmap ravens-d3m-config
+    ```
+5. Add the new config:
+    ```
+    kubectl apply -f ravens-d3m-configmap.yml
+    ```
+6. View the new config:
+    ```
+    kubectl get configmap ravens-d3m-config -o yaml
+    ```
+7.  Restart the service
+    ```
+    # Immediate shutdown
+    kubectl delete -f ravens-with-svc4.yml --grace-period=0 --force
+
+    # Start up
+    kubectl apply -f ravens-with-svc4.yml
+    ```
 
 ## log example
 
