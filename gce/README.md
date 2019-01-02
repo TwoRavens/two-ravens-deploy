@@ -49,7 +49,9 @@ kubectl delete -f ravens-with-svc4.yml --grace-period=0 --force
 ## Change the problem dataset
 
 This changes the problem dataset for the TA3 and, more importantly, for the TA2.
-This can be done directly through the GCE k8s  interface.
+This can be done directly through the GCE k8s  interface.  However, if you want a more persistent update, then save the `ravens-d3m-configmap.yml` updates to github.
+
+Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` variables 4x in the deploy file
 
 1. `cd two-ravens-deploy/gce`
 2. Open the `ravens-d3m-configmap.yml` file
