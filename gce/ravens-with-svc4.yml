@@ -170,7 +170,7 @@ spec:
   # 5 of 6: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:latest
+    image: tworavens/ravens-r-service:develop
     imagePullPolicy: Always
     #resources:
     #  requests:
