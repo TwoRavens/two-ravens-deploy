@@ -53,7 +53,7 @@ This can be done directly through the GCE k8s  interface.  However, if you want 
 
 Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` variables 4x in the deploy file
 
-#### Update steps: 
+#### Update steps:
 
 1. `cd two-ravens-deploy/gce`
 2. Open the `ravens-d3m-configmap.yml` file
@@ -87,10 +87,10 @@ Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` vari
 #
 kubectl logs tworavensweb ravens-nginx
 
-kubectl logs tworavensweb ta3-main
+kubectl logs -f tworavensweb ta3-main
 kubectl logs tworavensweb rook-service
 
-kubectl logs tworavensweb celery-worker
+kubectl logs -f tworavensweb celery-worker
 kubectl logs tworavensweb redis
 
 kubectl logs tworavensweb ta2-main
