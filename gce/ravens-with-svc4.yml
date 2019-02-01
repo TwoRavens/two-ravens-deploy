@@ -67,7 +67,7 @@ spec:
   # -------------------------
   - name: ta3-main
     #image: tworavens/ravens-main:latest
-    image: tworavens/ravens-main:dm-demo2
+    image: tworavens/ravens-main:dm-demo3
     imagePullPolicy: Always
     command: ["d3m_start.sh"]
     #resources:
@@ -128,7 +128,7 @@ spec:
   # -------------------------
   - name: celery-worker
     #image: tworavens/ravens-main:latest
-    image: tworavens/ravens-main:dm-demo2
+    image: tworavens/ravens-main:dm-demo3
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info', '--concurrency', '4']
     #resources:
