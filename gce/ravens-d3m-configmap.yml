@@ -29,5 +29,6 @@ data:
   D3MSTATICDIR: "/ravens_volume/test_output"
   #
   D3MCPU: "1"
-  D3MRAM: "512Mi"
+  D3MRAM: "1048576000"
+  #D3MRAM: "512Mi"
   D3MTIMEOUT: "10"
