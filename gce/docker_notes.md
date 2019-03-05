@@ -8,6 +8,20 @@ Currently, the k8s deploy specs pull from two registries:
 
 ## Push the TA2 to google's registry
 
+
+## Tag push ISI TA2
+
+```
+# tag it
+docker tag registry.datadrivendiscovery.org/ta2-submissions/ta2-isi/ta3ta2/ta3ta2-image gcr.io/raven2-186120/isi-ta2:winter-2019
+
+# push image
+gcloud docker -- push gcr.io/raven2-186120/isi-ta2:winter-2019
+
+```
+
+## more general tag/push
+
 ```
 # tag it
 
