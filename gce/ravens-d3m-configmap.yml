@@ -19,6 +19,7 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data/196_autoMpg"
   #D3MINPUTDIR: "/ravens_volume/test_data/185_baseball"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/196_autoMpg/TRAIN/problem_TRAIN/problemDoc.json"
   #
   # D3MLOCALDIR needs something better, but for now...
   #

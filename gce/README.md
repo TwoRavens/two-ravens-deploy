@@ -14,7 +14,7 @@ git pull
 
 # add config variables
 #
-kubectl apply -f ravens-d3m-configmap.yml
+kubectl apply -f ravens-d3m-ravens-with-svc5.yml
 kubectl apply -f ravens-django-configmap.yml
 kubectl apply -f ravens-with-svc5.yml
 
