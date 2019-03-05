@@ -19,8 +19,15 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data/196_autoMpg"
   #D3MINPUTDIR: "/ravens_volume/test_data/185_baseball"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
+  #
   # D3MLOCALDIR needs something better, but for now...
+  #
   D3MLOCALDIR: "/ravens_volume/test_output"
+  #
+  # D3MSTATICDIR needs something better, but for now...
+  #
+  D3MSTATICDIR: "/ravens_volume/test_output"
+  #
   D3MCPU: "1"
   D3MRAM: "512Mi"
   D3MTIMEOUT: "10"
