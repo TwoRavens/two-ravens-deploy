@@ -18,6 +18,12 @@ docker tag registry.datadrivendiscovery.org/ta2-submissions/ta2-isi/ta3ta2/ta3ta
 # push image
 gcloud docker -- push gcr.io/raven2-186120/isi-ta2:winter-2019
 
+
+#
+# Brown TA2
+docker tag registry.datadrivendiscovery.org/zshang/docker_images:ta2 gcr.io/raven2-186120/brown-ta2:winter-2019
+gcloud docker -- push gcr.io/raven2-186120/brown-ta2:winter-2019
+
 ```
 
 ## more general tag/push

@@ -14,7 +14,7 @@ git pull
 
 # add config variables
 #
-kubectl apply -f ravens-d3m-ravens-with-svc5.yml
+kubectl apply -f ravens-d3m-configmap.yml
 kubectl apply -f ravens-django-configmap.yml
 kubectl apply -f ravens-with-svc5.yml
 
@@ -87,6 +87,7 @@ Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` vari
 #
 kubectl logs tworavensweb ravens-nginx
 
+kubectl logs tworavensweb ta3-main
 kubectl logs -f tworavensweb ta3-main
 kubectl logs tworavensweb rook-service
 
