@@ -30,5 +30,6 @@ data:
   #
   D3MCPU: "1"
   # D3MRAM: "1048576000"
+  D3MRAM: "524288000"
   # D3MRAM: "512Mi"
   D3MTIMEOUT: "10"
