@@ -183,7 +183,7 @@ spec:
   - name: ta2-main
     # image: tworavens/ta2-isi:dm-demo
     image: gcr.io/raven2-186120/isi-ta2:winter-2019
-    imagePullPolicy: Always
+    # imagePullPolicy: Always
     resources:
       requests:
         memory: 512Mi
