@@ -159,10 +159,12 @@ spec:
             name: tworavens-web-secrets
             key: SECRET_KEY
       - name: MONGO_CONNECTION_STRING
-        valueFrom:
-          secretKeyRef:
-            name: tworavens-web-secrets
-            key: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
     envFrom:
       - configMapRef:
           name: ravens-django-config
