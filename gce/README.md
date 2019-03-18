@@ -118,6 +118,8 @@ kubectl exec -ti  tworavensweb -c redis /bin/bash
 
 kubectl exec -ti  tworavensweb -c ta2-main /bin/bash
 
+kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
+
 
 
 # Make some test configs...
