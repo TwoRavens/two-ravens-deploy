@@ -17,7 +17,7 @@ git pull
 # kubectl apply -f ravens-d3m-configmap.yml
 kubectl apply -f ravens-d3m-configmap_07_da_college_debt
 kubectl apply -f ravens-django-configmap.yml
-kubectl apply -f ravens-with-svc6-no-probe.yml
+kubectl apply -f ravens-with-svc-08.yml
 
 
 # Wait for service to have IP assigned
@@ -36,10 +36,10 @@ kubectl describe pod/tworavensweb
 ## Delete
 
 ```
-kubectl delete -f ravens-with-svc6-no-probe.yml
+kubectl delete -f ravens-with-svc-08.yml
 
 # immediate shutdown
-kubectl delete -f ravens-with-svc6-no-probe.yml --grace-period=0 --force
+kubectl delete -f ravens-with-svc-08.yml --grace-period=0 --force
 
 
 #kubectl delete -f ravens-deploy.yml # NO TA2
@@ -74,10 +74,10 @@ Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` vari
 7.  Restart the service
     ```
     # Immediate shutdown
-    kubectl delete -f ravens-with-svc6-no-probe.yml --grace-period=0 --force
+    kubectl delete -f ravens-with-svc-08.yml --grace-period=0 --force
 
     # Start up
-    kubectl apply -f ravens-with-svc6-no-probe.yml
+    kubectl apply -f ravens-with-svc-08.yml
     ```
 
 ## log example
