@@ -97,6 +97,9 @@ kubectl logs tworavensweb redis
 
 kubectl logs tworavensweb ta2-main
 
+kubectl logs tworavensweb ta2-main
+
+kubectl logs tworavensweb mongo-2ravens
 
 ```
 
