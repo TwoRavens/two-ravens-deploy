@@ -238,8 +238,8 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         # directory location on host
-        path: /db_mongo
-        mountPath: /data/db
+        #path: /db_mongo
+        mountPath: /data
         readOnly: false
   # -------------------------
   # 7 of 7: TA2 main
