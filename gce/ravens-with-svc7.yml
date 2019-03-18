@@ -30,7 +30,7 @@ spec:
       emptyDir: {}
   containers:
   # -------------------------
-  # 1 of 6: Ravens nginx
+  # 1 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
     image: tworavens/ravens-nginx:latest
@@ -52,7 +52,7 @@ spec:
       mountPath: /ravens_volume
       readOnly: false
   # -------------------------
-  # 2 of 6: redis
+  # 2 of 7: redis
   # -------------------------
   - name: redis
     image: redis:4.0
@@ -63,7 +63,7 @@ spec:
     ports:
     - containerPort: 6379
   # -------------------------
-  # 3 of 6: TA3 main (web app)
+  # 3 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
     image: tworavens/ravens-main:latest
@@ -94,10 +94,12 @@ spec:
             name: tworavens-web-secrets
             key: SECRET_KEY
       - name: MONGO_CONNECTION_STRING
-        valueFrom:
-          secretKeyRef:
-            name: tworavens-web-secrets
-            key: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
     envFrom:
       - configMapRef:
           name: ravens-django-config
@@ -124,7 +126,7 @@ spec:
       initialDelaySeconds: 45
       periodSeconds: 10
   # -------------------------
-  # 4 of 6: celery worker
+  # 4 of 7: celery worker
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:latest
@@ -167,7 +169,7 @@ spec:
       - configMapRef:
           name: ravens-d3m-config
   # -------------------------
-  # 5 of 6: rook
+  # 5 of 7: rook
   # -------------------------
   - name: rook-service
     image: tworavens/ravens-r-service:latest
@@ -218,7 +220,29 @@ spec:
       initialDelaySeconds: 45
       periodSeconds: 10
   # -------------------------
-  # 6 of 6: TA2 main
+  # 6 of 7: mongo
+  # -------------------------
+  - name: mongo-2ravens
+    image: mongo
+    resources:
+      requests:
+        memory: 512Mi
+        #cpu: 1
+    ports:
+      - containerPort: 27017
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        # directory location on host
+        path: /db_mongo
+        mountPath: /data/db
+        readOnly: false
+  # -------------------------
+  # 7 of 7: TA2 main
   # -------------------------
   - name: ta2-main
     # image: tworavens/ta2-isi:dm-demo
