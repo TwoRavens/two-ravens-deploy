@@ -106,23 +106,23 @@ spec:
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
-    livenessProbe:
-      httpGet:
-        path: /monitoring/alive
-        port: 8080
-      initialDelaySeconds: 45
-      timeoutSeconds: 1
-      periodSeconds: 10
-      failureThreshold: 3
+    #livenessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 45
+    #  timeoutSeconds: 1
+    #  periodSeconds: 10
+    #  failureThreshold: 3
     # ----------------------------------
     # readinessProbe: ready for traffic
     # ----------------------------------
-    readinessProbe:
-      httpGet:
-        path: /monitoring/alive
-        port: 8080
-      initialDelaySeconds: 45
-      periodSeconds: 10
+    #readinessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 45
+    #  periodSeconds: 10
   # -------------------------
   # 4 of 6: celery worker
   # -------------------------
@@ -200,23 +200,23 @@ spec:
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
-    livenessProbe:
-      httpGet:
-        path: /custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 15
-      timeoutSeconds: 1
-      periodSeconds: 20
-      failureThreshold: 3
+    #livenessProbe:
+    #  httpGet:
+    #    path: /custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 15
+    #  timeoutSeconds: 1
+    #  periodSeconds: 20
+    #  failureThreshold: 3
     # ----------------------------------
     # readinessProbe: ready for traffic
     # ----------------------------------
-    readinessProbe:
-      httpGet:
-        path: /custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 45
-      periodSeconds: 10
+    #readinessProbe:
+    #  httpGet:
+    #    path: /custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 45
+    #  periodSeconds: 10
   # -------------------------
   # 6 of 6: TA2 main
   # -------------------------
