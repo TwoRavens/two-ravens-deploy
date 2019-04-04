@@ -95,7 +95,7 @@ kubectl logs tworavensweb rook-service
 kubectl logs -f tworavensweb celery-worker
 kubectl logs tworavensweb redis
 
-kubectl logs tworavensweb ta2-main
+kubectl logs -f tworavensweb ta2-main
 
 kubectl logs tworavensweb ta2-main
 
