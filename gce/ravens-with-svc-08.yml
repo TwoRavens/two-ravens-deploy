@@ -35,10 +35,13 @@ spec:
   - name: ravens-nginx
     image: tworavens/ravens-nginx:latest
     imagePullPolicy: Always
-    #resources:
-    #  requests:
-    #    memory: 256Mi
-    #    cpu: 1
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limit:
+        memory: "256Mi"
+        cpu: "150m"
     ports:
       - containerPort: 80
         name: http
@@ -56,10 +59,13 @@ spec:
   # -------------------------
   - name: redis
     image: redis:4.0
-    #resources:
-    #  requests:
-    #    memory: 100Mi
-    #    cpu: 1
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "128Mi"
+        cpu: "150m"
     ports:
     - containerPort: 6379
   # -------------------------
@@ -70,10 +76,13 @@ spec:
     #image: tworavens/ravens-main:dm-demo3
     imagePullPolicy: Always
     command: ["d3m_start.sh"]
-    #resources:
-    #  requests:
-    #    memory: 512Mi
-    #    cpu: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "500Mi"
+        cpu: "300m"
     ports:
       - containerPort: 8080
         name: http
@@ -131,10 +140,13 @@ spec:
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info', '--concurrency', '4']
-    #resources:
-    #  requests:
-    #    memory: 512Mi
-    #    cpu: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "150m"
+      limits:
+        memory: "256Mi"
+        cpu: "250m"
     ports:
       - containerPort: 8080
         name: http
@@ -173,10 +185,13 @@ spec:
     image: tworavens/ravens-r-service:latest
     # image: tworavens/ravens-r-service:develop
     imagePullPolicy: Always
-    #resources:
-    #  requests:
-    #    memory: 512Mi
-    #    cpu: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "150m"
     volumeMounts:
       # ----------------------------------
       # ravens volume shared w/ ta3-main
@@ -228,7 +243,13 @@ spec:
       requests:
         memory: 1Gi
         #memory-swap: 1Gi
-        #cpus: 2
+    resources:
+      requests:
+        memory: "500Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
     ports:
       - containerPort: 45042
         protocol: TCP
