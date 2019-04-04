@@ -222,11 +222,13 @@ spec:
   # -------------------------
   - name: ta2-main
     # image: tworavens/ta2-isi:dm-demo
-    image: gcr.io/raven2-186120/isi-ta2:winter-2019
+    #image: gcr.io/raven2-186120/isi-ta2:winter-2019
+    image: gcr.io/raven2-186120/brown-ta2:winter-2019
     resources:
       requests:
         memory: 512Mi
-        #cpu: 1
+        memory-swap: 1g
+        # cpu: 1
     ports:
       - containerPort: 45042
         protocol: TCP
