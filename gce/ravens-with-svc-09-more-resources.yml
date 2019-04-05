@@ -38,7 +38,7 @@ spec:
     resources:
       requests:
         memory: 50Mi
-        cpu: "0.1"
+        # cpu: "0.1"
     ports:
       - containerPort: 80
         name: http
@@ -59,7 +59,7 @@ spec:
     resources:
       requests:
         memory: 50Mi
-        cpu: "0.1"
+        # cpu: "0.1"
     ports:
     - containerPort: 6379
   # -------------------------
@@ -73,7 +73,7 @@ spec:
     resources:
       requests:
         memory: 100Mi
-        cpu: "0.15"
+        # cpu: "0.15"
     ports:
       - containerPort: 8080
         name: http
@@ -134,7 +134,7 @@ spec:
     resources:
       requests:
         memory: 100Mi
-        cpu: "0.15"
+        # cpu: "0.15"
     ports:
       - containerPort: 8080
         name: http
@@ -176,7 +176,7 @@ spec:
     resources:
       requests:
         memory: 100Mi
-        cpu: "0.15"
+        # cpu: "0.15"
     volumeMounts:
       # ----------------------------------
       # ravens volume shared w/ ta3-main
@@ -227,7 +227,7 @@ spec:
     resources:
       requests:
         memory: 200Mi
-        cpu: "0.2"
+        # cpu: "0.2"
     ports:
       - containerPort: 45042
         protocol: TCP
