@@ -37,8 +37,8 @@ spec:
     imagePullPolicy: Always
     resources:
       requests:
-        memory: 100Mi
-        cpu: "0.15"
+        memory: 50Mi
+        cpu: "0.1"
     ports:
       - containerPort: 80
         name: http
@@ -58,8 +58,8 @@ spec:
     image: redis:4.0
     resources:
       requests:
-        memory: 100Mi
-        cpu: "0.15"
+        memory: 50Mi
+        cpu: "0.1"
     ports:
     - containerPort: 6379
   # -------------------------
@@ -72,8 +72,8 @@ spec:
     command: ["d3m_start.sh"]
     resources:
       requests:
-        memory: 512Mi
-        cpu: "0.25"
+        memory: 100Mi
+        cpu: "0.15"
     ports:
       - containerPort: 8080
         name: http
@@ -133,8 +133,8 @@ spec:
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info', '--concurrency', '4']
     resources:
       requests:
-        memory: 512Mi
-        cpu: "0.25"
+        memory: 100Mi
+        cpu: "0.15"
     ports:
       - containerPort: 8080
         name: http
@@ -175,8 +175,8 @@ spec:
     imagePullPolicy: Always
     resources:
       requests:
-        memory: 512Mi
-        cpu: "0.2"
+        memory: 100Mi
+        cpu: "0.15"
     volumeMounts:
       # ----------------------------------
       # ravens volume shared w/ ta3-main
@@ -226,8 +226,8 @@ spec:
     image: gcr.io/raven2-186120/brown-ta2:winter-2019
     resources:
       requests:
-        memory: 512Mi
-        cpu: 1
+        memory: 200Mi
+        cpu: "0.2"
     ports:
       - containerPort: 45042
         protocol: TCP
