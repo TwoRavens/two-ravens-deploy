@@ -68,7 +68,7 @@ spec:
   - name: ta3-main
     image: tworavens/ravens-main:latest
     #image: tworavens/ravens-main:dm-demo3
-    # imagePullPolicy: Always
+    imagePullPolicy: Always
     command: ["d3m_start.sh"]
     resources:
       requests:
