@@ -16,6 +16,7 @@ git pull
 #
 # kubectl apply -f ravens-d3m-configmap.yml
 kubectl apply -f ravens-d3m-configmap_07_da_college_debt
+kubectl apply -f ravens-d3m-configmap_06_da_college_debt_100
 kubectl apply -f ravens-django-configmap.yml
 kubectl apply -f ravens-with-svc-08.yml
 
