@@ -23,5 +23,5 @@ data:
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
   D3MCPU: "1"
-  D3MRAM: "512Mi"
+  D3MRAM: "524288000"
   D3MTIMEOUT: "10"
