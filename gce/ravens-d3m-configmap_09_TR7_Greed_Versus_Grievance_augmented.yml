@@ -1,0 +1,27 @@
+# ------------------------
+# Updated for winter 2019
+# Shared env variables
+# Used by containers:
+#  - ta3-main
+#  - celery-woker
+#  - ta2-main (ignores django/db related variables)
+# ------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-d3m-config
+  namespace: default
+data:
+  # ----------------------------------
+  # D3M winter eval variables
+  # ref: https://datadrivendiscovery.org/wiki/display/work/Evaluation+Workflow
+  # ----------------------------------
+  D3MRUN: ta2ta3
+  D3MINPUTDIR: "/ravens_volume/test_data/TR7_Greed_Versus_GrievanceTR7_Greed_Versus_Grievance_augmented"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/TR7_Greed_Versus_GrievanceTR7_Greed_Versus_Grievance_augmented/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MOUTPUTDIR: "/ravens_volume/test_output"
+  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
+  D3MCPU: "1"
+  D3MRAM: "524288000"
+  D3MTIMEOUT: "10"

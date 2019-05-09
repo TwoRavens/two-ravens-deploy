@@ -89,7 +89,7 @@ Note: A configmap is used to avoid repeating the `ravens-d3m-configmap.yml` vari
 #
 kubectl logs tworavensweb ravens-nginx
 
-kubectl logs tworavensweb ta3-main
+kubectl logs -f tworavensweb ta3-main
 kubectl logs -f tworavensweb ta3-main
 kubectl logs tworavensweb rook-service
 
