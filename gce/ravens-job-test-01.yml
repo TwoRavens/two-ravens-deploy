@@ -6,6 +6,15 @@ kind: Job
 metadata:
   name: tworavens-test-runner
 spec:
+  backoffLimit: 4
+  #
+  # Delete job 100 seconds after it completes
+  #
+  ttlSecondsAfterFinished: 100
+  #
+  # Keep pods for 5 minutes before removing
+  #
+  activeDeadlineSeconds: 300
   template:
     spec:
       containers:
@@ -14,4 +23,3 @@ spec:
         # command: ["npm", "run", "--spec", "cypress/integration/two_ravens_test_01.js"]
         # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
-  backoffLimit: 4
