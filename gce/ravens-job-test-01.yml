@@ -1,0 +1,17 @@
+#
+# Reference: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+#
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tworavens-test-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: ravens-tester
+        image: tworavens/tworavens-test-runner:latest
+        command: ["npm", "run", "--spec", "cypress/integration/two_ravens_test_01.js"]
+        # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4

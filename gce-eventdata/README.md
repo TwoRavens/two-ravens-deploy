@@ -16,8 +16,8 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 1. Check that the 2 required images have been recently built:
     - [tworavens/eventdata-ravens-main/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-main/tags/)
     - [tworavens/eventdata-ravens-nginx/tags](https://hub.docker.com/r/tworavens/eventdata-ravens-nginx/tags/)
-    
-   
+
+
 ## (2) GCE Deploy - Shortcuts (if you've done it before)
 
 1. Go to the cluster list and "connect" to a Terminal
@@ -36,8 +36,8 @@ kubectl apply -f eventdata-django-configmap.yml
 # (c) Restart the pod + svc
 #
 
-# Send the stop command 
-#  - This takes about a minute. 
+# Send the stop command
+#  - This takes about a minute.
 #
 kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
 
@@ -57,7 +57,7 @@ kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 kubectl describe pod ravens-eventdata-web  
 
 #   Note: It's ok to see the message below--I have to adjust some of the startup timings for the 1st check:
-# 
+#
 #    "Warning  Unhealthy              1m    kubelet, gke-cluster-1-default-pool-e584caed-v4rq  Liveness probe failed: (etc)"
 
 
@@ -81,8 +81,8 @@ kubectl describe pod ravens-eventdata-web
 # See a log for a container, e.g. what you see in the rook Terminal when running locally
 #   - `kubectl logs -f .....` will stream the log
 #
-kubectl logs ravens-eventdata-web ta3-main  # python server log
-kubectl logs ravens-eventdata-web ravens-nginx  # nginx log
+kubectl logs -f ravens-eventdata-web ta3-main  # python server log
+kubectl logs -f ravens-eventdata-web ravens-nginx  # nginx log
 
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
