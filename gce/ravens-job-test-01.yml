@@ -6,15 +6,15 @@ kind: Job
 metadata:
   name: tworavens-test-runner
 spec:
-  #backoffLimit: 4
+  backoffLimit: 4
   #
   # Delete job 100 seconds after it completes
   #
-  ttlSecondsAfterFinished: 100
+  # ttlSecondsAfterFinished: 100
   #
   # Keep pods for 5 minutes before removing
   #
-  #activeDeadlineSeconds: 300
+  activeDeadlineSeconds: 300
   template:
     spec:
       containers:
