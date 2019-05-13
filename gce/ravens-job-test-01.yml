@@ -11,7 +11,7 @@ spec:
       containers:
       - name: ravens-tester
         image: tworavens/tworavens-test-runner:latest
-        command: ["npm", "run", "--spec", "cypress/integration/two_ravens_test_01.js"]
+        # command: ["npm", "run", "--spec", "cypress/integration/two_ravens_test_01.js"]
         # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
   backoffLimit: 4
