@@ -20,6 +20,11 @@ spec:
       containers:
       - name: ravens-tester
         image: tworavens/tworavens-test-runner:latest
+        env:
+          - name: CYPRESS_TWO_RAVENS_BASE_URL
+            value: http://2ravens.org
+          - name: CYPRESS_TA3TA2_API_VERSION
+            value: 2019.2.27
         # command: ["npm", "run", "--spec", "cypress/integration/two_ravens_test_01.js"]
         # command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
