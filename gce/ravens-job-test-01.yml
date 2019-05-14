@@ -18,7 +18,7 @@ spec:
   template:
     spec:
       containers:
-      - name: ravens-tester
+      - name: tworavens-test-runner
         image: tworavens/tworavens-test-runner:latest
         env:
           - name: CYPRESS_TWO_RAVENS_BASE_URL
