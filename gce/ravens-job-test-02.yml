@@ -1,0 +1,25 @@
+#
+# Initial TA3 tests
+#
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tworavens-ta3-tests
+spec:
+  backoffLimit: 4
+  template:
+    metadata:
+      labels:
+        role: tests
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: tests
+        image: tworavens/tworavens-test-runner:latest
+        imagePullPolicy: Always
+        env:
+          - name: CYPRESS_TWO_RAVENS_BASE_URL
+            value: http://2ravens.org
+            # value: http://ta3
+          - name: CYPRESS_TA3TA2_API_VERSION
+            value: 2019.2.27
