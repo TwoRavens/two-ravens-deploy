@@ -13,7 +13,7 @@ gce_brown = dict(\
     D3MRUN='ta2ta3',
     D3MINPUTDIR='/ravens_volume/test_data/DA_poverty_estimation',
     D3MPROBLEMPATH=('/ravens_volume/test_data/DA_poverty_estimation'
-                    '/TRAIN/problem_TRAIN/problemDoc.json'),
+                    '/TRAIN/problem_TRAIN/problemDoc.json',
     D3MLOCALDIR='/ravens_volume/test_output/local_dir',
     D3MSTATICDIR='/ravens_volume/test_output/static_dir',
     D3MCPU="1",

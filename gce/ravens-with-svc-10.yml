@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  # loadBalancerIP: 104.197.235.238  # 2ravens.org
+  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: tworavens
   ports:
