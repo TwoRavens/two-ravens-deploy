@@ -1,3 +1,0 @@
-# sshuttle
-sshuttle>=0.78.4
-pymongo==3.7
