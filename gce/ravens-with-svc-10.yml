@@ -225,8 +225,8 @@ spec:
     image: gcr.io/raven2-186120/mit-fl-ta2:july-2019
     resources:
       requests:
-        memory: 10Gi
-        cpu: 3
+        #memory: 10Gi
+        #cpu: 3
     ports:
       - containerPort: 45042
         protocol: TCP
