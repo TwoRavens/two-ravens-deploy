@@ -134,8 +134,8 @@ spec:
     command: ["d3m_start.sh"]
     resources:
       requests:
-        memory: 3Gi
-        cpu: 1
+        #memory: 3Gi
+        #cpu: 1
     ports:
       - containerPort: 8080
         name: http
