@@ -221,8 +221,8 @@ spec:
   # 6 of 6: TA2 main
   # -------------------------
   - name: ta2-main
-    image: gcr.io/raven2-186120/brown-ta2:july-2019
-    # image: gcr.io/raven2-186120/mit-fl-ta2:july-2019
+    # image: gcr.io/raven2-186120/brown-ta2:july-2019
+    image: gcr.io/raven2-186120/mit-fl-ta2:july-2019
     resources:
       requests:
         #memory: 10Gi

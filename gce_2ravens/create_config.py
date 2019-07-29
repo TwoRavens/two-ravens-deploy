@@ -10,6 +10,8 @@ from jinja2 import (Template,
                     PackageLoader,
                     select_autoescape)
 
+import config_specs
+
 CURRENT_DIR = dirname(abspath(__file__))
 BASE_DIR = dirname(CURRENT_DIR)
 TEMPLATE_DIR = join(CURRENT_DIR, 'templates')
@@ -25,7 +27,7 @@ class TemplateRenderHelper(object):
     def __init__(self, template_dict, template_name, **kwargs):
         """execute main method"""
         self.jinja_env = Environment(\
-            loader=PackageLoader('dm_test_files_2019'),
+            loader=PackageLoader('gce_2ravens'),
             autoescape=select_autoescape(['html', 'xml']))
 
         self.content_string = None
@@ -135,6 +137,17 @@ def run_brown_template_baseball():
                     rendered_filename='ta3-july-baseball.yml',
                     **dict(additional_info=extra_args))
 
+
+def run_from_specs(specs):
+    """Create a template from specs"""
+    assert isinstance(specs, dict), \
+        "specs is not a python dictionary"
+
+    fillin_for_test(template_name=specs['template_name'],
+                    rendered_filename=specs['rendered_filename'],
+                    **dict(additional_info=specs))
+
+
 def get_current_template():
     """Return latest template"""
     return 'dm_ravens_deploy_09_ta2_Brown.yaml'
@@ -142,4 +155,6 @@ def get_current_template():
 if __name__ == '__main__':
     # run_brown_template_debt_final()
     #run_brown_template_baseball()
-    run_brown_template_debt()
+    #run_brown_template_debt()
+
+    run_from_specs(config_specs.gce_specs_01)

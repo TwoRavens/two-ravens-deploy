@@ -1,8 +1,6 @@
 ---
-# Note: External port 8080! Instead of 80
+#   7/20/2019 config
 #   https://2ravens.org
-#
-#
 #
 apiVersion: v1
 kind: Service
@@ -37,15 +35,13 @@ spec:
   # 1 of 7: TA2
   # -------------------------
   - name: ta2-container
-    # Brown TA2
-    # image: registry.datadrivendiscovery.org/zshang/docker_images:ta2-new
-    image: registry.datadrivendiscovery.org/ta2-submissions/ta2-brown/summer2019:latest
-    imagePullPolicy: Always
-    #imagePullPolicy: IfNotPresent
+    # {{ ta2_image_comment }}
+    image: {{ ta2_image }}
+    imagePullPolicy: {{ pull_policy_ta2 }}
     resources:
       requests:
-        memory: 56Gi
-        cpu: 8
+        # memory: 56Gi
+        # cpu: 8
     ports:
       - containerPort: 45042
         protocol: TCP
@@ -311,16 +307,19 @@ spec:
     # Volumes for jump server data
     # ----------------------------
     - name: input-data
-      hostPath:
-        path: {{ eval_dataset_path }}
-        type: Directory
+      emptyDir: {}
+      #hostPath:
+        #path: {{ eval_dataset_path }}
+        #type: Directory
     - name: static-data
-      hostPath:
-        path: {{ static_dataset_path }}
-        type: Directory
+      emptyDir: {}
+      #hostPath:
+        #path: {{ static_dataset_path }}
+        #type: Directory
     - name: output-data
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
+      emptyDir: {}
+      #persistentVolumeClaim:
+        #claimName: eval-output-pv-claim
 ---
 # ---------------------------------------
 # TA3 configmap used by:
