@@ -375,9 +375,9 @@ metadata:
   name: ravens-config-d3m
 data:
   D3MRUN: "{{ D3MRUN }}"
-  D3MINPUTDIR: "/input"
-  D3MOUTPUTDIR: "/output"
-  D3MSTATICDIR: "/static"
+  D3MINPUTDIR: "{{ D3MINPUTDIR }}"
+  D3MOUTPUTDIR: "{{ D3MOUTPUTDIR }}"
+  D3MSTATICDIR: "{{ D3MSTATICDIR }}"
   D3MPROBLEMPATH: "{{ D3MPROBLEMPATH }}"
   D3MLOCALDIR: "{{ D3MLOCALDIR }}"
   # Used by TA2
