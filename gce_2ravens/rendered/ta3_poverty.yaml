@@ -178,6 +178,10 @@ spec:
           secretKeyRef:
             name: tworavens-web-secrets
             key: MONGO_CONNECTION_STRING
+      - name: D3MCPU
+        value: "1"
+      - name: D3MRAM
+        value: "1Gi"
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -380,8 +384,8 @@ data:
   D3MPROBLEMPATH: "/ravens_volume/test_data/DA_poverty_estimation/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
-  D3MCPU: ""
-  D3MRAM: ""
+  #D3MCPU: "1"
+  #D3MRAM: "512Mi"
   #
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"

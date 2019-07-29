@@ -178,6 +178,10 @@ spec:
           secretKeyRef:
             name: tworavens-web-secrets
             key: MONGO_CONNECTION_STRING
+      - name: D3MCPU
+        value: "1"
+      - name: D3MRAM
+        value: "1Gi"
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -380,8 +384,8 @@ data:
   D3MPROBLEMPATH: "{{ D3MPROBLEMPATH }}"
   D3MLOCALDIR: "{{ D3MLOCALDIR }}"
   # Used by TA2
-  D3MCPU: ""
-  D3MRAM: ""
+  #D3MCPU: "{{ D3MCPU }}"
+  #D3MRAM: "{{ D3MRAM }}"
   #
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"
