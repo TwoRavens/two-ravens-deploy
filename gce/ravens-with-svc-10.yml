@@ -3,10 +3,10 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: raven-web-service
   labels:
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
-  name: raven-web-service
 spec:
   type: LoadBalancer
   loadBalancerIP: 104.197.235.238  # 2ravens.org
@@ -221,11 +221,12 @@ spec:
   # 6 of 6: TA2 main
   # -------------------------
   - name: ta2-main
-    image: gcr.io/raven2-186120/brown-ta2:july-2019
+    # image: gcr.io/raven2-186120/brown-ta2:july-2019
+    image: gcr.io/raven2-186120/mit-fl-ta2:july-2019
     resources:
       requests:
-        # memory: 200Mi
-        # cpu: "0.2"
+        memory: 10Gi
+        cpu: 3
     ports:
       - containerPort: 45042
         protocol: TCP

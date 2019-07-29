@@ -1,0 +1,226 @@
+---
+# --------------------------------
+# CI system.yml template - v.001
+# --------------------------------
+# ---------------------------------------
+# Configmap used by:
+#   main (TA3), celery-worker, rook-service
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-config-d3m
+data:
+  # D3MPROBLEMPATH set to get initial CI working
+  #   - assumes /input is a top level of https://gitlab.datadrivendiscovery.org/d3m/datasets
+  D3MPROBLEMPATH: "/input/seed_datasets_data_augmentation/DA_college_debt/TRAIN/problem_TRAIN/problemDoc.json"
+---
+# ---------------------------------------
+# Configmap used by:
+#   main (TA3), celery-worker, rook-service
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-config-ta3
+data:
+  #
+  # Reference to the gRPC server using the pod name and TA2 port
+  #
+  TA2_TEST_SERVER_URL: "ta2:45042"
+  #TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  #
+  # TA3 specific
+  #
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
+  LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
+  TA2_STATIC_TEST_MODE: "False"
+  DEBUG: "False"
+  #
+  # Url to TA3 R/rook web service
+  R_DEV_SERVER_BASE: "http://localhost:8000/custom/"
+  #
+  # Redis
+  REDIS_HOST: localhost
+  #
+  # valid values: "ws://" and  "wss://"
+  WEBSOCKET_PREFIX: "ws://"
+  #
+  # Mongo db name
+  TWORAVENS_MONGO_DB_NAME: "tworavens_mongo"
+  # Not a real key, only for CI
+  SECRET_KEY: f!@0^(dl94d8#c4t#!xjk412345w2vzo)u@v6s4re&+gqz3s2&
+  MONGO_CONNECTION_STRING: "mongodb://localhost:27017"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb
+  labels:
+    app: ta3
+spec:
+  restartPolicy: Never
+  volumes:
+    # ----------------------------
+    # TA3 specific volume
+    #  - may be shared with a TA2
+    # ----------------------------
+    - name: ravens-volume
+      emptyDir: {}
+  containers:
+  # -------------------------
+  # 1 of 6: Ravens nginx
+  # -------------------------
+  - name: ravens-nginx
+    image: tworavens/ravens-nginx:latest
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: "0.3"
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers (non-persistent)
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------------------
+  # -------------------------
+  # 2 of 6: main (web app)
+  # -------------------------
+  - name: main
+    image: tworavens/ravens-main:latest
+    imagePullPolicy: IfNotPresent
+    command: ["d3m_start.sh"]
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: "0.75"
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers (non-persistent)
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-config-d3m
+    envFrom:
+      - configMapRef:
+          name: ravens-config-ta3
+  # -------------------------
+  # 3 of 6: redis
+  # -------------------------
+  - name: redis
+    image: redis:4.0
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: "0.3"
+    ports:
+    - containerPort: 6379
+  # -------------------------
+  # 4 of 6: celery worker
+  # -------------------------
+  - name: celery-worker
+    image: tworavens/ravens-main:latest
+    # image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/ravens-deploy-2019/ravens-main:latest
+    imagePullPolicy: IfNotPresent
+    command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: "0.6"
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers (non-persistent)
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------------------
+    # ---------------------------------
+    # environment variables passed to container
+    # ---------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-config-ta3
+      - configMapRef:
+          name: ravens-config-d3m
+  # -------------------------
+  # 5 of 6: mongo
+  # -------------------------
+  - name: mongo-2ravens
+    image: mongo
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: "0.3"
+    ports:
+      - containerPort: 27017
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        # directory location on host
+        #path: /db_mongo
+        mountPath: /data/db
+        readOnly: false
+  # -------------------------
+  # 6 of 6: rook
+  # -------------------------
+  - name: rook-service
+    image: tworavens/ravens-r-service:latest
+    # image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/ravens-deploy-2019/ravens-r-service:latest
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: "0.75"
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers (non-persistent)
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------------------
+    ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-config-ta3
+    envFrom:
+      - configMapRef:
+          name: ravens-config-d3m
+    env:
+      # ----------------------------------
+      # Also set to "yes" in the Dockerfile
+      # ----------------------------------
+      - name: ROOK_USE_PRODUCTION_MODE
+        value: "yes"
+  #
+  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+  #
+  imagePullSecrets:
+  - name: regcred
