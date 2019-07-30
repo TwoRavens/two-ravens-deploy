@@ -70,7 +70,8 @@ def fillin_for_test(template_name, rendered_filename='ta3.yml', **kwargs):
     """
     global CURRENT_DIR
 
-    info_dict = dict(\
+    info_dict = dict()
+    not_used = dict(\
         tworavens_registry=('registry.datadrivendiscovery.org/ta3-submissions/'
                             'ta3-two-ravens/ravens-deploy-may2019'),
         # loadBalancerIP='10.108.29.7', # 2ravens.datadrivendiscovery.org
@@ -105,38 +106,6 @@ def fillin_for_test(template_name, rendered_filename='ta3.yml', **kwargs):
     #shutil.copyfile(rendered_filename, ta3_copy_filepath)
     #print('file copied: %s' % ta3_copy_filepath)
 
-def run_brown_template_debt():
-    """Run Brown template"""
-
-    registry_name = ('registry.datadrivendiscovery.org'
-                     '/ta3-submissions/ta3-two-ravens/summer2019')
-
-    xregistry_name = ('tworavens')
-
-    extra_args = dict(\
-            tworavens_registry=registry_name,
-            eval_dataset_path=('/datasets/opt/datasets/'
-                               'seed_datasets_data_augmentation/'
-                               'DA_poverty_estimation'),)
-
-    fillin_for_test(template_name=get_current_template(),
-                    rendered_filename='ta3.yaml',
-                    **dict(additional_info=extra_args))
-
-
-
-def run_brown_template_baseball():
-    """Run Brown template"""
-
-    extra_args = dict(\
-            tworavens_registry='tworavens',
-            eval_dataset_path=('/datasets/opt/datasets/seed_datasets_current/'
-                               '185_baseball'),)
-
-    fillin_for_test(template_name=get_current_template(),
-                    rendered_filename='ta3-july-baseball.yml',
-                    **dict(additional_info=extra_args))
-
 
 def run_from_specs(specs):
     """Create a template from specs"""
@@ -147,10 +116,6 @@ def run_from_specs(specs):
                     rendered_filename=specs['rendered_filename'],
                     **dict(additional_info=specs))
 
-
-def get_current_template():
-    """Return latest template"""
-    return 'dm_ravens_deploy_09_ta2_Brown.yaml'
 
 if __name__ == '__main__':
     # run_brown_template_debt_final()

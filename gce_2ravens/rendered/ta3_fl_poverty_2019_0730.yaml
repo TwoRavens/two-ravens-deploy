@@ -355,12 +355,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path: /datasets/opt/datasets/seed_datasets_current/185_baseball
+        #path: 
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path: /opt/static_files
+        #path: 
         #type: Directory
     - name: output-data
       emptyDir: {}
