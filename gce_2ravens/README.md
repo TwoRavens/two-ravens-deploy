@@ -60,14 +60,15 @@ This should be run locally, then update the repository on GCE via `git pull`
       - `template_name` - Name of K8s template file in the directory `gce_2ravens/templates`
       - `rendered_filename` - Name of rendered template, written to directory `gce_2ravens/rendered`
 
-4. Run the script to make the template
+3. Run the script to make a template
     ```
     cd two-ravens-deploy/gce_2ravens
-    python create_config.py
+    python create_config.py  # this will give the user a list of choices
 
     # Output messages should indicate that files have been created.
     ```
-4. Check-in the repository changes
+
+4. Check-in the repository changes, e.g. the new templates and/or new data in `config_specs.py`
 
 5. On the GCE console, pull in the relevant changes and use the new templates
 

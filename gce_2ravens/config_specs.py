@@ -1,11 +1,14 @@
 """
 Used by create_config for k8s template settings
+
+IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it.
+    examples: 'K8S_SPEC_001', 'taxi_spec_nyu', 'spec_poverty_mit'
 """
 
 """
 Poverty dataset with MIT TA2
 """
-K8S_SPECS_01 = dict(\
+spec_poverty_mit = dict(\
     #
     template_name='gce_ravens_deploy_012_poverty_w_probe.yaml',
     rendered_filename='ta3_fl_poverty_2019_0730.yaml',
@@ -43,7 +46,7 @@ K8S_SPECS_01 = dict(\
 """
 Poverty dataset with Brown TA2
 """
-K8S_SPECS_02 = dict(K8S_SPECS_01, **dict(\
+spec_poverty_brown = dict(spec_poverty_mit, **dict(\
                 rendered_filename='ta3_brown_poverty_2019_0730.yaml',
                 #
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',

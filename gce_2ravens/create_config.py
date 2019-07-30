@@ -1,6 +1,8 @@
 """
 Render k8s; adding D3M environment variables to config
 """
+from importlib import import_module
+
 import shutil
 import sys
 from os.path import abspath, dirname, join, normpath, isdir, isfile
@@ -58,8 +60,11 @@ class TemplateRenderHelper(object):
         # write file out
         #
         open(self.rendered_filename, 'w').write(content)
+        print('')
         print('-' * 40)
-        print('template written: %s' % self.rendered_filename)
+        print('Success!')
+        print('K8s Template written: %s' % self.rendered_filename)
+        print('')
         print('-' * 40)
 
 
@@ -71,21 +76,6 @@ def fillin_for_test(template_name, rendered_filename='ta3.yml', **kwargs):
     global CURRENT_DIR
 
     info_dict = dict()
-    not_used = dict(\
-        tworavens_registry=('registry.datadrivendiscovery.org/ta3-submissions/'
-                            'ta3-two-ravens/ravens-deploy-may2019'),
-        # loadBalancerIP='10.108.29.7', # 2ravens.datadrivendiscovery.org
-        loadBalancerIP='10.108.29.8', # 2ravens-summer.datadrivendiscovery.org
-        eval_dataset_path=('/datasets/opt/datasets/seed_datasets_current'
-                           '/185_baseball'),
-        #eval_dataset_path=('/datasets/opt/datasets/seed_datasets_data_augmentation'
-        #                   '/DA_college_debt # todo replace me'),
-        static_dataset_path=('/opt/static_files'),
-        D3MRUN='ta2ta3',
-        D3MINPUTDIR='/input',
-        D3MPROBLEMPATH='/input/TRAIN/problem_TRAIN/problemDoc.json',
-        D3MLOCALDIR='/output/D3MLOCALDIR',
-        )
 
     # Add or overwrite any arguments
     #
@@ -116,11 +106,54 @@ def run_from_specs(specs):
                     rendered_filename=specs['rendered_filename'],
                     **dict(additional_info=specs))
 
+def is_valid_choice(choice_str, num_choices):
+    """Check that the choice is a valid integer"""
+    if not isinstance(num_choices, int):
+        return False
+
+    if num_choices < 1:
+        return False
+
+    if not isinstance(choice_str, str):
+        return False
+
+    if not choice_str.isdigit():
+        return False
+
+    choice_int = int(choice_str)
+
+    if choice_int < 1 or choice_int > num_choices:
+        return False
+
+    return True
+
+def show_choices():
+    """List config specs"""
+    config_names = [x for x in dir(config_specs)
+                    if x.upper().find('SPEC') > -1 and \
+                        not x.startswith('_')]
+    config_names.sort()
+
+    print('-' * 40)
+    print('The following specs were found to create a K8s template:\n')
+
+    for idx, cn in enumerate(config_names):
+        user_msg = (f'({idx+1}) {cn}')
+        print(user_msg)
+
+    choose_msg = (f"\nPlease choose a number between 1 and"
+                  f" {len(config_names)}: ")
+
+    chosen_num = input(choose_msg)
+
+    while not is_valid_choice(chosen_num, len(config_names)):
+        print('\n>> Oops! Not a valid choice!')
+        chosen_num = input(choose_msg)
+
+    chosen_spec = config_names[int(chosen_num) - 1]
+
+    run_from_specs(eval(f'config_specs.{chosen_spec}'))
+
 
 if __name__ == '__main__':
-    # run_brown_template_debt_final()
-    #run_brown_template_baseball()
-    #run_brown_template_debt()
-
-    run_from_specs(config_specs.K8S_SPECS_01)
-    run_from_specs(config_specs.K8S_SPECS_02)
+    show_choices()
