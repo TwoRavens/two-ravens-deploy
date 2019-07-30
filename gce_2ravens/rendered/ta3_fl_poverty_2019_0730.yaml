@@ -1,5 +1,5 @@
 ---
-#   7/20/2019 config
+#   7/30/2019 config
 #   https://2ravens.org
 #
 apiVersion: v1
@@ -182,6 +182,26 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+    # ----------------------------------
+    # livenessProbe: restart if this is failing
+    # ----------------------------------
+    livenessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 60
+      timeoutSeconds: 10
+      periodSeconds: 10
+      failureThreshold: 3
+    # ----------------------------------
+    # readinessProbe: ready for traffic
+    # ----------------------------------
+    readinessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 60
+      periodSeconds: 20
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
