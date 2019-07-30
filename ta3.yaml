@@ -265,7 +265,7 @@ spec:
   # -------------------------
   - name: rook-service
     image: tworavens/ravens-r-service:july-2019
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     resources:
       requests:
         #memory: 2Gi

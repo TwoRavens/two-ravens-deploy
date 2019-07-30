@@ -16,7 +16,7 @@ gce_specs_01 = dict(\
     #
     pull_policy_ta2='IfNotPresent',
     pull_policy_ravens_main='Always',
-    pull_policy_rook='IfNotPresent',
+    pull_policy_rook='Always',
     #
     externalPort=80,
     #
