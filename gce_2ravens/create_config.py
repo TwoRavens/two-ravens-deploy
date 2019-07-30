@@ -157,4 +157,5 @@ if __name__ == '__main__':
     #run_brown_template_baseball()
     #run_brown_template_debt()
 
-    run_from_specs(config_specs.gce_specs_01)
+    run_from_specs(config_specs.K8S_SPECS_01)
+    run_from_specs(config_specs.K8S_SPECS_02)
