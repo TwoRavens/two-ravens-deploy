@@ -1,0 +1,19 @@
+      # ----------------------------------
+      # shared between containers (non-persistent)
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------------------
