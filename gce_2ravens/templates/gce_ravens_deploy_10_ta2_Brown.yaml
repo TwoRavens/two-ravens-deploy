@@ -390,6 +390,6 @@ data:
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"
   #
-  DATAMART_URL_NYU: "https://datamart.d3m.vida-nyu.org"
-  DATAMART_URL_ISI: "http://dsbox02.isi.edu:9000"
+  DATAMART_URL_NYU: "{{ DATAMART_URL_NYU }}"
+  DATAMART_URL_ISI: "{{ DATAMART_URL_ISI }}"
 ---

@@ -33,6 +33,6 @@ gce_specs_01 = dict(\
     D3MTIMEOUT="10",
     #
     #
-    DATAMART_URL_NYU="https://datamart.d3m.vida-nyu.org",
+    DATAMART_URL_NYU="https://auctus.vida-nyu.org",
     DATAMART_URL_ISI="http://dsbox02.isi.edu:9000"
     )
