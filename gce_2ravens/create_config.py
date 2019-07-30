@@ -101,9 +101,9 @@ def fillin_for_test(template_name, rendered_filename='ta3.yml', **kwargs):
                                template_name,
                                rendered_filename=rendered_filename)
 
-    ta3_copy_filepath = join(BASE_DIR, 'ta3.yaml')
-    shutil.copyfile(rendered_filename, ta3_copy_filepath)
-    print('file copied: %s' % ta3_copy_filepath)
+    #ta3_copy_filepath = join(BASE_DIR, 'ta3.yaml')
+    #shutil.copyfile(rendered_filename, ta3_copy_filepath)
+    #print('file copied: %s' % ta3_copy_filepath)
 
 def run_brown_template_debt():
     """Run Brown template"""
