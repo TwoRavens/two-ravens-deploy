@@ -388,7 +388,7 @@ data:
   TA2_TEST_SERVER_URL: "tworavensweb:45042"
   #
   # Url to TA3 R/rook web service
-  R_DEV_SERVER_BASE: "http://localhost:8000/custom/"
+  R_DEV_SERVER_BASE: "http://localhost:8000/"
   #
   # Redis
   REDIS_HOST: localhost
