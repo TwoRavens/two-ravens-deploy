@@ -30,11 +30,11 @@ kubectl describe pod/tworavensweb
 
 # Stop/delete the system
 #
-kubectl delete -f yaml.yml --grace-period=0 --force
+kubectl delete -f ta3.yaml --grace-period=0 --force
 
 # to shutdown gracefully, takes a minute or so
 #
-kubectl delete -f yaml.yml
+kubectl delete -f ta3.yaml
 
 ```
 
