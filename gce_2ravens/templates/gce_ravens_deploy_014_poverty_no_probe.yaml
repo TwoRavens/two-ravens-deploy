@@ -325,24 +325,24 @@ spec:
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
-    livenessProbe:
-      httpGet:
-        path: /rook-custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 30
-      timeoutSeconds: 60
-      periodSeconds: 10
-      failureThreshold: 5 # rook is messy, this is pre going to flask
+    #livenessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  timeoutSeconds: 60
+    #  periodSeconds: 10
+    #  failureThreshold: 5 # rook is messy, this is pre going to flask
     # ----------------------------------
     # readinessProbe: ready for traffic
     #   note: after container start, takes about 20 sec to init
     # ----------------------------------
-    readinessProbe:
-      httpGet:
-        path: /rook-custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 30
-      periodSeconds: 50
+    #readinessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  periodSeconds: 50
   # ----------------------------
   # Volumes
   # ----------------------------

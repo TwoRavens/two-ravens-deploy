@@ -37,7 +37,7 @@ spec:
   - name: ta2-container
     # Brown TA2
     image: gcr.io/raven2-186120/brown-ta2:summer-2019
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     resources:
       requests:
         # memory: 56Gi
@@ -325,24 +325,24 @@ spec:
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
-    livenessProbe:
-      httpGet:
-        path: /rook-custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 30
-      timeoutSeconds: 60
-      periodSeconds: 10
-      failureThreshold: 5 # rook is messy, this is pre going to flask
+    #livenessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  timeoutSeconds: 60
+    #  periodSeconds: 10
+    #  failureThreshold: 5 # rook is messy, this is pre going to flask
     # ----------------------------------
     # readinessProbe: ready for traffic
     #   note: after container start, takes about 20 sec to init
     # ----------------------------------
-    readinessProbe:
-      httpGet:
-        path: /rook-custom/healthcheckapp
-        port: 8000
-      initialDelaySeconds: 30
-      periodSeconds: 50
+    #readinessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  periodSeconds: 50
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -355,12 +355,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: output-data
       emptyDir: {}

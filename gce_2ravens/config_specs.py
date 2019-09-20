@@ -49,5 +49,6 @@ Poverty dataset with Brown TA2
 spec_poverty_brown = dict(spec_poverty_mit, **dict(\
                 rendered_filename='ta3_brown_poverty_2019_0920.yaml',
                 #
+                pull_policy_ta2='Always',
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
                 ta2_image_comment='Brown TA2',))
