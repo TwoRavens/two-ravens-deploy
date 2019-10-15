@@ -56,3 +56,20 @@ spec_poverty_brown = dict(spec_poverty_mit, **dict(\
                 pull_policy_ravens_main='IfNotPresent',
                 pull_policy_rook='IfNotPresent',
                 ))
+
+
+spec_autompg_brown = dict(spec_poverty_mit, **dict(\
+                rendered_filename='ta3_brown_autompg_2019_1015.yaml',
+                #
+                ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
+                ta2_image_comment='Brown TA2',
+                #
+                pull_policy_ta2='IfNotPresent',
+                pull_policy_ravens_main='IfNotPresent',
+                pull_policy_rook='IfNotPresent',
+                #
+                D3MINPUTDIR='/ravens_volume/test_data/196_autoMpg',
+                D3MPROBLEMPATH=('/ravens_volume/test_data/196_autoMpg'
+                                '/TRAIN/problem_TRAIN/problemDoc.json'),
+                D3MOUTPUTDIR='/ravens_volume/test_output/196_autoMpg',
+                ))
