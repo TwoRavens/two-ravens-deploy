@@ -10,8 +10,8 @@ Poverty dataset with MIT TA2
 """
 spec_poverty_mit = dict(\
     #
-    template_name='gce_ravens_deploy_014_poverty_no_probe.yaml',
-    rendered_filename='ta3_fl_poverty_2019_0802.yaml',
+    template_name='gce_ravens_deploy_015_poverty_no_probe.yaml',
+    rendered_filename='ta3_fl_poverty_2019_1015.yaml',
     #
     ta2_image='gcr.io/raven2-186120/mit-fl-ta2:july-2019',
     ta2_image_comment='FL TA2',
@@ -47,7 +47,7 @@ spec_poverty_mit = dict(\
 Poverty dataset with Brown TA2
 """
 spec_poverty_brown = dict(spec_poverty_mit, **dict(\
-                rendered_filename='ta3_brown_poverty_2019_0920.yaml',
+                rendered_filename='ta3_brown_poverty_2019_1015.yaml',
                 #
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
                 ta2_image_comment='Brown TA2',))

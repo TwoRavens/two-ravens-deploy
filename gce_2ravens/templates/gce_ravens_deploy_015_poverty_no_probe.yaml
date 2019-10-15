@@ -2,6 +2,9 @@
 #   7/30/2019 config
 #   https://2ravens.org
 #
+#   10/15/2019 - workon resources
+#     - init: remove resources
+#
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,13 +15,13 @@ metadata:
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  loadBalancerIP: {{ loadBalancerIP }}
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3
   ports:
     - name: http
-      port: 80
+      port: {{ externalPort }}
       protocol: TCP
       targetPort: 80
 ---
@@ -35,13 +38,13 @@ spec:
   # 1 of 7: TA2
   # -------------------------
   - name: ta2-container
-    # Brown TA2
-    image: gcr.io/raven2-186120/brown-ta2:summer-2019
-    imagePullPolicy: IfNotPresent
-    resources:
-      requests:
-        # memory: 56Gi
-        # cpu: 8
+    # {{ ta2_image_comment }}
+    image: {{ ta2_image }}
+    imagePullPolicy: {{ pull_policy_ta2 }}
+    #resources:
+    #  requests:
+    #    # memory: 56Gi
+    #    # cpu: 8
     ports:
       - containerPort: 45042
         protocol: TCP
@@ -81,12 +84,12 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:july-2019
+    image: {{ tworavens_registry }}/ravens-nginx:{{ tworavens_container_tag }}
     imagePullPolicy: IfNotPresent
-    resources:
-      requests:
-        #memory: 256Mi
-        #cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 256Mi
+    #    cpu: 1
     ports:
       - containerPort: 80
         name: http
@@ -118,24 +121,24 @@ spec:
   # -------------------------
   - name: redis
     image: redis:4.0
-    resources:
-      requests:
-        #memory: 500Mi
-        #cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 500Mi
+    #    cpu: 1
     ports:
     - containerPort: 6379
   # -------------------------
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:july-2019
+    image: {{ tworavens_registry }}/ravens-main:{{ tworavens_container_tag }}
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: Always
+    imagePullPolicy: {{ pull_policy_ravens_main }}
     command: ["d3m_start.sh"]
-    resources:
-      requests:
-        #memory: 3Gi
-        #cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 3Gi
+    #    cpu: 1
     ports:
       - containerPort: 8080
         name: http
@@ -207,13 +210,13 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:july-2019
-    imagePullPolicy: Always
+    image: {{ tworavens_registry }}/ravens-main:{{ tworavens_container_tag }}
+    imagePullPolicy: {{ pull_policy_ravens_main }}
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
-    resources:
-      requests:
-        #memory: 3Gi
-        #cpu: 1
+    #resources:
+    #  requests:
+    #    memory: 3Gi
+    #    cpu: 1
     ports:
       - containerPort: 8080
         name: http
@@ -285,12 +288,12 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:july-2019
-    imagePullPolicy: Always
-    resources:
-      requests:
-        #memory: 2Gi
-        #cpu: 1
+    image: {{ tworavens_registry }}/ravens-r-service:{{ tworavens_container_tag }}
+    imagePullPolicy: {{ pull_policy_rook }}
+    #resources:
+    #  requests:
+    #    memory: 2Gi
+    #    cpu: 1
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -355,12 +358,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path: {{ eval_dataset_path }}
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path: {{ static_dataset_path }}
         #type: Directory
     - name: output-data
       emptyDir: {}
@@ -419,19 +422,19 @@ kind: ConfigMap
 metadata:
   name: ravens-config-d3m
 data:
-  D3MRUN: "ta2ta3"
-  D3MINPUTDIR: "/ravens_volume/test_data/DA_poverty_estimation"
-  D3MOUTPUTDIR: "/ravens_volume/test_output/DA_poverty_estimation"
-  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/DA_poverty_estimation/TRAIN/problem_TRAIN/problemDoc.json"
-  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  D3MRUN: "{{ D3MRUN }}"
+  D3MINPUTDIR: "{{ D3MINPUTDIR }}"
+  D3MOUTPUTDIR: "{{ D3MOUTPUTDIR }}"
+  D3MSTATICDIR: "{{ D3MSTATICDIR }}"
+  D3MPROBLEMPATH: "{{ D3MPROBLEMPATH }}"
+  D3MLOCALDIR: "{{ D3MLOCALDIR }}"
   # Used by TA2
-  #D3MCPU: "1"
-  #D3MRAM: "512Mi"
+  #D3MCPU: "{{ D3MCPU }}"
+  #D3MRAM: "{{ D3MRAM }}"
   #
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"
   #
-  DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
-  DATAMART_URL_ISI: "http://dsbox02.isi.edu:9000"
+  DATAMART_URL_NYU: "{{ DATAMART_URL_NYU }}"
+  DATAMART_URL_ISI: "{{ DATAMART_URL_ISI }}"
 ---
