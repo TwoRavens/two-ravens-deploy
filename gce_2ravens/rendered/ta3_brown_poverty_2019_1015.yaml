@@ -133,7 +133,7 @@ spec:
   - name: ta3-main
     image: tworavens/ravens-main:july-2019
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command: ["d3m_start.sh"]
     #resources:
     #  requests:
@@ -211,7 +211,7 @@ spec:
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:july-2019
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
     #  requests:
@@ -289,7 +289,7 @@ spec:
   # -------------------------
   - name: rook-service
     image: tworavens/ravens-r-service:july-2019
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     #resources:
     #  requests:
     #    memory: 2Gi
