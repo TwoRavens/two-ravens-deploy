@@ -102,3 +102,4 @@ ENV/
 .DS_Store
 mtest/tkey.txt
 mtest/docker-compose.yml
+dev-notes/~$mem-check.xlsx

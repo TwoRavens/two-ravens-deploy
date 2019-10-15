@@ -7,7 +7,7 @@ These commands assume you have logged onto the GCE shell.
 ```
 # one time: download the deploy repo:
 #
-git clone https://github.com/TwoRavens/two-ravens-deploy.git  
+git clone https://github.com/TwoRavens/two-ravens-deploy.git
 
 # Go to the correct directory and update it
 #
@@ -46,7 +46,7 @@ This should be run locally, then update the repository on GCE via `git pull`
 
 1. First time, clone the repository and create a virtualenv
     ```
-    git clone https://github.com/TwoRavens/two-ravens-deploy.git  
+    git clone https://github.com/TwoRavens/two-ravens-deploy.git
     cd two-ravens-deploy
 
     # virtualenv
@@ -92,7 +92,7 @@ kubectl logs -f tworavensweb rook-service
 
 # The TA2!
 #
-kubectl logs -f tworavensweb ta2-main
+kubectl logs -f tworavensweb ta2-container
 
 
 # Redis + Mongo
@@ -111,13 +111,13 @@ kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
 
 # The TA3!
 #
-kubectl exec -it tworavensweb -c ta3-main /bin/bash
+
 kubectl exec -ti  tworavensweb -c celery-worker  /bin/bash
 kubectl exec -ti  tworavensweb -c rook-service /bin/bash
 
 # The TA2!
 #
-kubectl exec -ti  tworavensweb -c ta2-main /bin/bash
+kubectl exec -ti  tworavensweb -c ta2-container /bin/bash
 
 # Redis + Mongo
 #

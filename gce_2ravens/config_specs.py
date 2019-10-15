@@ -10,7 +10,7 @@ Poverty dataset with MIT TA2
 """
 spec_poverty_mit = dict(\
     #
-    template_name='gce_ravens_deploy_015_poverty_no_probe.yaml',
+    template_name='gce_ravens_deploy_015_poverty_mongo_container.yaml',
     rendered_filename='ta3_fl_poverty_2019_1015.yaml',
     #
     ta2_image='gcr.io/raven2-186120/mit-fl-ta2:july-2019',

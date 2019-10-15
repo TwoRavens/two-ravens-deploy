@@ -1,0 +1,33 @@
+# debug notes
+
+## gce notes
+
+- Error on GCE:
+
+```
+Warning  Evicted    87s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  The node was low on resource: memory.
+- Container celery-worker was using 193728Ki, which exceeds its request of 0.
+- Container ta3-main was using 190848Ki, which exceeds its request of 0.
+- Container rook-service was using 478656Ki, which exceeds its request of 0.
+- Container ta2-container was using 1522440Ki, which exceeds its request of 0.
+- Container redis was using 2628Ki, which exceeds its request of 0.
+- Container ravens-nginx was using 2824Ki, which exceeds its request of 0.
+
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://redis:Need to kill Pod
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://ravens-nginx:Need to kill Pod
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://ta3-main:Need to kill Pod
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://celery-worker:Need to kill Pod
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://rook-service:Need to kill Pod
+Normal   Killing    86s    kubelet, gke-cluster-1-default-pool-e584caed-jcqj  Killing container with id docker://ta2-container:Need to kill Pod
+```
+
+- memory used
+
+```
+193728
+190848
+478656
+1522440
+2628
+2824
+```
