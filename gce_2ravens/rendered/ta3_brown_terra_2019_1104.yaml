@@ -40,7 +40,7 @@ spec:
   - name: ta2-container
     # Brown TA2
     image: gcr.io/raven2-186120/brown-ta2:summer-2019
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     #resources:
     #  requests:
     #    # memory: 56Gi
@@ -133,7 +133,7 @@ spec:
   - name: ta3-main
     image: tworavens/ravens-main:july-2019
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command: ["d3m_start.sh"]
     #resources:
     #  requests:
@@ -213,7 +213,7 @@ spec:
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:july-2019
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
     #  requests:

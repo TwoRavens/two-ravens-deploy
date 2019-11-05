@@ -80,8 +80,8 @@ spec_terra_brown = dict(spec_base, **dict(\
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
                 ta2_image_comment='Brown TA2',
                 #
-                pull_policy_ta2='Always',
-                pull_policy_ravens_main='Always',
+                pull_policy_ta2='IfNotPresent',
+                pull_policy_ravens_main='IfNotPresent',
                 pull_policy_rook='IfNotPresent',
                 #
                 D3MINPUTDIR='/ravens_volume/test_data/LL1_terra_canopy_height_long_form_s4_70',
