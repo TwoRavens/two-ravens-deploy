@@ -98,7 +98,7 @@ spec_multi_brown = dict(spec_base, **dict(\
                 ta2_image_comment='Brown TA2',
                 #
                 pull_policy_ta2='IfNotPresent',
-                pull_policy_ravens_main='IfNotPresent',
+                pull_policy_ravens_main='Always',
                 pull_policy_rook='IfNotPresent',
                 #
                 D3MINPUTDIR='/ravens_volume/test_data',
