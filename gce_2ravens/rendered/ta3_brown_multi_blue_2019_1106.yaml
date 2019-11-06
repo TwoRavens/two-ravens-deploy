@@ -1,0 +1,445 @@
+---
+#   7/30/2019 config
+#   https://2ravens.org
+#
+#   10/15/2019 - workon resources
+#     - init: remove resources
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: tworavens-service
+  labels:
+    app: ta3
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 35.225.184.21  # 2ravens.org
+  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  selector:
+    app: ta3
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb
+  labels:
+    app: ta3
+spec:
+  restartPolicy: Never
+  containers:
+  # -------------------------
+  # 1 of 7: TA2
+  # -------------------------
+  - name: ta2-container
+    # Brown TA2
+    image: gcr.io/raven2-186120/brown-ta2:summer-2019
+    imagePullPolicy: IfNotPresent
+    #resources:
+    #  requests:
+    #    # memory: 56Gi
+    #    # cpu: 8
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-config-d3m
+    env:
+      - name: D3MRUN
+        value: "ta2"
+      #- name: AM_ENV
+      #  value: "DEBUG"
+  # -------------------------
+  # 2 of 7: Ravens nginx
+  # -------------------------
+  - name: ravens-nginx
+    image: tworavens/ravens-nginx:nov-test
+    imagePullPolicy: IfNotPresent
+    #resources:
+    #  requests:
+    #    memory: 256Mi
+    #    cpu: 1
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+  # -------------------------
+  # 3 of 7: redis
+  # -------------------------
+  - name: redis
+    image: redis:4.0
+    #resources:
+    #  requests:
+    #    memory: 500Mi
+    #    cpu: 1
+    ports:
+    - containerPort: 6379
+  # -------------------------
+  # 4 of 7: TA3 main (web app)
+  # -------------------------
+  - name: ta3-main
+    image: tworavens/ravens-main:nov-test
+    #image: tworavens/ravens-main:develop
+    imagePullPolicy: Always
+    command: ["d3m_start_multiuser.sh"]
+    #resources:
+    #  requests:
+    #    memory: 3Gi
+    #    cpu: 1
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-config-d3m
+    env:
+      - name: SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: SECRET_KEY
+      - name: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
+      - name: D3MCPU
+        value: "1"
+      - name: D3MRAM
+        value: "1Gi"
+    # ----------------------------------
+    # livenessProbe: restart if this is failing
+    # ----------------------------------
+    #livenessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 60
+    #  timeoutSeconds: 10
+    #  periodSeconds: 10
+    #  failureThreshold: 3
+    # ----------------------------------
+    # readinessProbe: ready for traffic
+    #   note: after container start, takes about 30 sec to init db, configs, etc
+    # ----------------------------------
+    #readinessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 50
+    #  periodSeconds: 20
+  # -------------------------
+  # 5 of 7: celery worker
+  # -------------------------
+  - name: celery-worker
+    image: tworavens/ravens-main:nov-test
+    imagePullPolicy: Always
+    command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
+    #resources:
+    #  requests:
+    #    memory: 3Gi
+    #    cpu: 1
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+    # ---------------------------------
+    # environment variables passed to container
+    # ---------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-config-d3m
+    env:
+      - name: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      - name: SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: SECRET_KEY
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
+  # -------------------------
+  # 6 of 7: mongo
+  # -------------------------
+  - name: mongo-2ravens
+    image: mongo
+    #resources:
+    #  requests:
+    #    memory: 1Gi
+    #    cpu: 1
+    ports:
+      - containerPort: 27017
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between TwoRavens and rook
+      # - has some test data if needed
+      # ----------------------------------
+      - name: ravens-volume
+        # directory location on host
+        #path: /db_mongo
+        mountPath: /data/db
+        readOnly: false
+  # -------------------------
+  # 7 of 7: rook
+  # -------------------------
+  - name: rook-service
+    image: tworavens/ravens-r-service:nov-test
+    imagePullPolicy: IfNotPresent
+    #resources:
+    #  requests:
+    #    memory: 2Gi
+    #    cpu: 1
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ----------------------------------
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+    ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-config-d3m
+    # ----------------------------------
+    # livenessProbe: restart if this is failing
+    # ----------------------------------
+    #livenessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  timeoutSeconds: 60
+    #  periodSeconds: 10
+    #  failureThreshold: 5 # rook is messy, this is pre going to flask
+    # ----------------------------------
+    # readinessProbe: ready for traffic
+    #   note: after container start, takes about 20 sec to init
+    # ----------------------------------
+    #readinessProbe:
+    #  httpGet:
+    #    path: /rook-custom/healthcheckapp
+    #    port: 8000
+    #  initialDelaySeconds: 30
+    #  periodSeconds: 50
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      emptyDir: {}
+    # ----------------------------
+    # Volumes for jump server data
+    # ----------------------------
+    - name: input-data
+      emptyDir: {}
+      #hostPath:
+        #path:
+        #type: Directory
+    - name: static-data
+      emptyDir: {}
+      #hostPath:
+        #path:
+        #type: Directory
+    - name: output-data
+      emptyDir: {}
+      #persistentVolumeClaim:
+        #claimName: eval-output-pv-claim
+---
+# ---------------------------------------
+# TA3 configmap used by:
+#   main (TA3), rook-service, celery-worker,
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-django-config
+data:
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
+  #
+  # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
+  TA2_STATIC_TEST_MODE: "False"
+  #
+  DEBUG: "False"
+  DISPLAY_DATAMART_UI: "False"
+  #
+  # Reference to the gRPC server using the pod name and TA2 port
+  TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  #
+  # Url to TA3 R/rook web service
+  R_DEV_SERVER_BASE: "http://localhost:8000/"
+  #
+  # Redis
+  REDIS_HOST: localhost
+  #
+  # valid values: "ws://" and  "wss://"
+  WEBSOCKET_PREFIX: "ws://"
+  #
+  # Mongo db name; Mongo creds are in secrets
+  TWORAVENS_MONGO_DB_NAME: "harvard"
+  #
+  # Only used by rook--and redundant as also set to "yes" in Dockerfile
+  ROOK_USE_PRODUCTION_MODE: "yes"
+  #
+  # ----------------------------------
+  # GCE SQL db
+  # ----------------------------------
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  DB_NAME: "d3m_gce_ravendb"
+  # username and password secrets attached to container
+---
+# ---------------------------------------
+# D3M Configmap used by:
+#   ravens-main (TA3), rook-service, celery-worker, TA2
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-config-d3m
+data:
+  D3MRUN: "ta2ta3"
+  D3MINPUTDIR: "/ravens_volume/test_data"
+  D3MOUTPUTDIR: "/ravens_volume/test_output"
+  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  # Used by TA2
+  #D3MCPU: "1"
+  #D3MRAM: "512Mi"
+  #
+  D3MTIMEOUT: "600"
+  D3MCONTEXT: "TESTING"
+  #
+  DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
+  DATAMART_URL_ISI: "http://dsbox02.isi.edu:9000"
+---
