@@ -386,6 +386,8 @@ data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
+  SESSION_COOKIE_NAME: "ravens_base"
+  CSRF_COOKIE_NAME: "ravens_base_csrf"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
