@@ -89,3 +89,20 @@ spec_terra_brown = dict(spec_base, **dict(\
                                 '/TRAIN/problem_TRAIN/problemDoc.json'),
                 D3MOUTPUTDIR='/ravens_volume/test_output/LL1_terra_canopy_height_long_form_s4_70',
                 ))
+
+spec_multi_brown = dict(spec_base, **dict(\
+                template_name='gce_ravens_deploy_017_multi_container.yaml',
+                rendered_filename='ta3_brown_multi_2019_1106.yaml',
+                #
+                ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
+                ta2_image_comment='Brown TA2',
+                #
+                pull_policy_ta2='IfNotPresent',
+                pull_policy_ravens_main='IfNotPresent',
+                pull_policy_rook='IfNotPresent',
+                #
+                D3MINPUTDIR='/ravens_volume/test_data',
+                D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
+                                '/TRAIN/problem_TRAIN/problemDoc.json'),
+                D3MOUTPUTDIR='/ravens_volume/test_output',
+                ))
