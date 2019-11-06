@@ -133,7 +133,7 @@ spec:
   - name: ta3-main
     image: tworavens/ravens-main:july-2019
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
     #resources:
     #  requests:
@@ -213,7 +213,7 @@ spec:
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:july-2019
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
     #  requests:
