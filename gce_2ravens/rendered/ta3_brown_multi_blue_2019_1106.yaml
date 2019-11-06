@@ -8,14 +8,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service
+  name: tworavens-service-blue
   labels:
     app: ta3
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 35.225.184.21  # 2ravens.org
+  loadBalancerIP: 104.197.235.238  # 2ravens.org
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb
+  name: tworavensweb-blue
   labels:
     app: ta3
 spec:
@@ -72,9 +72,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-blue
     env:
       - name: D3MRUN
         value: "ta2"
@@ -167,9 +167,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-blue
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -250,9 +250,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-blue
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -326,9 +326,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-blue
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -362,12 +362,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: output-data
       emptyDir: {}
@@ -381,7 +381,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config
+  name: ravens-django-config-blue
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
@@ -425,7 +425,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m
+  name: ravens-config-d3m-blue
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"

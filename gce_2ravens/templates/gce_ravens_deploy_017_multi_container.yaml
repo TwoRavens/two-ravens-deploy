@@ -8,7 +8,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service
+  name: tworavens-service{{ serviceNameSuffix}}
   labels:
     app: ta3
     kubernetes.io/cluster-service: 'true'
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb
+  name: tworavensweb{{ serviceNameSuffix}}
   labels:
     app: ta3
 spec:
@@ -72,9 +72,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: D3MRUN
         value: "ta2"
@@ -167,9 +167,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -250,9 +250,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -326,9 +326,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -381,7 +381,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config
+  name: ravens-django-config{{ serviceNameSuffix}}
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
@@ -425,7 +425,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m
+  name: ravens-config-d3m{{ serviceNameSuffix}}
 data:
   D3MRUN: "{{ D3MRUN }}"
   D3MINPUTDIR: "{{ D3MINPUTDIR }}"

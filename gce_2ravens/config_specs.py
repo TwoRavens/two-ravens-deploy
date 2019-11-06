@@ -46,7 +46,7 @@ spec_base = dict(\
 """
 Poverty dataset with Brown TA2
 """
-spec_poverty_brown = dict(spec_base, **dict(\
+xspec_poverty_brown = dict(spec_base, **dict(\
                 rendered_filename='ta3_brown_poverty_2019_1015.yaml',
                 #
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
@@ -74,7 +74,7 @@ spec_autompg_brown = dict(spec_base, **dict(\
                 D3MOUTPUTDIR='/ravens_volume/test_output/196_autoMpg',
                 ))
 
-spec_terra_brown = dict(spec_base, **dict(\
+xspec_terra_brown = dict(spec_base, **dict(\
                 rendered_filename='ta3_brown_terra_2019_1104.yaml',
                 #
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
@@ -107,4 +107,11 @@ spec_multi_brown = dict(spec_base, **dict(\
                 D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
                                 '/TRAIN/problem_TRAIN/problemDoc.json'),
                 D3MOUTPUTDIR='/ravens_volume/test_output',
+                #
+                #
+                serviceNameSuffix='',
                 ))
+
+spec_multi_brown_blue = dict(spec_multi_brown, **dict(\
+                rendered_filename='ta3_brown_multi_blue_2019_1106.yaml',
+                serviceNameSuffix='-blue',))

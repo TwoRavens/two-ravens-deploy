@@ -131,6 +131,7 @@ def show_choices():
     """List config specs"""
     config_names = [x for x in dir(config_specs)
                     if x.upper().find('SPEC') > -1 and \
+                       x.upper().find('XSPEC') == -1 and \
                         not x.startswith('_')]
     config_names.sort()
 
