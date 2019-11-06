@@ -84,7 +84,7 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:july-2019
+    image: tworavens/ravens-nginx:nov-test
     imagePullPolicy: IfNotPresent
     #resources:
     #  requests:
@@ -131,7 +131,7 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:july-2019
+    image: tworavens/ravens-main:nov-test
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -212,7 +212,7 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:july-2019
+    image: tworavens/ravens-main:nov-test
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
@@ -292,7 +292,7 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:july-2019
+    image: tworavens/ravens-r-service:nov-test
     imagePullPolicy: IfNotPresent
     #resources:
     #  requests:
@@ -362,12 +362,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path:
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path:
         #type: Directory
     - name: output-data
       emptyDir: {}

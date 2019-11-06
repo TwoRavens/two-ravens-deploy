@@ -97,6 +97,8 @@ spec_multi_brown = dict(spec_base, **dict(\
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
                 ta2_image_comment='Brown TA2',
                 #
+                tworavens_container_tag='nov-test',
+                #
                 pull_policy_ta2='IfNotPresent',
                 pull_policy_ravens_main='Always',
                 pull_policy_rook='IfNotPresent',
