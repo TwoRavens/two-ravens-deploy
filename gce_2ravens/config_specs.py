@@ -114,4 +114,5 @@ spec_multi_brown = dict(spec_base, **dict(\
 
 spec_multi_brown_blue = dict(spec_multi_brown, **dict(\
                 rendered_filename='ta3_brown_multi_blue_2019_1106.yaml',
+                loadBalancerIP='35.225.184.21',
                 serviceNameSuffix='-blue',))
