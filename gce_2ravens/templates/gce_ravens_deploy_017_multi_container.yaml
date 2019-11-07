@@ -94,6 +94,9 @@ spec:
       - containerPort: 80
         name: http
         protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config{{ serviceNameSuffix}}
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -386,6 +389,7 @@ data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
+  RAVENS_SERVER_NAME: "{{ RAVENS_SERVER_NAME}}"
   SESSION_COOKIE_NAME: "{{ SESSION_COOKIE_NAME}}"
   CSRF_COOKIE_NAME: "{{ CSRF_COOKIE_NAME}}"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored

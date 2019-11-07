@@ -13,6 +13,9 @@ spec_base = dict(\
     template_name='gce_ravens_deploy_016_terra_mongo_container.yaml',
     #rendered_filename='ta3_fl_poverty_2019_1015.yaml',
     #
+    RAVENS_SERVER_NAME='2ravens.org',
+    SESSION_COOKIE_NAME=f'ravens_base',
+    CSRF_COOKIE_NAME=f'ravens_base_csrf',
     #ta2_image='gcr.io/raven2-186120/mit-fl-ta2:july-2019',
     #ta2_image_comment='FL TA2',
     #
@@ -103,9 +106,6 @@ spec_multi_brown = dict(spec_base, **dict(\
                 pull_policy_ravens_main='Always',
                 pull_policy_rook='IfNotPresent',
                 #
-                SESSION_COOKIE_NAME=f'ravens_base',
-                CSRF_COOKIE_NAME=f'ravens_base_csrf',
-                #
                 D3MINPUTDIR='/ravens_volume/test_data',
                 D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
                                 '/TRAIN/problem_TRAIN/problemDoc.json'),
@@ -120,7 +120,10 @@ BLUE_NAME = 'blue'
 spec_multi_brown_blue = dict(spec_multi_brown, **dict(\
                     rendered_filename='ta3_brown_multi_blue_2019_1106.yaml',
                     loadBalancerIP='35.225.184.21',
+                    #
+                    RAVENS_SERVER_NAME=f'{BLUE_NAME}.2ravens.org',
                     SESSION_COOKIE_NAME=f'ravens_{BLUE_NAME}',
                     CSRF_COOKIE_NAME=f'ravens_{BLUE_NAME}_csrf',
+                    #
                     installName=f'{BLUE_NAME}',
                     serviceNameSuffix=f'-{BLUE_NAME}',))

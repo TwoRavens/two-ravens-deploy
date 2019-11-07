@@ -94,6 +94,9 @@ spec:
       - containerPort: 80
         name: http
         protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-blue
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -362,12 +365,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path:
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path:
         #type: Directory
     - name: output-data
       emptyDir: {}
@@ -386,6 +389,7 @@ data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
+  RAVENS_SERVER_NAME: "blue.2ravens.org"
   SESSION_COOKIE_NAME: "ravens_blue"
   CSRF_COOKIE_NAME: "ravens_blue_csrf"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
