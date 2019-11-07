@@ -10,7 +10,7 @@ kind: Service
 metadata:
   name: tworavens-service-blue
   labels:
-    app: ta3
+    app: ta3-blue
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
@@ -18,7 +18,7 @@ spec:
   loadBalancerIP: 35.225.184.21
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3
+    app: ta3-blue
   ports:
     - name: http
       port: 80
@@ -30,7 +30,7 @@ kind: Pod
 metadata:
   name: tworavensweb-blue
   labels:
-    app: ta3
+    app: ta3-blue
 spec:
   restartPolicy: Never
   containers:
@@ -365,12 +365,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path:
+        #path: 
         #type: Directory
     - name: output-data
       emptyDir: {}
