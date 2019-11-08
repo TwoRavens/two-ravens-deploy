@@ -92,6 +92,7 @@ def fillin_for_test(template_name, rendered_filename='ta3.yml', **kwargs):
                                template_name,
                                rendered_filename=rendered_filename)
 
+    return rendered_filename
     #ta3_copy_filepath = join(BASE_DIR, 'ta3.yaml')
     #shutil.copyfile(rendered_filename, ta3_copy_filepath)
     #print('file copied: %s' % ta3_copy_filepath)
@@ -102,9 +103,13 @@ def run_from_specs(specs):
     assert isinstance(specs, dict), \
         "specs is not a python dictionary"
 
-    fillin_for_test(template_name=specs['template_name'],
-                    rendered_filename=specs['rendered_filename'],
-                    **dict(additional_info=specs))
+    new_k8s_file = fillin_for_test(\
+                        template_name=specs['template_name'],
+                        rendered_filename=specs['rendered_filename'],
+                        **dict(additional_info=specs))
+
+    return new_k8s_file
+
 
 def is_valid_choice(choice_str, num_choices):
     """Check that the choice is a valid integer"""
