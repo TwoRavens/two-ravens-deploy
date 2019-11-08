@@ -127,6 +127,7 @@ def is_valid_choice(choice_str, num_choices):
 
     return True
 
+
 def show_choices():
     """List config specs"""
     config_names = [x for x in dir(config_specs)
