@@ -26,6 +26,7 @@ spec_base = dict(\
     pull_policy_ta2='IfNotPresent',
     pull_policy_ravens_main='Always',
     pull_policy_rook='Always',
+    pull_policy_nginx='Always',
     #
     externalPort=80,
     #

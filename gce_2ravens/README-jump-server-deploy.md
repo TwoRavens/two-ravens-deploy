@@ -60,7 +60,7 @@ kubectl logs -f tworavensweb -c mongo-2ravens
 kubectl logs -f tworavensweb -c redis
 
 kubectl logs -f tworavensweb -c ta3-main
-kubectl logs -f tworavensweb -c ta2-main
+kubectl logs -f tworavensweb -c ta2-container
 kubectl logs -f tworavensweb -c celery-worker
 kubectl logs -f tworavensweb -c rook-service
 
@@ -68,6 +68,6 @@ kubectl logs -f tworavensweb -c rook-service
 kubectl exec -ti tworavensweb -c ravens-nginx /bin/bash
 kubectl exec -ti tworavensweb -c ta3-main /bin/bash
 kubectl exec -ti tworavensweb -c celery-worker /bin/bash
-kubectl exec -ti tworavensweb -c ta2-main /bin/bash
+kubectl exec -ti tworavensweb -c ta2-container /bin/bash
 kubectl exec -ti tworavensweb -c rook-service /bin/bash
 ```

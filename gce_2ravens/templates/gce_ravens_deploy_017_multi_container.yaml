@@ -85,7 +85,7 @@ spec:
   # -------------------------
   - name: ravens-nginx
     image: {{ tworavens_registry }}/ravens-nginx:{{ tworavens_container_tag }}
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: {{ pull_policy_nginx }}
     #resources:
     #  requests:
     #    memory: 256Mi
