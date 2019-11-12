@@ -40,9 +40,11 @@ def create_configs():
     cnt = 0
     for dcolor, ip_address in COLOR_DOMAIN_PAIRS:
         cnt += 1
+        #if cnt < 11: continue
+        if dcolor == 'terra': continue
         new_k8s_file = create_single_test_config(dcolor, ip_address, cnt=cnt)
         file_list.append(new_k8s_file)
-        #if cnt == 5:
+        #if cnt == 10:
         #    break
 
     big_file_contents = []
