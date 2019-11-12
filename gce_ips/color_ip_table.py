@@ -56,6 +56,7 @@ def check_domains():
     """Check if the domain is set to the expected IP"""
     cnt = 0
     for dcolor, ip_address in COLOR_DOMAIN_PAIRS:
+        #print(f'{dcolor}.2ravens.org')
         cnt += 1
         is_domain_set(dcolor, ip_address, cnt=cnt)
 

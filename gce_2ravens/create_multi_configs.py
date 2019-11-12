@@ -52,7 +52,7 @@ def create_configs():
         contents = open(fname, 'r').read()
         big_file_contents.append(contents)
     all_contents = '\n'.join(big_file_contents)
-    final_fname = join(CURRENT_DIR, 'rendered', 'TEST_ALL_INSTANCES.yaml')
+    final_fname = join(CURRENT_DIR, 'rendered', 'TEST_20_ALL_INSTANCES.yaml')
     open(final_fname, 'w').write(all_contents)
     print('final_file', final_fname)
 
