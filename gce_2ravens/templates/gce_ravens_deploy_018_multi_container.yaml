@@ -8,29 +8,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-magneta
+  name: tworavens-service{{ serviceNameSuffix}}
   labels:
-    app: ta3-magneta
+    app: ta3{{ serviceNameSuffix}}
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 35.232.230.212
+  loadBalancerIP: {{ loadBalancerIP }}
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-magneta
+    app: ta3{{ serviceNameSuffix}}
   ports:
     - name: http
-      port: 80
+      port: {{ externalPort }}
       protocol: TCP
       targetPort: 80
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-magneta
+  name: tworavensweb{{ serviceNameSuffix}}
   labels:
-    app: ta3-magneta
+    app: ta3{{ serviceNameSuffix}}
 spec:
   restartPolicy: Never
   containers:
@@ -38,9 +38,9 @@ spec:
   # 1 of 7: TA2
   # -------------------------
   - name: ta2-container
-    # Brown TA2
-    image: gcr.io/raven2-186120/brown-ta2:summer-2019
-    imagePullPolicy: IfNotPresent
+    # {{ ta2_image_comment }}
+    image: {{ ta2_image }}
+    imagePullPolicy: {{ pull_policy_ta2 }}
     #resources:
     #  requests:
     #    # memory: 56Gi
@@ -72,9 +72,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magneta
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m-magneta
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: D3MRUN
         value: "ta2"
@@ -84,8 +84,8 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:nov-test
-    imagePullPolicy: Always
+    image: {{ tworavens_registry }}/ravens-nginx:{{ tworavens_container_tag }}
+    imagePullPolicy: {{ pull_policy_nginx }}
     #resources:
     #  requests:
     #    memory: 256Mi
@@ -96,7 +96,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magneta
+          name: ravens-django-config{{ serviceNameSuffix}}
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -134,9 +134,9 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:nov-test
+    image: {{ tworavens_registry }}/ravens-main:{{ tworavens_container_tag }}
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: Always
+    imagePullPolicy: {{ pull_policy_ravens_main }}
     command: ["d3m_start_multiuser.sh"]
     #resources:
     #  requests:
@@ -170,9 +170,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magneta
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m-magneta
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -220,8 +220,8 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:nov-test
-    imagePullPolicy: Always
+    image: {{ tworavens_registry }}/ravens-main:{{ tworavens_container_tag }}
+    imagePullPolicy: {{ pull_policy_ravens_main }}
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
     #  requests:
@@ -258,9 +258,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magneta
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m-magneta
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -300,8 +300,8 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:nov-test
-    imagePullPolicy: IfNotPresent
+    image: {{ tworavens_registry }}/ravens-r-service:{{ tworavens_container_tag }}
+    imagePullPolicy: {{ pull_policy_rook }}
     #resources:
     #  requests:
     #    memory: 2Gi
@@ -334,9 +334,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magneta
+          name: ravens-django-config{{ serviceNameSuffix}}
       - configMapRef:
-          name: ravens-config-d3m-magneta
+          name: ravens-config-d3m{{ serviceNameSuffix}}
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -370,12 +370,12 @@ spec:
     - name: input-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path: {{ eval_dataset_path }}
         #type: Directory
     - name: static-data
       emptyDir: {}
       #hostPath:
-        #path: 
+        #path: {{ static_dataset_path }}
         #type: Directory
     - name: output-data
       emptyDir: {}
@@ -389,14 +389,14 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-magneta
+  name: ravens-django-config{{ serviceNameSuffix}}
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "magneta.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_magneta"
-  CSRF_COOKIE_NAME: "ravens_magneta_csrf"
+  RAVENS_SERVER_NAME: "{{ RAVENS_SERVER_NAME}}"
+  SESSION_COOKIE_NAME: "{{ SESSION_COOKIE_NAME}}"
+  CSRF_COOKIE_NAME: "{{ CSRF_COOKIE_NAME}}"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -404,7 +404,7 @@ data:
   DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_TEST_SERVER_URL: "tworavensweb-magneta:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -436,21 +436,21 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-magneta
+  name: ravens-config-d3m{{ serviceNameSuffix}}
 data:
-  D3MRUN: "ta2ta3"
-  D3MINPUTDIR: "/ravens_volume/test_data"
-  D3MOUTPUTDIR: "/ravens_volume/test_output"
-  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
-  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  D3MRUN: "{{ D3MRUN }}"
+  D3MINPUTDIR: "{{ D3MINPUTDIR }}"
+  D3MOUTPUTDIR: "{{ D3MOUTPUTDIR }}"
+  D3MSTATICDIR: "{{ D3MSTATICDIR }}"
+  D3MPROBLEMPATH: "{{ D3MPROBLEMPATH }}"
+  D3MLOCALDIR: "{{ D3MLOCALDIR }}"
   # Used by TA2
-  #D3MCPU: "1"
-  #D3MRAM: "512Mi"
+  #D3MCPU: "{{ D3MCPU }}"
+  #D3MRAM: "{{ D3MRAM }}"
   #
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"
   #
-  DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
-  DATAMART_URL_ISI: "http://dsbox02.isi.edu:9000"
+  DATAMART_URL_NYU: "{{ DATAMART_URL_NYU }}"
+  DATAMART_URL_ISI: "{{ DATAMART_URL_ISI }}"
 ---

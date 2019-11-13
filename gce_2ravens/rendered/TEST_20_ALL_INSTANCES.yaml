@@ -190,6 +190,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -641,6 +646,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -1092,6 +1102,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -1543,6 +1558,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -1994,6 +2014,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -2445,6 +2470,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -2896,6 +2926,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -3347,6 +3382,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -3798,6 +3838,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -4249,6 +4294,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -4700,6 +4750,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -5151,6 +5206,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -5602,6 +5662,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -6053,6 +6118,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -6504,6 +6574,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -6955,6 +7030,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -7406,6 +7486,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -7857,6 +7942,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -8308,6 +8398,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -8759,6 +8854,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------

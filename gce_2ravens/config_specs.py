@@ -95,7 +95,7 @@ xspec_terra_brown = dict(spec_base, **dict(\
                 ))
 
 spec_multi_brown = dict(spec_base, **dict(\
-                template_name='gce_ravens_deploy_017_multi_container.yaml',
+                template_name='gce_ravens_deploy_018_multi_container.yaml',
                 rendered_filename='ta3_brown_multi_2019_1106.yaml',
                 #
                 ta2_image='gcr.io/raven2-186120/brown-ta2:summer-2019',
@@ -115,16 +115,3 @@ spec_multi_brown = dict(spec_base, **dict(\
                 #
                 serviceNameSuffix='',
                 ))
-
-
-BLUE_NAME = 'blue'
-spec_multi_brown_blue = dict(spec_multi_brown, **dict(\
-                    rendered_filename='ta3_brown_multi_blue_2019_1106.yaml',
-                    loadBalancerIP='35.225.184.21',
-                    #
-                    RAVENS_SERVER_NAME=f'{BLUE_NAME}.2ravens.org',
-                    SESSION_COOKIE_NAME=f'ravens_{BLUE_NAME}',
-                    CSRF_COOKIE_NAME=f'ravens_{BLUE_NAME}_csrf',
-                    #
-                    installName=f'{BLUE_NAME}',
-                    serviceNameSuffix=f'-{BLUE_NAME}',))
