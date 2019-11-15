@@ -8,17 +8,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-brown
+  name: tworavens-service-pink
   labels:
-    app: ta3-brown
+    app: ta3-pink
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 35.188.19.147
+  loadBalancerIP: 35.224.169.201
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-brown
+    app: ta3-pink
   ports:
     - name: http
       port: 80
@@ -28,9 +28,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-brown
+  name: tworavensweb-pink
   labels:
-    app: ta3-brown
+    app: ta3-pink
 spec:
   restartPolicy: Never
   containers:
@@ -72,9 +72,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-brown
+          name: ravens-django-config-pink
       - configMapRef:
-          name: ravens-config-d3m-brown
+          name: ravens-config-d3m-pink
     env:
       - name: D3MRUN
         value: "ta2"
@@ -96,7 +96,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-brown
+          name: ravens-django-config-pink
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -170,9 +170,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-brown
+          name: ravens-django-config-pink
       - configMapRef:
-          name: ravens-config-d3m-brown
+          name: ravens-config-d3m-pink
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -258,9 +258,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-brown
+          name: ravens-django-config-pink
       - configMapRef:
-          name: ravens-config-d3m-brown
+          name: ravens-config-d3m-pink
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -334,9 +334,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-brown
+          name: ravens-django-config-pink
       - configMapRef:
-          name: ravens-config-d3m-brown
+          name: ravens-config-d3m-pink
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -389,14 +389,14 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-brown
+  name: ravens-django-config-pink
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "brown.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_brown"
-  CSRF_COOKIE_NAME: "ravens_brown_csrf"
+  RAVENS_SERVER_NAME: "pink.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_pink_cookie"
+  CSRF_COOKIE_NAME: "ravens_pink_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -404,7 +404,7 @@ data:
   DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_TEST_SERVER_URL: "tworavensweb-brown:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb-pink:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -436,7 +436,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-brown
+  name: ravens-config-d3m-pink
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"

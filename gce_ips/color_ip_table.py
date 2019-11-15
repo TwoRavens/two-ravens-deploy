@@ -26,6 +26,7 @@ COLOR_DOMAIN_PAIRS = [\
             #
             ('terra', '35.222.64.114'),
             #
+            ('', '104.197.235.238'), # 2ravens.org
             ]
 
 def is_domain_set(dcolor, ip_address, cnt=''):

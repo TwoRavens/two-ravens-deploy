@@ -190,6 +190,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -390,8 +395,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "apricot.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_apricot"
-  CSRF_COOKIE_NAME: "ravens_apricot_csrf"
+  SESSION_COOKIE_NAME: "ravens_apricot_cookie"
+  CSRF_COOKIE_NAME: "ravens_apricot_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -641,6 +646,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -841,8 +851,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "black.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_black"
-  CSRF_COOKIE_NAME: "ravens_black_csrf"
+  SESSION_COOKIE_NAME: "ravens_black_cookie"
+  CSRF_COOKIE_NAME: "ravens_black_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -1092,6 +1102,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -1292,8 +1307,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "blue.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_blue"
-  CSRF_COOKIE_NAME: "ravens_blue_csrf"
+  SESSION_COOKIE_NAME: "ravens_blue_cookie"
+  CSRF_COOKIE_NAME: "ravens_blue_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -1543,6 +1558,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -1743,8 +1763,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "brown.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_brown"
-  CSRF_COOKIE_NAME: "ravens_brown_csrf"
+  SESSION_COOKIE_NAME: "ravens_brown_cookie"
+  CSRF_COOKIE_NAME: "ravens_brown_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -1994,6 +2014,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -2194,8 +2219,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "cyan.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_cyan"
-  CSRF_COOKIE_NAME: "ravens_cyan_csrf"
+  SESSION_COOKIE_NAME: "ravens_cyan_cookie"
+  CSRF_COOKIE_NAME: "ravens_cyan_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -2445,6 +2470,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -2645,8 +2675,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "green.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_green"
-  CSRF_COOKIE_NAME: "ravens_green_csrf"
+  SESSION_COOKIE_NAME: "ravens_green_cookie"
+  CSRF_COOKIE_NAME: "ravens_green_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -2896,6 +2926,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -3096,8 +3131,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "grey.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_grey"
-  CSRF_COOKIE_NAME: "ravens_grey_csrf"
+  SESSION_COOKIE_NAME: "ravens_grey_cookie"
+  CSRF_COOKIE_NAME: "ravens_grey_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -3347,6 +3382,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -3547,8 +3587,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "lavender.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_lavender"
-  CSRF_COOKIE_NAME: "ravens_lavender_csrf"
+  SESSION_COOKIE_NAME: "ravens_lavender_cookie"
+  CSRF_COOKIE_NAME: "ravens_lavender_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -3798,6 +3838,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -3998,8 +4043,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "lime.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_lime"
-  CSRF_COOKIE_NAME: "ravens_lime_csrf"
+  SESSION_COOKIE_NAME: "ravens_lime_cookie"
+  CSRF_COOKIE_NAME: "ravens_lime_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -4249,6 +4294,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -4449,8 +4499,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "magneta.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_magneta"
-  CSRF_COOKIE_NAME: "ravens_magneta_csrf"
+  SESSION_COOKIE_NAME: "ravens_magneta_cookie"
+  CSRF_COOKIE_NAME: "ravens_magneta_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -4700,6 +4750,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -4900,8 +4955,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "maroon.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_maroon"
-  CSRF_COOKIE_NAME: "ravens_maroon_csrf"
+  SESSION_COOKIE_NAME: "ravens_maroon_cookie"
+  CSRF_COOKIE_NAME: "ravens_maroon_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -5151,6 +5206,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -5351,8 +5411,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "mint.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_mint"
-  CSRF_COOKIE_NAME: "ravens_mint_csrf"
+  SESSION_COOKIE_NAME: "ravens_mint_cookie"
+  CSRF_COOKIE_NAME: "ravens_mint_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -5602,6 +5662,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -5802,8 +5867,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "navy.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_navy"
-  CSRF_COOKIE_NAME: "ravens_navy_csrf"
+  SESSION_COOKIE_NAME: "ravens_navy_cookie"
+  CSRF_COOKIE_NAME: "ravens_navy_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -6053,6 +6118,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -6253,8 +6323,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "olive.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_olive"
-  CSRF_COOKIE_NAME: "ravens_olive_csrf"
+  SESSION_COOKIE_NAME: "ravens_olive_cookie"
+  CSRF_COOKIE_NAME: "ravens_olive_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -6504,6 +6574,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -6704,8 +6779,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "orange.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_orange"
-  CSRF_COOKIE_NAME: "ravens_orange_csrf"
+  SESSION_COOKIE_NAME: "ravens_orange_cookie"
+  CSRF_COOKIE_NAME: "ravens_orange_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -6955,6 +7030,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -7155,8 +7235,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "pink.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_pink"
-  CSRF_COOKIE_NAME: "ravens_pink_csrf"
+  SESSION_COOKIE_NAME: "ravens_pink_cookie"
+  CSRF_COOKIE_NAME: "ravens_pink_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -7406,6 +7486,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -7606,8 +7691,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "purple.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_purple"
-  CSRF_COOKIE_NAME: "ravens_purple_csrf"
+  SESSION_COOKIE_NAME: "ravens_purple_cookie"
+  CSRF_COOKIE_NAME: "ravens_purple_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -7857,6 +7942,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -8057,8 +8147,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "red.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_red"
-  CSRF_COOKIE_NAME: "ravens_red_csrf"
+  SESSION_COOKIE_NAME: "ravens_red_cookie"
+  CSRF_COOKIE_NAME: "ravens_red_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -8308,6 +8398,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -8508,8 +8603,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "white.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_white"
-  CSRF_COOKIE_NAME: "ravens_white_csrf"
+  SESSION_COOKIE_NAME: "ravens_white_cookie"
+  CSRF_COOKIE_NAME: "ravens_white_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -8759,6 +8854,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -8959,8 +9059,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "yellow.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_yellow"
-  CSRF_COOKIE_NAME: "ravens_yellow_csrf"
+  SESSION_COOKIE_NAME: "ravens_yellow_cookie"
+  CSRF_COOKIE_NAME: "ravens_yellow_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #

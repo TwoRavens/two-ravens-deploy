@@ -8,17 +8,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service
+  name: tworavens-service-grey
   labels:
-    app: ta3
+    app: ta3-grey
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  loadBalancerIP: 35.192.115.217
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3
+    app: ta3-grey
   ports:
     - name: http
       port: 80
@@ -28,9 +28,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb
+  name: tworavensweb-grey
   labels:
-    app: ta3
+    app: ta3-grey
 spec:
   restartPolicy: Never
   containers:
@@ -72,9 +72,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-grey
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-grey
     env:
       - name: D3MRUN
         value: "ta2"
@@ -84,8 +84,8 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:july-2019
-    imagePullPolicy: IfNotPresent
+    image: tworavens/ravens-nginx:nov-test
+    imagePullPolicy: Always
     #resources:
     #  requests:
     #    memory: 256Mi
@@ -94,6 +94,9 @@ spec:
       - containerPort: 80
         name: http
         protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-grey
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -131,10 +134,10 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:july-2019
+    image: tworavens/ravens-main:nov-test
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: IfNotPresent
-    command: ["d3m_start.sh"]
+    imagePullPolicy: Always
+    command: ["d3m_start_multiuser.sh"]
     #resources:
     #  requests:
     #    memory: 3Gi
@@ -167,9 +170,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-grey
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-grey
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -187,6 +190,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -212,8 +220,8 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:july-2019
-    imagePullPolicy: IfNotPresent
+    image: tworavens/ravens-main:nov-test
+    imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     #resources:
     #  requests:
@@ -250,9 +258,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-grey
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-grey
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -292,7 +300,7 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:july-2019
+    image: tworavens/ravens-r-service:nov-test
     imagePullPolicy: IfNotPresent
     #resources:
     #  requests:
@@ -326,9 +334,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-grey
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-grey
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -381,18 +389,22 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config
+  name: ravens-django-config-grey
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
+  RAVENS_SERVER_NAME: "grey.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_grey_cookie"
+  CSRF_COOKIE_NAME: "ravens_grey_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
   DEBUG: "False"
+  DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb-grey:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -424,13 +436,13 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m
+  name: ravens-config-d3m-grey
 data:
   D3MRUN: "ta2ta3"
-  D3MINPUTDIR: "/ravens_volume/test_data/196_autoMpg"
-  D3MOUTPUTDIR: "/ravens_volume/test_output/196_autoMpg"
+  D3MINPUTDIR: "/ravens_volume/test_data"
+  D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/196_autoMpg/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
