@@ -140,19 +140,19 @@ spec:
         readOnly: false
     # liveness is for restart
     #
-    #livenessProbe:
-    #  httpGet:
-    #    path: /monitoring/alive
-    #    port: 8080
-    #  initialDelaySeconds: 15
-    #  timeoutSeconds: 1
-    #  periodSeconds: 10
-    #  failureThreshold: 3
+    livenessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+      periodSeconds: 10
+      failureThreshold: 3
     # readiness: ready for traffic
     #
-    #readinessProbe:
-    #  httpGet:
-    #    path: /monitoring/alive
-    #    port: 8080
-    #  initialDelaySeconds: 15
-    #  periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /monitoring/alive
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 10
