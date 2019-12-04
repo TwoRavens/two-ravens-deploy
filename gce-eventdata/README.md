@@ -24,6 +24,10 @@ These steps deploy the TwoRavens EventData application using Docker images from 
     - https://console.cloud.google.com/kubernetes/list
 
 ```
+# One-time secret
+#
+kubectl apply -f k8s-secret-configs/gce-eventdata-secrets.yml
+
 # (a) pull the latest config code
 #
 cd two-ravens-deploy/gce-eventdata
@@ -35,6 +39,7 @@ kubectl apply -f eventdata-django-configmap.yml
 
 # (c) Restart the pod + svc
 #
+kubectl apply -f eventdata-pod-with-svc.yml
 
 # Send the stop command
 #  - This takes about a minute.
@@ -54,7 +59,7 @@ kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
 # Check the status
 #   - This can give you an idea of the state, whether containers are being pulled, etc
 #
-kubectl describe pod ravens-eventdata-web  
+kubectl describe pod ravens-eventdata-web
 
 #   Note: It's ok to see the message below--I have to adjust some of the startup timings for the 1st check:
 #
