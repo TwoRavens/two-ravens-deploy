@@ -111,7 +111,7 @@ kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
 
 # The TA3!
 #
-
+kubectl exec -ti  tworavensweb -c ta3-main /bin/bash
 kubectl exec -ti  tworavensweb -c celery-worker  /bin/bash
 kubectl exec -ti  tworavensweb -c rook-service /bin/bash
 

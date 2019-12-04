@@ -291,10 +291,13 @@ spec:
       # shared between TwoRavens and rook
       # - has some test data if needed
       # ----------------------------------
-      - name: ravens-volume
-        # directory location on host
-        #path: /db_mongo
-        mountPath: /data/db
+      #- name: ravens-volume
+      #  # directory location on host
+      #  #path: /db_mongo
+      #  mountPath: /data/db
+      #  readOnly: false
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
   # -------------------------
   # 7 of 7: rook
