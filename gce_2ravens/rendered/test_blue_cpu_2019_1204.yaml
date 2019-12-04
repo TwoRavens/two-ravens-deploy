@@ -235,14 +235,14 @@ spec:
     image: tworavens/ravens-main:dec-test
     imagePullPolicy: Always
     #command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
-    command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=3', '-l', 'info']
+    command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=4', '-l', 'info']
     resources:
       requests:
          memory: 9000Mi
-         cpu: 3000m
+         cpu: 4000m
       limits:
          memory: 12000Mi
-         cpu: 4000m
+         cpu: 5000m
     ports:
       - containerPort: 8080
         name: http
