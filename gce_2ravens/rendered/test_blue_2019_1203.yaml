@@ -222,7 +222,8 @@ spec:
   - name: celery-worker
     image: tworavens/ravens-main:dec-test
     imagePullPolicy: Always
-    command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=2', '-l', 'info']
+    command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
+    #command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=10', '-l', 'info']
     #resources:
     #  requests:
     #    memory: 3Gi
