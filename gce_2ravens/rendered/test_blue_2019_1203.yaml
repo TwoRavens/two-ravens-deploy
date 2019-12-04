@@ -296,8 +296,8 @@ spec:
       #  #path: /db_mongo
       #  mountPath: /data/db
       #  readOnly: false
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
         readOnly: false
   # -------------------------
   # 7 of 7: rook
