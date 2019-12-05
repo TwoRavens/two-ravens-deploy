@@ -120,6 +120,8 @@ spec_multi_brown2 = dict(spec_multi_brown, **dict(\
                 template_name='gce_ravens_deploy_020_auto_ml.yaml',
                 rendered_filename='ta3_brown_multi_2019_1205.yaml',
                 #
+                tworavens_container_tag='dec-test',
+                #
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #
                 ta2_resources=['20000Mi', '25000Mi', '3000m', '3000m'],
