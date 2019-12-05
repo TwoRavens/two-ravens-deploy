@@ -115,3 +115,22 @@ spec_multi_brown = dict(spec_base, **dict(\
                 #
                 serviceNameSuffix='',
                 ))
+
+spec_multi_brown2 = dict(spec_multi_brown, **dict(\
+                template_name='gce_ravens_deploy_020_auto_ml.yaml',
+                rendered_filename='ta3_brown_multi_2019_1205.yaml',
+                #
+                #   memory requested, memory limit, cpu requested, cpu limit
+                #
+                ta2_resources=['20000Mi', '25000Mi', '3000m', '3000m'],
+                # 14 CPUs and 56GB, that was our configuration for summer evaluation
+                #
+                ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
+                celery_resources=['9000Mi', '12000Mi', '4000m', '4000m'],
+                #
+                rook_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
+                #
+                mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                redis_resources=['500Mi', '1000Mi', '500m', '1000m'],
+                nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+                ))

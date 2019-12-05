@@ -2,7 +2,7 @@
 Render k8s; adding D3M environment variables to config
 """
 from importlib import import_module
-
+import re
 import shutil
 import sys
 from os.path import abspath, dirname, join, normpath, isdir, isfile
@@ -103,6 +103,40 @@ def run_from_specs(specs):
     assert isinstance(specs, dict), \
         "specs is not a python dictionary"
 
+    # Pre-render memory snippets
+    #
+    resource_lists = []
+    for key_name, vals in specs.items():
+
+        if key_name.startswith('resources') or \
+            key_name.endswith('resources'):
+
+            # for summing totals
+            resource_lists.append([int(re.sub("[^0-9]", "", x)) for x in vals])
+
+            # dict for resources template (snippet for k8s)
+            info_dict = dict(name=key_name,
+                             memory_request=vals[0],
+                             memory_limit=vals[1],
+                             cpu_request=vals[2],
+                             cpu_limit=vals[3])
+            trh = TemplateRenderHelper(info_dict,
+                                       'resources_01.yaml',
+                                       **dict(get_as_string=True))
+            # print(trh.content_string)
+            specs[key_name] = trh.content_string
+
+    sum_list = [sum(i) for i in zip(*resource_lists)]
+    resource_lists.append(['=======' for x in range(1, 5)])
+    resource_lists.append(sum_list)
+    resource_lists.insert(0, ['-------' for x in range(1, 5)] )
+    resource_lists.insert(0, ['CPU req', 'CPU max', 'Mem req', 'Mem max'] )
+    for row in resource_lists:
+        print('\t\t'.join([str(x) for x in row]))
+    #print(sum_list)
+
+
+
     new_k8s_file = fillin_for_test(\
                         template_name=specs['template_name'],
                         rendered_filename=specs['rendered_filename'],
@@ -144,8 +178,8 @@ def show_choices():
     print('-' * 40)
     print('The following specs were found to create a K8s template:\n')
 
-    for idx, cn in enumerate(config_names):
-        user_msg = (f'({idx+1}) {cn}')
+    for idx, cnt in enumerate(config_names):
+        user_msg = (f'({idx+1}) {cnt}')
         print(user_msg)
 
     choose_msg = (f"\nPlease choose a number between 1 and"
