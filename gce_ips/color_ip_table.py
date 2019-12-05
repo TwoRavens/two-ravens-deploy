@@ -3,10 +3,10 @@ import socket
 
 COLOR_DOMAIN_PAIRS = [\
             ('blue', '35.225.184.21'),
-            ('cyan', '104.154.189.22'),
+            #('cyan', '104.154.189.22'),
             ('lime', '34.67.169.83'),
             #
-            #('', '104.197.235.238'), # 2ravens.org
+            ('', '104.197.235.238'), # 2ravens.org
             ]
 
 def is_domain_set(dcolor, ip_address, cnt=''):

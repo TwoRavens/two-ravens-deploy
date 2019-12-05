@@ -45,11 +45,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 20000Mi
-         cpu: 3000m
+         memory: "20000Mi"
+         cpu: "3000m"
       limits:
-         memory: 25000Mi
-         cpu: 3000m
+         memory: "25000Mi"
+         cpu: "3000m"
     resources:
       requests:
          memory: 20000Mi
@@ -103,11 +103,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 256Mi
-         cpu: 500m
+         memory: "256Mi"
+         cpu: "500m"
       limits:
-         memory: 500Mi
-         cpu: 500m
+         memory: "500Mi"
+         cpu: "500m"
     ports:
       - containerPort: 80
         name: http
@@ -147,11 +147,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 500Mi
-         cpu: 500m
+         memory: "500Mi"
+         cpu: "500m"
       limits:
-         memory: 1000Mi
-         cpu: 1000m
+         memory: "1000Mi"
+         cpu: "1000m"
     ports:
     - containerPort: 6379
   # -------------------------
@@ -167,11 +167,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 1000Mi
-         cpu: 1000m
+         memory: "1000Mi"
+         cpu: "1000m"
       limits:
-         memory: 3000Mi
-         cpu: 1500m
+         memory: "3000Mi"
+         cpu: "1500m"
     ports:
       - containerPort: 8080
         name: http
@@ -259,11 +259,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 9000Mi
-         cpu: 4000m
+         memory: "9000Mi"
+         cpu: "4000m"
       limits:
-         memory: 12000Mi
-         cpu: 4000m
+         memory: "12000Mi"
+         cpu: "4000m"
     ports:
       - containerPort: 8080
         name: http
@@ -321,11 +321,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 1000Mi
-         cpu: 500m
+         memory: "1000Mi"
+         cpu: "500m"
       limits:
-         memory: 2000Mi
-         cpu: 1000m
+         memory: "2000Mi"
+         cpu: "1000m"
     ports:
       - containerPort: 27017
         protocol: TCP
@@ -351,11 +351,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: 1000Mi
-         cpu: 1000m
+         memory: "1000Mi"
+         cpu: "1000m"
       limits:
-         memory: 2000Mi
-         cpu: 1000m
+         memory: "2000Mi"
+         cpu: "1000m"
     volumeMounts:
       # ----------------------------------
       # shared between containers
