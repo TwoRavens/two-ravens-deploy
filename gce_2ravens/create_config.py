@@ -130,7 +130,7 @@ def run_from_specs(specs):
     resource_lists.append(['=======' for x in range(1, 5)])
     resource_lists.append(sum_list)
     resource_lists.insert(0, ['-------' for x in range(1, 5)] )
-    resource_lists.insert(0, ['CPU req', 'CPU max', 'Mem req', 'Mem max'] )
+    resource_lists.insert(0, ['Mem req', 'Mem max', 'CPU req', 'CPU max', ] )
     for row in resource_lists:
         print('\t\t'.join([str(x) for x in row]))
     #print(sum_list)

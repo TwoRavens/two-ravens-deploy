@@ -137,6 +137,30 @@ spec_multi_brown2 = dict(spec_multi_brown, **dict(\
                 nginx_resources=['256Mi', '500Mi', '500m', '500m'],
                 ))
 
+#
+#   Bring down the CPU/Memory resources
+#
+spec_multi_brown2a = dict(spec_multi_brown, **dict(\
+                template_name='gce_ravens_deploy_020_auto_ml.yaml',
+                rendered_filename='ta3_brown_multi_2019_1205.yaml',
+                #
+                tworavens_container_tag='dec-test',
+                #
+                #   memory requested, memory limit, cpu requested, cpu limit
+                #
+                ta2_resources=['10000Mi', '11000Mi', '2000m', '2000m'],
+                # 14 CPUs and 56GB, that was our configuration for summer evaluation
+                #
+                ta3_resources=['1000Mi', '3000Mi', '500m', '500m'],
+                celery_resources=['9000Mi', '12000Mi', '2000m', '3000m'],
+                #
+                rook_resources=['1000Mi', '2000Mi', '500m', '500m'],
+                #
+                mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                redis_resources=['500Mi', '1000Mi', '500m', '500m'],
+                nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+                ))
+
 spec_multi_brown3_NOT_automl = dict(spec_multi_brown, **dict(\
                 template_name='gce_ravens_deploy_020_auto_ml.yaml',
                 rendered_filename='nov_ta3_brown_multi_2019_1205.yaml',

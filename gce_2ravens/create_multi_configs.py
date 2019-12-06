@@ -11,6 +11,7 @@ sys.path.append(dirname(CURRENT_DIR))
 from config_specs import \
     (spec_multi_brown,
      spec_multi_brown2,
+     spec_multi_brown2a, # less cpu/memory
      spec_multi_brown3_NOT_automl)
 from gce_ips.color_ip_table import COLOR_DOMAIN_PAIRS
 from create_config import run_from_specs
@@ -89,10 +90,10 @@ if __name__ == '__main__':
     # spec_multi_brown3_NOT_automl
 
     # AutoML command
-    create_configs(spec_multi_brown2,
+    create_configs(spec_multi_brown2a,
                    rendered_fname_prefix='autoML',
                    make_ALL_files=False)
 
-    create_configs(spec_multi_brown3_NOT_automl,
-                   rendered_fname_prefix='NOT_autoML',
-                   make_ALL_files=False)
+    #create_configs(spec_multi_brown3_NOT_automl,
+    #               rendered_fname_prefix='NOT_autoML',
+    #               make_ALL_files=False)
