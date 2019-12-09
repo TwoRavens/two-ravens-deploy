@@ -207,7 +207,7 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
                 #D3MLOCALDIR='/output',
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #
-                ta2_resources=['20000Mi', '25000Mi', '3000m', '5000m'],
+                ta2_resources=['40000Mi', '50000Mi', '8000m', '10000m'],
                 # 14 CPUs and 56GB, that was our configuration for summer evaluation
                 #
                 ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],

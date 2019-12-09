@@ -45,11 +45,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "20000Mi"
-         cpu: "3000m"
+         memory: "40000Mi"
+         cpu: "8000m"
       limits:
-         memory: "25000Mi"
-         cpu: "5000m"
+         memory: "50000Mi"
+         cpu: "10000m"
     resources:
       requests:
          memory: 20000Mi
