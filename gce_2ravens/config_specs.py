@@ -195,14 +195,15 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
                 #D3MOUTPUTDIR='/output',
                 #D3MSTATICDIR='/static',
                 #D3MPROBLEMPATH='/opt/datasets/seed_datasets_current/196_autoMpg/TRAIN',
-                D3MLOCALDIR='/output',
+                D3MPROBLEMPATH='/ravens_volume/test_data/185_baseball',
+                #D3MLOCALDIR='/output',
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #
-                ta2_resources=['20000Mi', '25000Mi', '3000m', '3000m'],
+                ta2_resources=['20000Mi', '25000Mi', '3000m', '5000m'],
                 # 14 CPUs and 56GB, that was our configuration for summer evaluation
                 #
                 ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
-                celery_resources=['4000Mi', '8000Mi', '1000m', '2000m'],
+                celery_resources=['4000Mi', '8000Mi', '2000m', '4000m'],
                 #
                 rook_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
                 #

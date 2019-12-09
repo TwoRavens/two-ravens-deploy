@@ -49,7 +49,7 @@ spec:
          cpu: "3000m"
       limits:
          memory: "25000Mi"
-         cpu: "3000m"
+         cpu: "5000m"
     resources:
       requests:
          memory: 20000Mi
@@ -260,10 +260,10 @@ spec:
     resources:
       requests:
          memory: "4000Mi"
-         cpu: "1000m"
+         cpu: "2000m"
       limits:
          memory: "8000Mi"
-         cpu: "2000m"
+         cpu: "4000m"
     ports:
       - containerPort: 8080
         name: http
@@ -497,8 +497,8 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
-  D3MLOCALDIR: "/output"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball"
+  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
   #D3MRAM: "512Mi"
