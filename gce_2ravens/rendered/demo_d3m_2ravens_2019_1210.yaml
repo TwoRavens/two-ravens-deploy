@@ -501,10 +501,10 @@ metadata:
   name: ravens-config-d3m
 data:
   D3MRUN: "ta2ta3"
-  D3MINPUTDIR: "/ravens_volume/test_data"
-  D3MOUTPUTDIR: "/ravens_volume/test_output"
+  D3MINPUTDIR: "/ravens_volume/test_data/185_baseball"
+  D3MOUTPUTDIR: "/ravens_volume/test_output/185_baseball"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
