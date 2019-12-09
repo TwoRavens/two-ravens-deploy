@@ -441,3 +441,8 @@ data:
   DATAMART_URL_NYU: "{{ DATAMART_URL_NYU }}"
   DATAMART_URL_ISI: "{{ DATAMART_URL_ISI }}"
 ---
+#
+# regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+#
+imagePullSecrets:
+- name: regcred

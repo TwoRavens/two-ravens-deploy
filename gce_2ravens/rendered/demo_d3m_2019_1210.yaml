@@ -504,3 +504,8 @@ data:
   DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
   DATAMART_URL_ISI: "http://dsbox02.isi.edu:9000"
 ---
+#
+# regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+#
+imagePullSecrets:
+- name: regcred
