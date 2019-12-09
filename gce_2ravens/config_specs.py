@@ -181,3 +181,25 @@ spec_multi_brown3_NOT_automl = dict(spec_multi_brown, **dict(\
                 redis_resources=['500Mi', '1000Mi', '500m', '1000m'],
                 nginx_resources=['256Mi', '500Mi', '500m', '500m'],
                 ))
+
+spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
+                template_name='gce_ravens_deploy_021a_d3m_auto_ml.yaml',
+                rendered_filename='d3m_2019_1209.yaml',
+                #
+                tworavens_container_tag='dec-test',
+                #
+                ta2_image='registry.datadrivendiscovery.org/ta2-submissions/ta2-brown/summer2019',
+                #   memory requested, memory limit, cpu requested, cpu limit
+                #
+                ta2_resources=['20000Mi', '25000Mi', '3000m', '3000m'],
+                # 14 CPUs and 56GB, that was our configuration for summer evaluation
+                #
+                ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
+                celery_resources=['4000Mi', '8000Mi', '1000m', '2000m'],
+                #
+                rook_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
+                #
+                mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                redis_resources=['500Mi', '1000Mi', '500m', '1000m'],
+                nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+                ))
