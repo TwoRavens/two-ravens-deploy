@@ -116,6 +116,10 @@ spec:
       - name: static-data
         mountPath: /static
         readOnly: true
+      - name: seed-datasets
+        mountPath: /static
+        readOnly: true
+
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -355,19 +359,24 @@ spec:
     # Volumes for jump server data
     # ----------------------------
     - name: input-data
-      # emptyDir: {}
-      hostPath:
-        path: /opt/datasets/seed_datasets_current/196_autoMpg
-        type: Directory
+      emptyDir: {}
+      #hostPath:
+      #  path: /opt/datasets/seed_datasets_current/196_autoMpg
+      #  type: Directory
     - name: static-data
-      # emptyDir: {}
-      hostPath:
-        path: /opt/datasets/seed_datasets_current/
+      emptyDir: {}
+      #hostPath:
+      #  path: /opt/datasets/seed_datasets_current/
         type: Directory
     - name: output-data
-      # emptyDir: {}
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
+      emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: eval-output-pv-claim
+    - name: seed-datasets
+      hostPath:
+        path: /opt/datasets/seed_datasets_current
+        type: Directory
+
   #
   # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
   #
