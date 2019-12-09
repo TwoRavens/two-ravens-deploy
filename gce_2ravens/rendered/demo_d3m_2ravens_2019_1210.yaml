@@ -135,9 +135,8 @@ spec:
         mountPath: /static
         readOnly: true
       - name: seed-datasets
-        mountPath: /static
+        mountPath: /seed-datasets
         readOnly: true
-
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -439,7 +438,6 @@ spec:
       hostPath:
         path: /opt/datasets/seed_datasets_current
         type: Directory
-
   #
   # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
   #
