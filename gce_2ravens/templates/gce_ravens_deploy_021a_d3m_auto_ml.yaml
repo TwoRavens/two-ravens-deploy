@@ -184,11 +184,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      - name: GCE_CREDS_INFO
-        valueFrom:
-          secretKeyRef:
-            name: gce-creds-variable
-            key: GCE_CREDS_INFO
+      #- name: GCE_CREDS_INFO
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: gce-creds-variable
+      #      key: GCE_CREDS_INFO
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -355,19 +355,19 @@ spec:
     # Volumes for jump server data
     # ----------------------------
     - name: input-data
-      emptyDir: {}
-      #hostPath:
-        #path: {{ eval_dataset_path }}
-        #type: Directory
+      # emptyDir: {}
+      hostPath:
+        path: /opt/datasets/seed_datasets_current/196_autoMpg
+        type: Directory
     - name: static-data
-      emptyDir: {}
-      #hostPath:
-        #path: {{ static_dataset_path }}
-        #type: Directory
+      # emptyDir: {}
+      hostPath:
+        path: /opt/datasets/seed_datasets_current/
+        type: Directory
     - name: output-data
-      emptyDir: {}
-      #persistentVolumeClaim:
-        #claimName: eval-output-pv-claim
+      # emptyDir: {}
+      persistentVolumeClaim:
+        claimName: eval-output-pv-claim
 ---
 # ---------------------------------------
 # TA3 configmap used by:
