@@ -429,7 +429,7 @@ spec:
       emptyDir: {}
       #hostPath:
       #  path: /opt/datasets/seed_datasets_current/
-        type: Directory
+      #  type: Directory
     - name: output-data
       emptyDir: {}
       #persistentVolumeClaim:
