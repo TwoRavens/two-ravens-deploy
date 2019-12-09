@@ -191,10 +191,10 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
                 ta2_image='registry.datadrivendiscovery.org/ta2-submissions/ta2-brown/summer2019',
                 #
                 D3MRUN='ta2ta3',
-                D3MINPUTDIR='/input',
-                D3MOUTPUTDIR='/output',
-                D3MSTATICDIR='/static',
-                D3MPROBLEMPATH='/opt/datasets/seed_datasets_current/196_autoMpg/TRAIN',
+                #D3MINPUTDIR='/input',
+                #D3MOUTPUTDIR='/output',
+                #D3MSTATICDIR='/static',
+                #D3MPROBLEMPATH='/opt/datasets/seed_datasets_current/196_autoMpg/TRAIN',
                 D3MLOCALDIR='/output',
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #
