@@ -190,6 +190,8 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
                 #
                 ta2_image='registry.datadrivendiscovery.org/ta2-submissions/ta2-brown/summer2019',
                 #
+                RAVENS_SERVER_NAME='2ravens.datadrivendiscovery.org',
+                #
                 D3MRUN='ta2ta3',
                 # ------------------------------
                 D3MINPUTDIR='/ravens_volume/test_data/185_baseball',

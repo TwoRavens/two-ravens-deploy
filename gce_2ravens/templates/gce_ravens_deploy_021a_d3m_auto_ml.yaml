@@ -423,9 +423,9 @@ data:
   # ----------------------------------
   # GCE SQL db
   # ----------------------------------
-  DB_HOST: "127.0.0.1"
-  DB_PORT: "3306"
-  DB_NAME: "d3m_gce_ravendb"
+  # DB_HOST: "127.0.0.1"
+  # DB_PORT: "3306"
+  # DB_NAME: "d3m_gce_ravendb"
   # username and password secrets attached to container
 ---
 # ---------------------------------------
