@@ -7,9 +7,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-d3m
+  name: tworavens-service
   labels:
-    app: ta3-d3m
+    app: ta3
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
@@ -17,7 +17,7 @@ spec:
   loadBalancerIP: 10.108.29.7
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-d3m
+    app: ta3
   ports:
     - name: http
       port: 80
@@ -27,9 +27,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-d3m
+  name: tworavensweb
   labels:
-    app: ta3-d3m
+    app: ta3
 spec:
   restartPolicy: Never
   containers:
@@ -84,9 +84,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-d3m
+          name: ravens-django-config
       - configMapRef:
-          name: ravens-config-d3m-d3m
+          name: ravens-config-d3m
     env:
       - name: D3MRUN
         value: "ta2"
@@ -114,7 +114,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-d3m
+          name: ravens-django-config
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -200,9 +200,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-d3m
+          name: ravens-django-config
       - configMapRef:
-          name: ravens-config-d3m-d3m
+          name: ravens-config-d3m
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -295,9 +295,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-d3m
+          name: ravens-django-config
       - configMapRef:
-          name: ravens-config-d3m-d3m
+          name: ravens-config-d3m
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -384,9 +384,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-d3m
+          name: ravens-django-config
       - configMapRef:
-          name: ravens-config-d3m-d3m
+          name: ravens-config-d3m
     # ----------------------------------
     # livenessProbe: restart if this is failing
     # ----------------------------------
@@ -444,14 +444,14 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-d3m
+  name: ravens-django-config
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "d3m.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_d3m_cookie"
-  CSRF_COOKIE_NAME: "ravens_d3m_csrf_cookie"
+  RAVENS_SERVER_NAME: "2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_cookie"
+  CSRF_COOKIE_NAME: "ravens_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -459,7 +459,7 @@ data:
   DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_TEST_SERVER_URL: "tworavensweb-d3m:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -468,7 +468,7 @@ data:
   REDIS_HOST: localhost
   #
   # valid values: "ws://" and  "wss://"
-  WEBSOCKET_PREFIX: "ws://"
+  WEBSOCKET_PREFIX: "wss://"
   #
   # Mongo db name; Mongo creds are in secrets
   TWORAVENS_MONGO_DB_NAME: "harvard"
@@ -491,7 +491,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-d3m
+  name: ravens-config-d3m
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/input"

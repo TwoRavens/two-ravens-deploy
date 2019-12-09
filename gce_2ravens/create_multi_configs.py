@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
     # D3M AutoML command
     create_configs(spec_d3m_automl_dec,
-                   rendered_fname_prefix='demo',
+                   rendered_fname_prefix='demo_d3m',
                    make_ALL_files=False)
 
     # AutoML command

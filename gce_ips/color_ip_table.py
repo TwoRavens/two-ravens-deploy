@@ -8,7 +8,7 @@ COLOR_DOMAIN_PAIRS = [\
             #
             #('', '104.197.235.238'), # 2ravens.org
             #
-            ('d3m', '10.108.29.7'), # https://2ravens.datadrivendiscovery.org/
+            ('', '10.108.29.7'), # https://2ravens.datadrivendiscovery.org/
             ]
 
 def is_domain_set(dcolor, ip_address, cnt=''):

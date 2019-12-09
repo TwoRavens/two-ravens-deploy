@@ -405,7 +405,7 @@ data:
   REDIS_HOST: localhost
   #
   # valid values: "ws://" and  "wss://"
-  WEBSOCKET_PREFIX: "ws://"
+  WEBSOCKET_PREFIX: "wss://"
   #
   # Mongo db name; Mongo creds are in secrets
   TWORAVENS_MONGO_DB_NAME: "harvard"
