@@ -37,7 +37,7 @@ def create_single_test_config(the_specs, color_name, ip_address, **kwargs):
         hyphenColorName = f'_{color_name}'
 
     color_specs = dict(the_specs, **dict(\
-                rendered_filename=f'{rendered_fname_prefix}{hyphenColorName}_2019_1210.yaml',
+                rendered_filename=f'{rendered_fname_prefix}{hyphenColorName}_2019_1211.yaml',
                 loadBalancerIP=f'{ip_address}',
                 #
                 RAVENS_SERVER_NAME=serverName,
