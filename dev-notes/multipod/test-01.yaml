@@ -1,0 +1,105 @@
+---
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: twopod-service
+  labels:
+    app: ta3
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+spec:
+  type: LoadBalancer
+  # loadBalancerIP: 104.197.235.238
+  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  selector:
+    app: twopod-pod
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: twopod
+  labels:
+    app: twopod-pod
+spec:
+  restartPolicy: Never
+  containers:
+  # -------------------------
+  # 1 of 2: nginx
+  # -------------------------
+  - name: twopod-nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: twopod-config
+    volumeMounts:
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+  # -------------------------
+  # 2 of 2: nginx
+  # -------------------------
+  - name: twopod-python
+    image: python:3.7
+    imagePullPolicy: IfNotPresent
+    #ports:
+    #  - containerPort: 80
+    #    name: http
+    #    protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: twopod-config
+    volumeMounts:
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: input-data
+      emptyDir: {}
+      #hostPath:
+        #path:
+        #type: Directory
+    - name: output-data
+      emptyDir: {}
+      #persistentVolumeClaim:
+        #claimName: eval-output-pv-claim
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: twopod-config
+data:
+  D3MINPUTDIR: "/ravens_volume/test_data"
+  D3MOUTPUTDIR: "/ravens_volume/test_output"
+---
