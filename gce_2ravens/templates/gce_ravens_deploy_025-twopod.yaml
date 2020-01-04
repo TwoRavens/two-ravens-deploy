@@ -88,6 +88,15 @@ spec:
         value: "ta2"
       #- name: AM_ENV
       #  value: "DEBUG"
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1{{ serviceNameSuffix}}
+        readOnly: false
+      #emptyDir: {}
 ---
 # -------------------------------------
 #   TA3 Service
@@ -117,51 +126,6 @@ spec:
       port: 45042
       protocol: TCP
       targetPort: 45042
----
-# -------------------------------------
-#   TA2 Pod
-# -------------------------------------
-apiVersion: v1
-kind: Pod
-metadata:
-  name: tworavensweb{{ serviceNameSuffix}}
-  labels:
-    app: ta3{{ serviceNameSuffix}}
-spec:
-  restartPolicy: Never
-  containers:
-  # -------------------------
-  # 1 of 1: TA2
-  # -------------------------
-  - name: ta2-container
-    # {{ ta2_image_comment }}
-    image: {{ ta2_image }}
-    imagePullPolicy: {{ pull_policy_ta2 }}
-{{ ta2_resources }}
-    ports:
-      - containerPort: 45042
-        protocol: TCP
-    volumeMounts:
-{{ shared_volume_mounts }}
-    envFrom:
-      - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
-      - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
-    env:
-      - name: D3MRUN
-        value: "ta2"
-      #- name: AM_ENV
-      #  value: "DEBUG"
-  # ----------------------------
-  # Volumes
-  # ----------------------------
-  volumes:
-    - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1{{ serviceNameSuffix}}
-        readOnly: false
-      #emptyDir: {}
 ---
 # -------------------------------------
 #   TA3 Pod

@@ -122,6 +122,15 @@ spec:
         value: "ta2"
       #- name: AM_ENV
       #  value: "DEBUG"
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
+      #emptyDir: {}
 ---
 # -------------------------------------
 #   TA3 Service
@@ -151,85 +160,6 @@ spec:
       port: 45042
       protocol: TCP
       targetPort: 45042
----
-# -------------------------------------
-#   TA2 Pod
-# -------------------------------------
-apiVersion: v1
-kind: Pod
-metadata:
-  name: tworavensweb
-  labels:
-    app: ta3
-spec:
-  restartPolicy: Never
-  containers:
-  # -------------------------
-  # 1 of 1: TA2
-  # -------------------------
-  - name: ta2-container
-    # Brown TA2
-    image: gcr.io/raven2-186120/brown-ta2:summer-2019
-    imagePullPolicy: IfNotPresent
-    # -----------------------------------
-    # ta2_resources
-    # ----------------------------------
-    resources:
-      requests:
-         memory: "20000Mi"
-         cpu: "2000m"
-      limits:
-         memory: "25000Mi"
-         cpu: "4000m"
-    ports:
-      - containerPort: 45042
-        protocol: TCP
-    volumeMounts:
-      # ----------------------------------
-      # shared between containers
-      # ref: volume_mounts_gce_01.yaml
-      # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
-        readOnly: false
-      # ----------------------
-      # D3M config volume mounts
-      # ----------------------
-      #- name: ravens-volume
-      #  mountPath: /input
-      #  subPath: input
-      #  readOnly: true
-      #- name: ravens-volume
-      #  mountPath: /output
-      #  subPath: output
-      #  readOnly: false
-      #- name: ravens-volume
-      #  mountPath: /static
-      #  subPath: static
-      #  readOnly: true
-      # ----------------------
-      # END: D3M config volume mounts
-      # ----------------------
-    envFrom:
-      - configMapRef:
-          name: ravens-django-config
-      - configMapRef:
-          name: ravens-config-d3m
-    env:
-      - name: D3MRUN
-        value: "ta2"
-      #- name: AM_ENV
-      #  value: "DEBUG"
-  # ----------------------------
-  # Volumes
-  # ----------------------------
-  volumes:
-    - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
 ---
 # -------------------------------------
 #   TA3 Pod
@@ -568,12 +498,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
