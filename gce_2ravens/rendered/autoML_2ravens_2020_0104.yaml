@@ -30,42 +30,43 @@ spec:
     requests:
       storage: 30Gi
 ---
-#   config
-#   https://2ravens.org
-#
-#   template: gce_ravens_deploy_024_auto_ml.yaml
-#
+# -------------------------------------
+#   TA2 Service
+#   - communication is with the TA3 in another pod
+#   template: gce_ravens_deploy_025-twopod.yaml
+# -------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service
+  name: ta2-service
   labels:
-    app: ta3
+    app: ta2
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238
-  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3
+    app: ta2
   ports:
-    - name: http
-      port: 80
+    - name: ta23-port
+      port: 45042
       protocol: TCP
-      targetPort: 80
+      targetPort: 45042
 ---
+# -------------------------------------
+#   TA2 Pod
+# -------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb
+  name: ta2-pod
   labels:
-    app: ta3
+    app: ta2
 spec:
   restartPolicy: Never
   containers:
   # -------------------------
-  # 1 of 7: TA2
+  # 1 of 1: TA2
   # -------------------------
   - name: ta2-container
     # Brown TA2
@@ -121,8 +122,129 @@ spec:
         value: "ta2"
       #- name: AM_ENV
       #  value: "DEBUG"
+---
+# -------------------------------------
+#   TA3 Service
+#   https://2ravens.org
+#   template: gce_ravens_deploy_025-twopod.yaml
+# -------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: tworavens-service
+  labels:
+    app: ta3
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 104.197.235.238
+  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  selector:
+    app: ta3
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    - name: ta23-port
+      port: 45042
+      protocol: TCP
+      targetPort: 45042
+---
+# -------------------------------------
+#   TA2 Pod
+# -------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb
+  labels:
+    app: ta3
+spec:
+  restartPolicy: Never
+  containers:
   # -------------------------
-  # 2 of 7: Ravens nginx
+  # 1 of 1: TA2
+  # -------------------------
+  - name: ta2-container
+    # Brown TA2
+    image: gcr.io/raven2-186120/brown-ta2:summer-2019
+    imagePullPolicy: IfNotPresent
+    # -----------------------------------
+    # ta2_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "20000Mi"
+         cpu: "2000m"
+      limits:
+         memory: "25000Mi"
+         cpu: "4000m"
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: volume_mounts_gce_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config
+      - configMapRef:
+          name: ravens-config-d3m
+    env:
+      - name: D3MRUN
+        value: "ta2"
+      #- name: AM_ENV
+      #  value: "DEBUG"
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
+      #emptyDir: {}
+---
+# -------------------------------------
+#   TA3 Pod
+# -------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb
+  labels:
+    app: ta3
+spec:
+  restartPolicy: Never
+  containers:
+  # -------------------------
+  # 1 of 6: Ravens nginx
   # -------------------------
   - name: ravens-nginx
     image: tworavens/ravens-nginx:dec-test
@@ -172,7 +294,7 @@ spec:
       # END: D3M config volume mounts
       # ----------------------
   # -------------------------
-  # 3 of 7: redis
+  # 2 of 6: redis
   # -------------------------
   - name: redis
     image: redis:4.0
@@ -189,7 +311,7 @@ spec:
     ports:
     - containerPort: 6379
   # -------------------------
-  # 4 of 7: TA3 main (web app)
+  # 3 of 6: TA3 main (web app)
   # -------------------------
   - name: ta3-main
     image: tworavens/ravens-main:dec-test
@@ -264,29 +386,8 @@ spec:
           secretKeyRef:
             name: gce-creds-variable
             key: GCE_CREDS_INFO
-    # ----------------------------------
-    # livenessProbe: restart if this is failing
-    # ----------------------------------
-    #livenessProbe:
-    #  httpGet:
-    #    path: /monitoring/alive
-    #    port: 8080
-    #  initialDelaySeconds: 60
-    #  timeoutSeconds: 10
-    #  periodSeconds: 10
-    #  failureThreshold: 3
-    # ----------------------------------
-    # readinessProbe: ready for traffic
-    #   note: after container start, takes about 30 sec to init db, configs, etc
-    # ----------------------------------
-    #readinessProbe:
-    #  httpGet:
-    #    path: /monitoring/alive
-    #    port: 8080
-    #  initialDelaySeconds: 50
-    #  periodSeconds: 20
   # -------------------------
-  # 5 of 7: celery worker
+  # 4 of 6: celery worker
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:dec-test
@@ -356,7 +457,7 @@ spec:
       #      name: tworavens-web-secrets
       #      key: MONGO_CONNECTION_STRING
   # -------------------------
-  # 6 of 7: mongo
+  # 5 of 6: mongo
   # -------------------------
   - name: mongo-2ravens
     image: mongo
@@ -401,7 +502,7 @@ spec:
       # END: D3M config volume mounts
       # ----------------------
   # -------------------------
-  # 7 of 7: rook
+  # 6 of 6: rook
   # -------------------------
   - name: rook-service
     image: tworavens/ravens-r-service:dec-test
@@ -452,27 +553,6 @@ spec:
           name: ravens-django-config
       - configMapRef:
           name: ravens-config-d3m
-    # ----------------------------------
-    # livenessProbe: restart if this is failing
-    # ----------------------------------
-    #livenessProbe:
-    #  httpGet:
-    #    path: /rook-custom/healthcheckapp
-    #    port: 8000
-    #  initialDelaySeconds: 30
-    #  timeoutSeconds: 60
-    #  periodSeconds: 10
-    #  failureThreshold: 5 # rook is messy, this is pre going to flask
-    # ----------------------------------
-    # readinessProbe: ready for traffic
-    #   note: after container start, takes about 20 sec to init
-    # ----------------------------------
-    #readinessProbe:
-    #  httpGet:
-    #    path: /rook-custom/healthcheckapp
-    #    port: 8000
-    #  initialDelaySeconds: 30
-    #  periodSeconds: 50
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -488,12 +568,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
@@ -520,7 +600,8 @@ data:
   DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  #TA2_TEST_SERVER_URL: "tworavensweb:45042"
+  TA2_TEST_SERVER_URL: "ta2-service:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
