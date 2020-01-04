@@ -122,10 +122,6 @@ spec:
       port: {{ externalPort }}
       protocol: TCP
       targetPort: 80
-    #- name: ta23-port
-    #  port: 45042
-    #  protocol: TCP
-    #  targetPort: 45042
 ---
 # -------------------------------------
 #   TA3 Pod
