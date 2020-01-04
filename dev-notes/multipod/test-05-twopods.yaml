@@ -102,7 +102,7 @@ spec:
     volumeMounts:
       - name: output-data
         mountPath: /output
-        #subPath: twopad
+        subPath: twopad
         readOnly: false
   # ----------------------------
   # Volumes

@@ -1,0 +1,26 @@
+      # ----------------------------------
+      # shared between containers
+      # ref: volume_mounts_gce_01.yaml
+      # ----------------------------------
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
+        readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        subPath: input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        subPath: output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        subPath: static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------

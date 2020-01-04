@@ -1,8 +1,39 @@
 ---
+#  PersistentVolume with underlying Cloud Filestore
+#  - reference: https://cloud.google.com/filestore/docs/accessing-fileshares#create_a_persistent_volume
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: raven-pv-1
+spec:
+  # storageClassName: "twopod-raven-pv-1"
+  capacity:
+    storage: 30Gi
+  accessModes:
+  - ReadWriteMany
+  nfs:
+    path: /raven_share_01
+    server: 10.239.9.130
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: raven-pvc-1
+spec:
+  #storageClassName: "twopod-raven-pv-1"
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
+  volumeName: raven-pv-1
+  resources:
+    requests:
+      storage: 30Gi
+---
 #   config
 #   https://2ravens.org
 #
-#   template: gce_ravens_deploy_022_auto_ml.yaml
+#   template: gce_ravens_deploy_023_auto_ml.yaml
 #
 apiVersion: v1
 kind: Service
@@ -14,7 +45,7 @@ metadata:
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  loadBalancerIP: 10.108.29.7
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3
@@ -56,21 +87,26 @@ spec:
     volumeMounts:
       # ----------------------------------
       # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
       - name: input-data
         mountPath: /input
+        subPath: input
         readOnly: true
       - name: output-data
         mountPath: /output
+        subPath: output
         readOnly: false
       - name: static-data
         mountPath: /static
+        subPath: static
         readOnly: true
       # ----------------------
       # END: D3M config volume mounts
@@ -111,21 +147,26 @@ spec:
     volumeMounts:
       # ----------------------------------
       # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
       - name: input-data
         mountPath: /input
+        subPath: input
         readOnly: true
       - name: output-data
         mountPath: /output
+        subPath: output
         readOnly: false
       - name: static-data
         mountPath: /static
+        subPath: static
         readOnly: true
       # ----------------------
       # END: D3M config volume mounts
@@ -172,21 +213,26 @@ spec:
     volumeMounts:
       # ----------------------------------
       # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
       - name: input-data
         mountPath: /input
+        subPath: input
         readOnly: true
       - name: output-data
         mountPath: /output
+        subPath: output
         readOnly: false
       - name: static-data
         mountPath: /static
+        subPath: static
         readOnly: true
       # ----------------------
       # END: D3M config volume mounts
@@ -264,21 +310,26 @@ spec:
     volumeMounts:
       # ----------------------------------
       # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
       - name: input-data
         mountPath: /input
+        subPath: input
         readOnly: true
       - name: output-data
         mountPath: /output
+        subPath: output
         readOnly: false
       - name: static-data
         mountPath: /static
+        subPath: static
         readOnly: true
       # ----------------------
       # END: D3M config volume mounts
@@ -324,15 +375,31 @@ spec:
         protocol: TCP
     volumeMounts:
       # ----------------------------------
-      # shared between TwoRavens and rook
-      # - has some test data if needed
+      # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
       - name: "ravens-volume"
         mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
-      #- name: "ravens-volume"
-      #  #mountPath: /data/db
-      #  readOnly: false
+      # ----------------------
+      # D3M config volume mounts
+      # ----------------------
+      - name: input-data
+        mountPath: /input
+        subPath: input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        subPath: output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        subPath: static
+        readOnly: true
+      # ----------------------
+      # END: D3M config volume mounts
+      # ----------------------
   # -------------------------
   # 7 of 7: rook
   # -------------------------
@@ -352,21 +419,26 @@ spec:
     volumeMounts:
       # ----------------------------------
       # shared between containers
+      # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: ravens_volume
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
       - name: input-data
         mountPath: /input
+        subPath: input
         readOnly: true
       - name: output-data
         mountPath: /output
+        subPath: output
         readOnly: false
       - name: static-data
         mountPath: /static
+        subPath: static
         readOnly: true
       # ----------------------
       # END: D3M config volume mounts
@@ -406,28 +478,24 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
+      emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
     - name: input-data
-      # emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
+      emptyDir: {}
+      #hostPath:
+        #path: 
+        #type: Directory
     - name: static-data
-      # emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
+      emptyDir: {}
+      #hostPath:
+        #path: 
+        #type: Directory
     - name: output-data
-      # emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
+      emptyDir: {}
+      #persistentVolumeClaim:
+        #claimName: eval-output-pv-claim
 ---
 # ---------------------------------------
 # TA3 configmap used by:
@@ -442,8 +510,8 @@ data:
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_base"
-  CSRF_COOKIE_NAME: "ravens_base_csrf"
+  SESSION_COOKIE_NAME: "ravens_cookie"
+  CSRF_COOKIE_NAME: "ravens_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #

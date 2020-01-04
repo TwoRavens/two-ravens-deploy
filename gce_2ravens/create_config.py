@@ -120,6 +120,9 @@ def run_from_specs(specs):
                              memory_limit=vals[1],
                              cpu_request=vals[2],
                              cpu_limit=vals[3])
+
+            # Render/Add resource information
+            #
             trh = TemplateRenderHelper(info_dict,
                                        'resources_01.yaml',
                                        **dict(get_as_string=True))
@@ -135,7 +138,14 @@ def run_from_specs(specs):
         print('\t\t'.join([str(x) for x in row]))
     #print(sum_list)
 
-
+    # ----------------------------
+    # shared volume mounts
+    # ----------------------------
+    trh2 = TemplateRenderHelper(dict(name='nada'),
+                               'volume_mounts_gce_01.yaml',
+                               **dict(get_as_string=True))
+    # print(trh.content_string)
+    specs['shared_volume_mounts'] = trh2.content_string
 
     new_k8s_file = fillin_for_test(\
                         template_name=specs['template_name'],

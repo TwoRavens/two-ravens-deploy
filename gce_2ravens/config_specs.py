@@ -227,7 +227,7 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
 #   Bring down the CPU/Memory resources
 #
 spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
-                template_name='gce_ravens_deploy_022_auto_ml.yaml',
+                template_name='gce_ravens_deploy_023_auto_ml.yaml',
                 rendered_filename='ta3_brown_multi_2020_0104.yaml',
                 #
                 tworavens_container_tag='dec-test',
