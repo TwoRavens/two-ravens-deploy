@@ -159,6 +159,11 @@ spec:
 {{ redis_resources }}
     ports:
     - containerPort: 6379
+    volumeMounts:
+      # For testing outer directories
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        readOnly: true
   # -------------------------
   # 3 of 6: TA3 main (web app)
   # -------------------------
