@@ -160,7 +160,7 @@ spec:
     ports:
     - containerPort: 6379
     volumeMounts:
-      # For testing outer directories
+      # "backdoor": For viewing outer directories
       - name: ravens-volume
         mountPath: /ravens_volume
         readOnly: true
