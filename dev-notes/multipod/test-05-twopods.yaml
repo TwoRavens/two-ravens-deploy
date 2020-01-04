@@ -13,7 +13,7 @@ spec:
   accessModes:
   - ReadWriteMany
   nfs:
-    path: /raven_share_01
+    path: /raven_share_01/twpod
     server: 10.239.9.130
 ---
 apiVersion: v1

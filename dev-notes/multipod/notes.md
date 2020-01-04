@@ -28,6 +28,9 @@ kubectl exec -ti twopod -c twopod-nginx /bin/bash
 # -------------
 kubectl exec -ti twopod2 -c twopod2-python /bin/bash
 echo "hey hey pod2 python" >> /output/touch1.txt
+cat /output/touch1.txt
 
+wget  http://twopod-service
+wget  http://twopod-service:8080
 
 ```
