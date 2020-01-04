@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     # AutoML command
     create_configs(spec_automl_brown_2020_01,
-                   rendered_fname_prefix='autoML',
+                   rendered_fname_prefix='jan06',
                    make_ALL_files=False)
 
     #create_configs(spec_multi_brown3_NOT_automl,

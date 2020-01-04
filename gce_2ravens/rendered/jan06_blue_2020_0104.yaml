@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: raven-pvc-1-blue
+  name: raven-pvc-1
 spec:
   #storageClassName: "twopod-raven-pv-1"
   accessModes:
@@ -128,7 +128,7 @@ spec:
   volumes:
     - name: ravens-volume
       persistentVolumeClaim:
-        claimName: raven-pvc-1-blue
+        claimName: raven-pvc-1
         readOnly: false
       #emptyDir: {}
 ---
@@ -489,7 +489,7 @@ spec:
   volumes:
     - name: ravens-volume
       persistentVolumeClaim:
-        claimName: raven-pvc-1-blue
+        claimName: raven-pvc-1
         readOnly: false
       #emptyDir: {}
     # ----------------------------
