@@ -7,3 +7,6 @@ docker run -it --rm --name nginx-test -p 80:8080 nginx /bin/bash
 
 docker run --rm --name nginxest -p 8070:80 nginx
 ```
+
+kubectl exec -ti twopod -c twopod-python /bin/bash
+twopod-nginx twopod-python
