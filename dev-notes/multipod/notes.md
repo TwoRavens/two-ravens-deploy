@@ -1,12 +1,33 @@
 
+## test flask container
+
 ```
-docker run -it --rm --name py-test python:3.7 /bin/bash
-docker run -it --rm -p 8070:8070 nginx --name py-test python:3.7 /bin/bash
+# build
+docker build -t rprasad7/hello-python:test -f Dockerfile-python .
 
-docker run -it --rm --name nginx-test -p 80:8080 nginx /bin/bash
+# run locally
+docker run --rm --name hello-py -p 8080:8080 rprasad7/hello-python:test
 
-docker run --rm --name nginxest -p 8070:80 nginx
+# push
+docker push rprasad7/hello-python:test
 ```
 
+## k8s experiments
+
+```
+# -------------
+# Pod 1
+# -------------
 kubectl exec -ti twopod -c twopod-python /bin/bash
-twopod-nginx twopod-python
+echo "hey hey pod1 python" >> /output/touch1.txt
+
+kubectl exec -ti twopod -c twopod-nginx /bin/bash
+
+# -------------
+# Pod 2
+# -------------
+kubectl exec -ti twopod2 -c twopod2-python /bin/bash
+echo "hey hey pod2 python" >> /output/touch1.txt
+
+
+```
