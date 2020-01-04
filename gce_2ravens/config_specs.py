@@ -230,11 +230,15 @@ spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
                 template_name='gce_ravens_deploy_023_auto_ml.yaml',
                 rendered_filename='ta3_brown_multi_2020_0104.yaml',
                 #
+                D3MINPUTDIR='/ravens_volume/test_data',
+                D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
+                                '/TRAIN/problem_TRAIN/problemDoc.json'),
+                D3MOUTPUTDIR='/ravens_volume/test_output',
+                #
                 tworavens_container_tag='dec-test',
                 #
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #
-
                 ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
                 # 14 CPUs and 56GB, that was our configuration for summer evaluation
                 #

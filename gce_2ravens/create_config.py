@@ -142,7 +142,7 @@ def run_from_specs(specs):
     # shared volume mounts
     # ----------------------------
     trh2 = TemplateRenderHelper(dict(name='nada'),
-                               'volume_mounts_gce_01.yaml',
+                               'volume_mounts_gce_02.yaml',
                                **dict(get_as_string=True))
     # print(trh.content_string)
     specs['shared_volume_mounts'] = trh2.content_string

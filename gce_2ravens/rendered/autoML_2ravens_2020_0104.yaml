@@ -89,25 +89,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -149,25 +149,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -215,25 +215,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -312,25 +312,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -378,25 +378,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -421,25 +421,25 @@ spec:
       # shared between containers
       # ref: volume_mounts_gce_01.yaml
       # ----------------------------------
-      - name: "ravens-volume"
-        mountPath: "/ravens_volume"
-        subPath: ravens_volume
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org
         readOnly: false
       # ----------------------
       # D3M config volume mounts
       # ----------------------
-      - name: input-data
-        mountPath: /input
-        subPath: input
-        readOnly: true
-      - name: output-data
-        mountPath: /output
-        subPath: output
-        readOnly: false
-      - name: static-data
-        mountPath: /static
-        subPath: static
-        readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /input
+      #  subPath: input
+      #  readOnly: true
+      #- name: ravens-volume
+      #  mountPath: /output
+      #  subPath: output
+      #  readOnly: false
+      #- name: ravens-volume
+      #  mountPath: /static
+      #  subPath: static
+      #  readOnly: true
       # ----------------------
       # END: D3M config volume mounts
       # ----------------------
@@ -485,28 +485,18 @@ spec:
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
-    - name: input-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #hostPath:
-        #path: 
-        #type: Directory
-    - name: static-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #hostPath:
-        #path: 
-        #type: Directory
-    - name: output-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-
+    #- name: input-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: 
+    #    #type: Directory
+    #- name: static-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: 
+    #    #type: Directory
+    #- name: output-data
+    #  emptyDir: {}
 ---
 # ---------------------------------------
 # TA3 configmap used by:

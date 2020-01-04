@@ -272,28 +272,18 @@ spec:
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
-    - name: input-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #hostPath:
-        #path: {{ eval_dataset_path }}
-        #type: Directory
-    - name: static-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #hostPath:
-        #path: {{ static_dataset_path }}
-        #type: Directory
-    - name: output-data
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-
+    #- name: input-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: {{ eval_dataset_path }}
+    #    #type: Directory
+    #- name: static-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: {{ static_dataset_path }}
+    #    #type: Directory
+    #- name: output-data
+    #  emptyDir: {}
 ---
 # ---------------------------------------
 # TA3 configmap used by:
