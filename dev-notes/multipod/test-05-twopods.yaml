@@ -83,7 +83,7 @@ spec:
     volumeMounts:
       - name: output-data
         mountPath: /output
-        subPath: twopad
+        #subPath: twopad
         readOnly: false
   # -------------------------
   # 2 of 2: python
@@ -102,7 +102,7 @@ spec:
     volumeMounts:
       - name: output-data
         mountPath: /output
-        subPath: twopad
+        #subPath: twopad
         readOnly: false
   # ----------------------------
   # Volumes
