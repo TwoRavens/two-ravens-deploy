@@ -33,7 +33,7 @@ spec:
 #   config
 #   https://2ravens.org
 #
-#   template: gce_ravens_deploy_023_auto_ml.yaml
+#   template: gce_ravens_deploy_024_auto_ml.yaml
 #
 apiVersion: v1
 kind: Service
@@ -91,7 +91,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -151,7 +151,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -217,7 +217,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -314,7 +314,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -380,7 +380,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -423,7 +423,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -488,12 +488,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}

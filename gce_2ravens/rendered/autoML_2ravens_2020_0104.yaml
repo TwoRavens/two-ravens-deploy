@@ -33,7 +33,7 @@ spec:
 #   config
 #   https://2ravens.org
 #
-#   template: gce_ravens_deploy_023_auto_ml.yaml
+#   template: gce_ravens_deploy_024_auto_ml.yaml
 #
 apiVersion: v1
 kind: Service

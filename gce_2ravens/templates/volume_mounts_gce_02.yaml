@@ -4,7 +4,7 @@
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org{{ serviceNameSuffix}}
         readOnly: false
       # ----------------------
       # D3M config volume mounts
