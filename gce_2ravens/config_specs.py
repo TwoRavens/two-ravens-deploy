@@ -221,3 +221,29 @@ spec_d3m_automl_dec = dict(spec_multi_brown2, **dict(\
                 redis_resources=['500Mi', '1000Mi', '500m', '1000m'],
                 nginx_resources=['256Mi', '500Mi', '500m', '500m'],
                 ))
+
+
+#
+#   Bring down the CPU/Memory resources
+#
+spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
+                template_name='gce_ravens_deploy_022_auto_ml.yaml',
+                rendered_filename='ta3_brown_multi_2020_0104.yaml',
+                #
+                tworavens_container_tag='dec-test',
+                #
+                #   memory requested, memory limit, cpu requested, cpu limit
+                #
+
+                ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+                # 14 CPUs and 56GB, that was our configuration for summer evaluation
+                #
+                ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
+                celery_resources=['4500Mi', '6000Mi', '2000m', '4000m'],
+                #
+                rook_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                #
+                mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                redis_resources=['500Mi', '1000Mi', '500m', '500m'],
+                nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+                ))

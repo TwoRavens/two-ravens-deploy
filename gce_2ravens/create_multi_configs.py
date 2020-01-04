@@ -3,6 +3,7 @@ Used for the 11/2019 user testing
 """
 from os.path import abspath, dirname, join
 import sys
+from datetime import datetime
 
 CURRENT_DIR = dirname(abspath(__file__))
 sys.path.append(dirname(CURRENT_DIR))
@@ -13,10 +14,24 @@ from config_specs import \
      spec_multi_brown2,
      spec_multi_brown2a, # less cpu/memory
      spec_multi_brown3_NOT_automl,
-     spec_d3m_automl_dec)
+     spec_d3m_automl_dec,
+     spec_automl_brown_2020_01)
 from gce_ips.color_ip_table import COLOR_DOMAIN_PAIRS
 from create_config import run_from_specs
 
+
+CURR_YYYY_MMDD = None
+def get_current_year_day():
+    """YYYY_MMDD - e.g. '2020_0104', or similar"""
+    global CURR_YYYY_MMDD
+
+    if not CURR_YYYY_MMDD:
+        dt_now = datetime.now()
+        CURR_YYYY_MMDD = '%s_%s%s' % (dt_now.year,
+                                      str(dt_now.month).zfill(2),
+                                      str(dt_now.day).zfill(2),)
+
+    return CURR_YYYY_MMDD
 
 def create_single_test_config(the_specs, color_name, ip_address, **kwargs):
     """Create a single k8s config"""
@@ -37,7 +52,7 @@ def create_single_test_config(the_specs, color_name, ip_address, **kwargs):
         hyphenColorName = f'_{color_name}'
 
     color_specs = dict(the_specs, **dict(\
-                rendered_filename=f'{rendered_fname_prefix}{hyphenColorName}_2019_1211.yaml',
+                rendered_filename=f'{rendered_fname_prefix}{hyphenColorName}_{get_current_year_day()}.yaml',
                 loadBalancerIP=f'{ip_address}',
                 #
                 RAVENS_SERVER_NAME=serverName,
@@ -81,7 +96,9 @@ def create_configs(the_specs, rendered_fname_prefix, make_ALL_files=False):
 
     if make_ALL_files:
         all_contents = '\n'.join(big_file_contents)
-        final_fname = join(CURRENT_DIR, 'rendered', 'TEST_20_ALL_INSTANCES_2019_1115.yaml')
+        final_fname = join(CURRENT_DIR,
+                           'rendered',
+                           'TEST_20_ALL_INSTANCES_{get_current_year_day()}.yaml')
         open(final_fname, 'w').write(all_contents)
         print('final_file', final_fname)
 
@@ -91,14 +108,14 @@ if __name__ == '__main__':
     # spec_multi_brown3_NOT_automl
 
     # D3M AutoML command
-    create_configs(spec_d3m_automl_dec,
-                   rendered_fname_prefix='demo_d3m',
-                   make_ALL_files=False)
+    #create_configs(spec_d3m_automl_dec,
+    #               rendered_fname_prefix='demo_d3m',
+    #               make_ALL_files=False)
 
     # AutoML command
-    #create_configs(spec_multi_brown2a,
-    #               rendered_fname_prefix='autoML',
-    #               make_ALL_files=False)
+    create_configs(spec_automl_brown_2020_01,
+                   rendered_fname_prefix='autoML',
+                   make_ALL_files=False)
 
     #create_configs(spec_multi_brown3_NOT_automl,
     #               rendered_fname_prefix='NOT_autoML',
