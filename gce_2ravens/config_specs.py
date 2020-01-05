@@ -236,7 +236,7 @@ spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
                                 '/TRAIN/problem_TRAIN/problemDoc.json'),
                 D3MOUTPUTDIR='/ravens_volume/test_output',
                 #
-                tworavens_container_tag='dec-test',
+                tworavens_container_tag='jan-2020-01', # 'dec-test',
                 #
                 #   memory requested, memory limit, cpu requested, cpu limit
                 #

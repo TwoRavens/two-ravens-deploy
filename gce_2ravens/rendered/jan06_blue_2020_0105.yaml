@@ -38,15 +38,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ta2-service-lime
+  name: ta2-service-blue
   labels:
-    app: ta2-lime
+    app: ta2-blue
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
   selector:
-    app: ta2-lime
+    app: ta2-blue
   ports:
     - name: ta23-port
       port: 45042
@@ -59,9 +59,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ta2-pod-lime
+  name: ta2-pod-blue
   labels:
-    app: ta2-lime
+    app: ta2-blue
 spec:
   restartPolicy: Never
   containers:
@@ -92,7 +92,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -114,9 +114,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-blue
     env:
       - name: D3MRUN
         value: "ta2"
@@ -140,17 +140,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-lime
+  name: tworavens-service-blue
   labels:
-    app: ta3-lime
+    app: ta3-blue
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 34.67.169.83
+  loadBalancerIP: 35.225.184.21
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-lime
+    app: ta3-blue
   ports:
     - name: http
       port: 80
@@ -163,9 +163,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-lime
+  name: tworavensweb-blue
   labels:
-    app: ta3-lime
+    app: ta3-blue
 spec:
   restartPolicy: Never
   containers:
@@ -173,7 +173,7 @@ spec:
   # 1 of 6: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:dec-test
+    image: tworavens/ravens-nginx:jan-2020-01
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -191,7 +191,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-blue
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -199,7 +199,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -245,7 +245,7 @@ spec:
   # 3 of 6: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:dec-test
+    image: tworavens/ravens-main:jan-2020-01
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -270,7 +270,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -292,9 +292,9 @@ spec:
       # ----------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-blue
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -321,7 +321,7 @@ spec:
   # 4 of 6: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:dec-test
+    image: tworavens/ravens-main:jan-2020-01
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -346,7 +346,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -371,9 +371,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-blue
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -412,7 +412,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -436,7 +436,7 @@ spec:
   # 6 of 6: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:dec-test
+    image: tworavens/ravens-r-service:jan-2020-01
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # rook_resources
@@ -455,7 +455,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------
       # D3M config volume mounts
@@ -481,9 +481,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-blue
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -516,14 +516,14 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-lime
+  name: ravens-django-config-blue
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "lime.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_lime_cookie"
-  CSRF_COOKIE_NAME: "ravens_lime_csrf_cookie"
+  RAVENS_SERVER_NAME: "blue.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_blue_cookie"
+  CSRF_COOKIE_NAME: "ravens_blue_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -531,8 +531,8 @@ data:
   DISPLAY_DATAMART_UI: "False"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  #TA2_TEST_SERVER_URL: "tworavensweb-lime:45042"
-  TA2_TEST_SERVER_URL: "ta2-service-lime:45042"
+  #TA2_TEST_SERVER_URL: "tworavensweb-blue:45042"
+  TA2_TEST_SERVER_URL: "ta2-service-blue:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -564,7 +564,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-lime
+  name: ravens-config-d3m-blue
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"
