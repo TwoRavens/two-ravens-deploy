@@ -314,7 +314,7 @@ data:
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
-  DEBUG: "True"
+  DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
   #
   # Reference to the gRPC server using the pod name and TA2 port
