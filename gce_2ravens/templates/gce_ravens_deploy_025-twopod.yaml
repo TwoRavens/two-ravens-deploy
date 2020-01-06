@@ -315,7 +315,7 @@ data:
   TA2_STATIC_TEST_MODE: "False"
   #
   DEBUG: "False"
-  DISPLAY_DATAMART_UI: "False"
+  DISPLAY_DATAMART_UI: "True"
   #
   # Reference to the gRPC server using the pod name and TA2 port
   #TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
