@@ -195,6 +195,11 @@ spec:
       persistentVolumeClaim:
         claimName: eval-output-pv-claim
         readOnly: false
+  # ----------------------------
+  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+  # ----------------------------
+  imagePullSecrets:
+  - name: regcred
 ---
 # ---------------------------------------
 # TA3 configmap used by:
