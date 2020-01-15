@@ -185,11 +185,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      - name: GCE_CREDS_INFO
-        valueFrom:
-          secretKeyRef:
-            name: gce-creds-variable
-            key: GCE_CREDS_INFO
+      #- name: GCE_CREDS_INFO
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: gce-creds-variable
+      #      key: GCE_CREDS_INFO
   # -------------------------
   # 4 of 6: celery worker
   # -------------------------
