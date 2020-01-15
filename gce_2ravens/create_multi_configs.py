@@ -10,12 +10,13 @@ sys.path.append(dirname(CURRENT_DIR))
 #sys.path.append(join(dirname(CURRENT_DIR), 'gce_ips'))
 
 from config_specs import \
-    (spec_multi_brown,
-     spec_multi_brown2,
-     spec_multi_brown2a, # less cpu/memory
-     spec_multi_brown3_NOT_automl,
+    (#spec_multi_brown,
+     #spec_multi_brown2,
+     #spec_multi_brown2a, # less cpu/memory
+     #spec_multi_brown3_NOT_automl,
      spec_d3m_automl_dec,
-     spec_automl_brown_2020_01)
+     spec_automl_brown_2020_01,
+     spec_automl_gates_2020_0115)
 from gce_ips.color_ip_table import COLOR_DOMAIN_PAIRS
 from create_config import run_from_specs
 
@@ -111,10 +112,10 @@ if __name__ == '__main__':
     #create_configs(spec_d3m_automl_dec,
     #               rendered_fname_prefix='demo_d3m',
     #               make_ALL_files=False)
-
+    
     # AutoML command
-    create_configs(spec_automl_brown_2020_01,
-                   rendered_fname_prefix='jan06',
+    create_configs(spec_automl_gates_2020_0115,
+                   rendered_fname_prefix='dm',
                    make_ALL_files=False)
 
     #create_configs(spec_multi_brown3_NOT_automl,

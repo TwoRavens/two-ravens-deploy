@@ -1,6 +1,6 @@
       # ----------------------------------
       # shared between containers
-      # ref: volume_mounts_gce_01.yaml
+      # ref: volume_mounts_gce_02.yaml
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume

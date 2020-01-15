@@ -103,6 +103,9 @@ def run_from_specs(specs):
     assert isinstance(specs, dict), \
         "specs is not a python dictionary"
 
+    for k in sorted(specs.keys()):
+        print(k, specs[k])
+
     # Pre-render memory snippets
     #
     resource_lists = []
@@ -124,9 +127,9 @@ def run_from_specs(specs):
             # Render/Add resource information
             #
             trh = TemplateRenderHelper(info_dict,
-                                       'resources_01.yaml',
+                                       specs.get('RESOURCES_TEMPLATE_FILENAME',
+                                                 'resources_01.yaml'),
                                        **dict(get_as_string=True))
-            # print(trh.content_string)
             specs[key_name] = trh.content_string
 
     sum_list = [sum(i) for i in zip(*resource_lists)]
@@ -142,8 +145,9 @@ def run_from_specs(specs):
     # shared volume mounts
     # ----------------------------
     trh2 = TemplateRenderHelper(specs,
-                               'volume_mounts_gce_02.yaml',
-                               **dict(get_as_string=True))
+                                specs.get('VOLUME_MOUNTS_TEMPLATE_FILENAME',
+                                          'volume_mounts_gce_02.yaml'),
+                                **dict(get_as_string=True))
     # print(trh.content_string)
     specs['shared_volume_mounts'] = trh2.content_string
 

@@ -252,3 +252,48 @@ spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
                 redis_resources=['500Mi', '1000Mi', '500m', '500m'],
                 nginx_resources=['256Mi', '500Mi', '500m', '500m'],
                 ))
+
+
+
+#
+#   Bring down the CPU/Memory resources
+#
+spec_automl_gates_2020_0115 = dict(spec_automl_brown_2020_01, **dict(\
+                #template_name='gce_ravens_deploy_024_auto_ml.yaml',
+                template_name='dm_gates_onepod_01.yaml',
+                rendered_filename='dm_gates_multi_2020_015.yaml',
+                VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
+                RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
+                #
+                SECRET_KEY_VALUE='f!@0^(7v_!d8#c4t#!xjk433&xbw2vzo)u@v6s9pc&+gqz3s2&',
+                #
+                D3MINPUTDIR='/ravens_volume/test_data',
+                D3MPROBLEMPATH=('/ravens_volume/test_data/TR13_Ethiopia_Health'
+                                '/TRAIN/problem_TRAIN/problemDoc.json'),
+                D3MOUTPUTDIR='/ravens_volume/test_output',
+                #
+                ta2_image='registry.datadrivendiscovery.org/zshang/docker_images:ta2',
+                tworavens_container_tag='comfrey', # 'dec-test',
+                #
+                TA2_D3M_SOLVER_ENABLED='True',
+                TA2_WRAPPED_SOLVERS='["mlbox", "tpot"]',
+                #
+                #
+                DATAMART_URL_NYU="https://auctus.vida-nyu.org",
+                DATAMART_URL_ISI="http://10.108.20.4:9000/",
+                #
+                #
+                #   memory requested, memory limit, cpu requested, cpu limit
+                #
+                ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+                # 14 CPUs and 56GB, that was our configuration for summer evaluation
+                #
+                ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
+                celery_resources=['4500Mi', '6000Mi', '2000m', '4000m'],
+                #
+                rook_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                #
+                mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+                redis_resources=['500Mi', '1000Mi', '500m', '500m'],
+                nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+                ))
