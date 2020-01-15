@@ -42,14 +42,14 @@ def create_single_test_config(the_specs, color_name, ip_address, **kwargs):
     if cnt:
         cnt = f'({cnt})'
 
-    print(f'\n-- {cnt} {color_name}.2ravens.org: {ip_address} --')
+    print(f'\n-- {cnt} {color_name}.{the_specs["RAVENS_SERVER_NAME"]}: {ip_address} --')
 
     nameSuffix = ''
     serverName = '2ravens.org'
     hyphenColorName = ''
     if color_name:
         nameSuffix = f'-{color_name}'
-        serverName = f'{color_name}.2ravens.org'
+        serverName = f'{color_name}.{the_specs["RAVENS_SERVER_NAME"]}'
         hyphenColorName = f'_{color_name}'
 
     color_specs = dict(the_specs, **dict(\
@@ -70,6 +70,7 @@ def create_configs(the_specs, rendered_fname_prefix, make_ALL_files=False):
     """Create k8s configs"""
     file_list = []
     cnt = 0
+
     for dcolor, ip_address in COLOR_DOMAIN_PAIRS:
         cnt += 1
         #if cnt < 11: continue
@@ -112,7 +113,7 @@ if __name__ == '__main__':
     #create_configs(spec_d3m_automl_dec,
     #               rendered_fname_prefix='demo_d3m',
     #               make_ALL_files=False)
-    
+
     # AutoML command
     create_configs(spec_automl_gates_2020_0115,
                    rendered_fname_prefix='dm',

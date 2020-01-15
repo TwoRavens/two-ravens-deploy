@@ -264,6 +264,7 @@ spec_automl_gates_2020_0115 = dict(spec_automl_brown_2020_01, **dict(\
                 rendered_filename='dm_gates_multi_2020_015.yaml',
                 VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
                 RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
+                RAVENS_SERVER_NAME='datadrivendiscovery.org',
                 #
                 SECRET_KEY_VALUE='f!@0^(7v_!d8#c4t#!xjk433&xbw2vzo)u@v6s9pc&+gqz3s2&',
                 #
