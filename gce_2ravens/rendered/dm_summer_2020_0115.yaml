@@ -42,7 +42,7 @@ spec:
   - name: ta2-container
     # Brown TA2
     image: registry.datadrivendiscovery.org/zshang/docker_images:ta2
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources
     # ----------------------------------
