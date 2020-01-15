@@ -223,6 +223,8 @@ data:
   DISPLAY_DATAMART_UI: "True"
   #
   # Reference to the gRPC server using the pod name and TA2 port
+  TA2_D3M_SOLVER_ENABLED: "{{ TA2_D3M_SOLVER_ENABLED }}"
+  TA2_WRAPPED_SOLVERS: "{{ TA2_WRAPPED_SOLVERS }}"
   TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
   # gRPC server in separate pod:
   #TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix}}:45042"
