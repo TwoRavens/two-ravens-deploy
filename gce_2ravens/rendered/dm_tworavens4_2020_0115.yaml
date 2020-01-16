@@ -101,12 +101,12 @@ spec:
           name: ravens-django-config-tworavens4
     volumeMounts:
       # ----------------------------------
-      # shared between containers. Troubleshoot by excluding subpath
+      # shared between containers
       # ref: dm_volume_mounts_01.yaml
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        #subPath: 2ravens_org-tworavens4
+        subPath: 2ravens_org-tworavens4
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -130,7 +130,7 @@ spec:
       # "backdoor": For viewing outer directories
       - name: ravens-volume
         mountPath: /ravens_volume
-        readOnly: true
+        readOnly: false
   # -------------------------
   # 3 of 6: TA3 main (web app)
   # -------------------------

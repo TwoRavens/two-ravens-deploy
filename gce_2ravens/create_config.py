@@ -133,8 +133,12 @@ def run_from_specs(specs):
             specs[key_name] = trh.content_string
 
     sum_list = [sum(i) for i in zip(*resource_lists)]
+    sum_list_by_6 = [6*i for i in sum_list]
     resource_lists.append(['=======' for x in range(1, 5)])
     resource_lists.append(sum_list)
+    resource_lists.append('')    
+    resource_lists.append(['=======' for x in range(1, 5)])
+    resource_lists.append(sum_list_by_6)
     resource_lists.insert(0, ['-------' for x in range(1, 5)] )
     resource_lists.insert(0, ['Mem req', 'Mem max', 'CPU req', 'CPU max', ] )
     for row in resource_lists:
