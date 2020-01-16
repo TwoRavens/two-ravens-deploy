@@ -269,7 +269,9 @@ spec_automl_gates_2020_0115 = dict(spec_automl_brown_2020_01, **dict(\
                 SECRET_KEY_VALUE='f!@0^(7v_!d8#c4t#!xjk433&xbw2vzo)u@v6s9pc&+gqz3s2&',
                 #
                 D3MINPUTDIR='/ravens_volume/test_data',
-                D3MPROBLEMPATH=('/ravens_volume/test_data/TR13_Ethiopia_Health'
+
+                # D3MPROBLEMPATH=('/ravens_volume/test_data/TR13_Ethiopia_Health'
+                D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
                                 '/TRAIN/problem_TRAIN/problemDoc.json'),
                 D3MOUTPUTDIR='/ravens_volume/test_output',
                 #
