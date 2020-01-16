@@ -74,7 +74,15 @@ spec:
       - configMapRef:
           name: ravens-django-config{{ serviceNameSuffix}}
     volumeMounts:
-{{ shared_volume_mounts }}
+      # ----------------------------------
+      # shared between containers. Troubleshoot by excluding subpath
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        #subPath: 2ravens_org{{ serviceNameSuffix}}
+        readOnly: false
+      # ----------------------------------
   # -------------------------
   # 2 of 6: redis
   # -------------------------
