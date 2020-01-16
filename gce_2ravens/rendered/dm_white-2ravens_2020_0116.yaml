@@ -138,7 +138,8 @@ spec:
     image: tworavens/ravens-main:comfrey
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
-    command: ["d3m_start_multiuser.sh"]
+    #command: ["d3m_start_multiuser.sh"]
+    command: ["d3m_start_gates_01.sh"]
     # -----------------------------------
     # ta3_resources
     # ----------------------------------
@@ -174,7 +175,7 @@ spec:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
       - name: TEST_DATASETS
-        value: "185_baseball 196_autoMpg DA_poverty_estimation TR13_Ethiopia_Health" 
+        value: "185_baseball 196_autoMpg DA_poverty_estimation TR13_Ethiopia_Health"
   # -------------------------
   # 4 of 6: celery worker
   # -------------------------
