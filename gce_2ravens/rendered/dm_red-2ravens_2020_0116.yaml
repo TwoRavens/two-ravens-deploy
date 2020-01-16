@@ -176,6 +176,10 @@ spec:
         value: "mongodb://localhost:27017"
       - name: TEST_DATASETS
         value: "185_baseball 196_autoMpg DA_poverty_estimation TR13_Ethiopia_Health TR31_PRIO_GRID"
+      - name: D3MCPU
+        value: "1"
+      - name: D3MRAM
+        value: "1Gi"
   # -------------------------
   # 4 of 6: celery worker
   # -------------------------
