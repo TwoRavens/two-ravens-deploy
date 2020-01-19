@@ -1,5 +1,27 @@
 ---
 # -------------------------------------
+#   TA2 Service
+#   - communication is with the TA3 in another pod
+#   template: dm_gates_twopod_02.yaml
+# -------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: ta2-service-lime-2ravens
+  labels:
+    app: ta2-lime-2ravens
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: t2-svc-lime-2ravens
+spec:
+  type: LoadBalancer
+  selector:
+    app: ta2-lime-2ravens
+  ports:
+    - name: ta23-port
+      port: 45042
+      protocol: TCP
+      targetPort: 45042
+# -------------------------------------
 #   TA2 Pod
 # -------------------------------------
 apiVersion: v1
@@ -77,7 +99,7 @@ metadata:
   labels:
     app: ta3-lime-2ravens
     kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: monitoring-raven
+    kubernetes.io/name: ta3-svc-lime-2ravens
 spec:
   type: LoadBalancer
   loadBalancerIP: 10.108.29.11
@@ -354,8 +376,8 @@ data:
   TA2_WRAPPED_SOLVERS: '["mlbox", "tpot"]'
   #
   # gRPC server in separate pod:
-  TA2_TEST_SERVER_URL: "ta2-pod-lime-2ravens:45042"
-  # TA2_TEST_SERVER_URL: "ta2-service-lime-2ravens:45042"
+  # TA2_TEST_SERVER_URL: "ta2-pod-lime-2ravens:45042"
+  TA2_TEST_SERVER_URL: "ta2-service-lime-2ravens:45042"
   # TA2_TEST_SERVER_URL: "tworavensweb-lime-2ravens:45042"
   #
   # Url to TA3 R/rook web service

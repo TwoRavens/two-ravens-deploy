@@ -1,13 +1,35 @@
 ---
 # -------------------------------------
+#   TA2 Service
+#   - communication is with the TA3 in another pod
+#   template: {{ template_name }}
+# -------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: ta2-service{{ serviceNameSuffix }}
+  labels:
+    app: ta2{{ serviceNameSuffix }}
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: t2-svc{{ serviceNameSuffix }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: ta2{{ serviceNameSuffix }}
+  ports:
+    - name: ta23-port
+      port: 45042
+      protocol: TCP
+      targetPort: 45042
+# -------------------------------------
 #   TA2 Pod
 # -------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ta2-pod{{ serviceNameSuffix}}
+  name: ta2-pod{{ serviceNameSuffix }}
   labels:
-    app: ta2{{ serviceNameSuffix}}
+    app: ta2{{ serviceNameSuffix }}
 spec:
   restartPolicy: Never
   containers:
@@ -26,9 +48,9 @@ spec:
 {{ shared_volume_mounts }}
     envFrom:
       - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
+          name: ravens-django-config{{ serviceNameSuffix }}
       - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
+          name: ravens-config-d3m{{ serviceNameSuffix }}
     env:
       - name: D3MRUN
         value: "ta2"
@@ -56,17 +78,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service{{ serviceNameSuffix}}
+  name: tworavens-service{{ serviceNameSuffix }}
   labels:
-    app: ta3{{ serviceNameSuffix}}
+    app: ta3{{ serviceNameSuffix }}
     kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: monitoring-raven
+    kubernetes.io/name: ta3-svc{{ serviceNameSuffix }}
 spec:
   type: LoadBalancer
   loadBalancerIP: {{ loadBalancerIP }}
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3{{ serviceNameSuffix}}
+    app: ta3{{ serviceNameSuffix }}
   ports:
     - name: http
       port: {{ externalPort }}
@@ -79,9 +101,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb{{ serviceNameSuffix}}
+  name: tworavensweb{{ serviceNameSuffix }}
   labels:
-    app: ta3{{ serviceNameSuffix}}
+    app: ta3{{ serviceNameSuffix }}
 spec:
   restartPolicy: Never
   containers:
@@ -98,7 +120,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
+          name: ravens-django-config{{ serviceNameSuffix }}
     volumeMounts:
 {{ shared_volume_mounts }}
   # -------------------------
@@ -132,9 +154,9 @@ spec:
 {{ shared_volume_mounts }}
     envFrom:
       - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
+          name: ravens-django-config{{ serviceNameSuffix }}
       - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
+          name: ravens-config-d3m{{ serviceNameSuffix }}
     env:
       - name: SECRET_KEY
         value: {{ SECRET_KEY_VALUE }}
@@ -166,9 +188,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
+          name: ravens-django-config{{ serviceNameSuffix }}
       - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
+          name: ravens-config-d3m{{ serviceNameSuffix }}
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -200,9 +222,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
+          name: ravens-django-config{{ serviceNameSuffix }}
       - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
+          name: ravens-config-d3m{{ serviceNameSuffix }}
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -224,7 +246,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config{{ serviceNameSuffix}}
+  name: ravens-django-config{{ serviceNameSuffix }}
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
@@ -243,9 +265,9 @@ data:
   TA2_WRAPPED_SOLVERS: '{{ TA2_WRAPPED_SOLVERS }}'
   #
   # gRPC server in separate pod:
-  TA2_TEST_SERVER_URL: "ta2-pod{{ serviceNameSuffix}}:45042"
-  # TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix}}:45042"
-  # TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
+  # TA2_TEST_SERVER_URL: "ta2-pod{{ serviceNameSuffix }}:45042"
+  TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix }}:45042"
+  # TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix }}:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -270,7 +292,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m{{ serviceNameSuffix}}
+  name: ravens-config-d3m{{ serviceNameSuffix }}
 data:
   D3MRUN: "{{ D3MRUN }}"
   D3MINPUTDIR: "{{ D3MINPUTDIR }}"
