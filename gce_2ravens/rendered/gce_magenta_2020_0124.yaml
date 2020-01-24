@@ -1,35 +1,4 @@
 ---
-#  PersistentVolume with underlying Cloud Filestore
-#  - reference: https://cloud.google.com/filestore/docs/accessing-fileshares#create_a_persistent_volume
-#
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: raven-pv-1
-spec:
-  # storageClassName: "twopod-raven-pv-1"
-  capacity:
-    storage: 30Gi
-  accessModes:
-  - ReadWriteMany
-  nfs:
-    path: /raven_share_01
-    server: 10.239.9.130
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: raven-pvc-1
-spec:
-  #storageClassName: "twopod-raven-pv-1"
-  accessModes:
-  - ReadWriteMany
-  storageClassName: ""
-  volumeName: raven-pv-1
-  resources:
-    requests:
-      storage: 30Gi
----
 # -------------------------------------
 #   TA2 Service
 #   - communication is with the TA3 in another pod
