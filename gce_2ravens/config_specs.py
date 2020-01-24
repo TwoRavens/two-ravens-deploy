@@ -279,7 +279,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     tworavens_container_tag='comfrey2', # 'dec-test',
     #
     TA2_D3M_SOLVER_ENABLED='True',
-    TA2_WRAPPED_SOLVERS='["two_ravens", "mlbox", "tpot"]',
+    TA2_WRAPPED_SOLVERS='["two-ravens", "mlbox", "tpot"]',
     pull_policy_ta2='IfNotPresent', #'Always',
     #
     #

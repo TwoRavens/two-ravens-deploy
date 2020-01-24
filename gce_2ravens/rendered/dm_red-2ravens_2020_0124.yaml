@@ -325,7 +325,7 @@ data:
   #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
-  TA2_WRAPPED_SOLVERS: '["two_ravens", "mlbox", "tpot"]'
+  TA2_WRAPPED_SOLVERS: '["two-ravens", "mlbox", "tpot"]'
   TA2_TEST_SERVER_URL: "tworavensweb-red-2ravens:45042"
   # gRPC server in separate pod:
   #TA2_TEST_SERVER_URL: "ta2-service-red-2ravens:45042"
