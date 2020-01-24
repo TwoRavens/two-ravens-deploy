@@ -213,7 +213,7 @@ spec:
   - name: ta3-main
     image: tworavens/ravens-main:comfrey2
     #image: tworavens/ravens-main:develop
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
     # -----------------------------------
     # ta3_resources
@@ -271,7 +271,7 @@ spec:
   # -------------------------
   - name: celery-worker
     image: tworavens/ravens-main:comfrey2
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
     # -----------------------------------
