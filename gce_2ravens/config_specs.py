@@ -312,4 +312,20 @@ spec_gce_gates_2020_0124 = dict(spec_automl_gates_2020_0119, **dict(\
     pull_policy_ravens_main='IfNotPresent', #'Always',
     tworavens_container_tag='comfrey2', # 'dec-test',
     #
-    DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",))
+    DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
+    #
+    #   memory requested, memory limit, cpu requested, cpu limit
+    #
+    RESOURCES_TEMPLATE_FILENAME='resources_01.yaml',
+    ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+    # 14 CPUs and 56GB, that was our configuration for summer evaluation
+    #
+    nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+    ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
+    celery_resources=['4500Mi', '6000Mi', '2000m', '2000m'],
+    #
+    rook_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+    #
+    mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+    redis_resources=['500Mi', '1000Mi', '500m', '500m'],
+    ))

@@ -79,9 +79,9 @@ spec:
       requests:
          memory: "20000Mi"
          cpu: "2000m"
-      #limits:
-      #   memory: "25000Mi"
-      #   cpu: "4000m"
+      limits:
+         memory: "25000Mi"
+         cpu: "4000m"
     ports:
       - containerPort: 45042
         protocol: TCP
@@ -165,9 +165,9 @@ spec:
       requests:
          memory: "256Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "500Mi"
-      #   cpu: "500m"
+      limits:
+         memory: "500Mi"
+         cpu: "500m"
     ports:
       - containerPort: 80
         name: http
@@ -197,9 +197,9 @@ spec:
       requests:
          memory: "500Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "1000Mi"
-      #   cpu: "500m"
+      limits:
+         memory: "1000Mi"
+         cpu: "500m"
     ports:
     - containerPort: 6379
     volumeMounts:
@@ -222,9 +222,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "1000m"
-      #limits:
-      #   memory: "3000Mi"
-      #   cpu: "1500m"
+      limits:
+         memory: "3000Mi"
+         cpu: "1500m"
     ports:
       - containerPort: 8080
         name: http
@@ -281,9 +281,9 @@ spec:
       requests:
          memory: "4500Mi"
          cpu: "2000m"
-      #limits:
-      #   memory: "6000Mi"
-      #   cpu: "4000m"
+      limits:
+         memory: "6000Mi"
+         cpu: "2000m"
     ports:
       - containerPort: 8080
         name: http
@@ -331,9 +331,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "2000Mi"
-      #   cpu: "1000m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     ports:
       - containerPort: 27017
         protocol: TCP
@@ -360,9 +360,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "2000Mi"
-      #   cpu: "1000m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     volumeMounts:
       # ----------------------------------
       # shared between containers
