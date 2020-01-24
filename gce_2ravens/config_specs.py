@@ -259,8 +259,8 @@ spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
 #   Bring down the CPU/Memory resources
 #
 spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
-                template_name='dm_gates_twopod_02.yaml',
-                #template_name='dm_gates_onepod_01.yaml',
+                #template_name='dm_gates_twopod_02.yaml',
+                template_name='dm_gates_onepod_01.yaml',
                 rendered_filename='dm_gates_multi_2020_015.yaml',
                 VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
                 RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
@@ -276,7 +276,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
                 D3MOUTPUTDIR='/ravens_volume/test_output',
                 #
                 ta2_image='registry.datadrivendiscovery.org/zshang/docker_images:ta2',
-                tworavens_container_tag='comfrey', # 'dec-test',
+                tworavens_container_tag='comfrey2', # 'dec-test',
                 #
                 TA2_D3M_SOLVER_ENABLED='True',
                 TA2_WRAPPED_SOLVERS='["mlbox", "tpot"]',
