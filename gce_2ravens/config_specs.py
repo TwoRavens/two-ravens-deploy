@@ -304,5 +304,12 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
 
 
 spec_gce_gates_2020_0124 = dict(spec_automl_gates_2020_0119, **dict(\
-    template_name='dm_gates_onepod_01.yaml',
-    ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',))
+    #template_name='dm_gates_onepod_01.yaml',
+    template_name='gce_ravens_deploy_025-twopod.yaml',
+    #
+    ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',
+    #
+    pull_policy_ravens_main='IfNotPresent', #'Always',
+    tworavens_container_tag='comfrey2', # 'dec-test',
+    #
+    DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",))

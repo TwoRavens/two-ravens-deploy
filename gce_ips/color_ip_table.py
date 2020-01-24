@@ -2,11 +2,15 @@
 import socket
 
 GCE_COLOR_DOMAIN_PAIRS = [\
-            ('blue', '35.225.184.21'),  # blue.2ravens.org (GCE)
-            ('cyan', '104.154.189.22'), # cyan.2ravens.org (GCE)
-            ('lime', '34.67.169.83'),   # lime.2ravens.org (GCE)
-            ('', '104.197.235.238'), # 2ravens.org (GCE)
+            ('apricot', '35.223.135.139'),  # apricot.2ravens.org (GCE)
+            ('blue', '35.225.184.21'),      # blue.2ravens.org (GCE)
+            ('cyan', '104.154.189.22'),     # cyan.2ravens.org (GCE)
+            ('lime', '34.67.169.83'),       # lime.2ravens.org (GCE)
+            ('magenta', '35.222.247.157'),  # magenta.2ravens.org (GCE)
+            ('olive', '35.232.148.148'),    # olive.2ravens.org (GCE)
+            ('', '104.197.235.238'),        # 2ravens.org (GCE)
             #
+
             #('', '10.108.29.7'), # 2ravens.datadrivendiscovery.org
             ]
 
@@ -24,7 +28,8 @@ DM_COLOR_DOMAIN_PAIRS = [\
             #
             ]
 
-COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
+# COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
+COLOR_DOMAIN_PAIRS = GCE_COLOR_DOMAIN_PAIRS
 
 def is_domain_set(dcolor, ip_address, cnt=''):
     """

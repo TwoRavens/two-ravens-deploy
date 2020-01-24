@@ -14,9 +14,10 @@ from config_specs import \
      #spec_multi_brown2,
      #spec_multi_brown2a, # less cpu/memory
      #spec_multi_brown3_NOT_automl,
-     spec_d3m_automl_dec,
+     #spec_d3m_automl_dec,
      spec_automl_brown_2020_01,
-     spec_automl_gates_2020_0119)
+     spec_automl_gates_2020_0119,
+     spec_gce_gates_2020_0124)
 from gce_ips.color_ip_table import COLOR_DOMAIN_PAIRS
 from create_config import run_from_specs
 
@@ -114,9 +115,14 @@ if __name__ == '__main__':
     #               rendered_fname_prefix='demo_d3m',
     #               make_ALL_files=False)
 
-    # AutoML command
-    create_configs(spec_automl_gates_2020_0119,
-                   rendered_fname_prefix='dm',
+    # Gates DM
+    #create_configs(spec_automl_gates_2020_0119,
+    #               rendered_fname_prefix='dm',
+    #               make_ALL_files=False)
+
+    # Gates GCE
+    create_configs(spec_gce_gates_2020_0124,
+                   rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
     #create_configs(spec_multi_brown3_NOT_automl,
