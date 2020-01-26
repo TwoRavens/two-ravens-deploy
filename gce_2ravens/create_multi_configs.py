@@ -105,6 +105,17 @@ def create_configs(the_specs, rendered_fname_prefix, make_ALL_files=False):
         open(final_fname, 'w').write(all_contents)
         print('final_file', final_fname)
 
+def create_gce_k8s():
+    # Gates
+    create_configs(spec_gce_gates_2020_0124,
+                   rendered_fname_prefix='gce',
+                   make_ALL_files=False)
+
+def create_dm_k8s():
+    # data machines
+    create_configs(spec_automl_gates_2020_0119,
+                   rendered_fname_prefix='dm',
+                   make_ALL_files=False)
 
 if __name__ == '__main__':
     # spec_multi_brown2,
@@ -116,14 +127,13 @@ if __name__ == '__main__':
     #               make_ALL_files=False)
 
     # Gates DM
-    #create_configs(spec_automl_gates_2020_0119,
-    #               rendered_fname_prefix='dm',
-    #               make_ALL_files=False)
+    create_dm_k8s()
 
     # Gates GCE
-    create_configs(spec_gce_gates_2020_0124,
-                   rendered_fname_prefix='gce',
-                   make_ALL_files=False)
+    create_gce_k8s()
+    #create_configs(spec_gce_gates_2020_0124,
+    #               rendered_fname_prefix='gce',
+    #               make_ALL_files=False)
 
     #create_configs(spec_multi_brown3_NOT_automl,
     #               rendered_fname_prefix='NOT_autoML',

@@ -20,16 +20,16 @@ DM_COLOR_DOMAIN_PAIRS = [\
             ('red-2ravens', '10.108.29.9'), # tworavens1.datadrivendiscovery.org (GCE)
             ('blue-2ravens', '10.108.29.10'), # tworavens1.datadrivendiscovery.org (GCE)
             ('lime-2ravens', '10.108.29.11'), # tworavens1.datadrivendiscovery.org (GCE)
-            #('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
-            #('white-2ravens', '10.108.29.13'), # tworavens1.datadrivendiscovery.org (GCE)
-            #('orange-2ravens', '10.108.29.14'), # tworavens1.datadrivendiscovery.org (GCE)
+            ('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
+            ('white-2ravens', '10.108.29.13'), # tworavens1.datadrivendiscovery.org (GCE)
+            ('orange-2ravens', '10.108.29.14'), # tworavens1.datadrivendiscovery.org (GCE)
             #('lime', '34.67.169.83'),   # lime.2ravens.org (GCE)
             #('', '104.197.235.238'), # 2ravens.org (GCE)
             #
             ]
 
-# COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
-COLOR_DOMAIN_PAIRS = GCE_COLOR_DOMAIN_PAIRS
+COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
+#COLOR_DOMAIN_PAIRS = GCE_COLOR_DOMAIN_PAIRS
 
 def is_domain_set(dcolor, ip_address, cnt=''):
     """

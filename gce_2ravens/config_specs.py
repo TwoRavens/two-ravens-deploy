@@ -259,14 +259,13 @@ spec_automl_brown_2020_01 = dict(spec_multi_brown, **dict(\
 #   Bring down the CPU/Memory resources
 #
 spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
-    #template_name='dm_gates_twopod_02.yaml',
     template_name='dm_gates_onepod_01.yaml',
     rendered_filename='dm_gates_multi_2020_015.yaml',
     VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
     RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
     RAVENS_SERVER_NAME='datadrivendiscovery.org',
     #
-    SECRET_KEY_VALUE='f!@0^(7v_!d8#c4t#!xjk433&xbw2vzo)u@v6s9pc&+gqz3s2&',
+    SECRET_KEY_VALUE='f!@0^(7v_!45#c4t#!xjk433&x1y2vzo)u@v6s9pc&+gqz3s2&',
     #
     D3MINPUTDIR='/ravens_volume/test_data',
 
@@ -281,6 +280,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     TA2_D3M_SOLVER_ENABLED='True',
     TA2_WRAPPED_SOLVERS='["two-ravens", "mlbox", "tpot"]',
     pull_policy_ta2='IfNotPresent', #'Always',
+    pull_policy_ravens_main='Always', #'Always', 'IfNotPresent',
     #
     #
     DATAMART_URL_NYU="https://auctus.vida-nyu.org",
