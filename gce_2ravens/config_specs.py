@@ -280,7 +280,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     TA2_D3M_SOLVER_ENABLED='True',
     TA2_WRAPPED_SOLVERS='["two-ravens", "mlbox", "tpot"]',
     pull_policy_ta2='IfNotPresent', #'Always',
-    pull_policy_ravens_main='Always', #'Always', 'IfNotPresent',
+    pull_policy_ravens_main='IfNotPresent', #'Always', 'IfNotPresent',
     #
     #
     DATAMART_URL_NYU="https://auctus.vida-nyu.org",
