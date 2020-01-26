@@ -18,7 +18,10 @@ from config_specs import \
      spec_automl_brown_2020_01,
      spec_automl_gates_2020_0119,
      spec_gce_gates_2020_0124)
-from gce_ips.color_ip_table import COLOR_DOMAIN_PAIRS
+from gce_ips.color_ip_table import \
+    (DM_COLOR_DOMAIN_PAIRS,
+     GCE_COLOR_DOMAIN_PAIRS)
+
 from create_config import run_from_specs
 
 
@@ -67,12 +70,12 @@ def create_single_test_config(the_specs, color_name, ip_address, **kwargs):
     return run_from_specs(color_specs)
 
 
-def create_configs(the_specs, rendered_fname_prefix, make_ALL_files=False):
+def create_configs(the_specs, color_domains, rendered_fname_prefix, make_ALL_files=False):
     """Create k8s configs"""
     file_list = []
     cnt = 0
 
-    for dcolor, ip_address in COLOR_DOMAIN_PAIRS:
+    for dcolor, ip_address in color_domains:
         cnt += 1
         #if cnt < 11: continue
         if dcolor in ['terra',]:
@@ -108,12 +111,14 @@ def create_configs(the_specs, rendered_fname_prefix, make_ALL_files=False):
 def create_gce_k8s():
     # Gates
     create_configs(spec_gce_gates_2020_0124,
+                   GCE_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
 def create_dm_k8s():
     # data machines
     create_configs(spec_automl_gates_2020_0119,
+                   DM_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='dm',
                    make_ALL_files=False)
 
@@ -127,7 +132,7 @@ if __name__ == '__main__':
     #               make_ALL_files=False)
 
     # Gates DM
-    create_dm_k8s()
+    #create_dm_k8s()
 
     # Gates GCE
     create_gce_k8s()

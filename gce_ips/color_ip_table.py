@@ -17,7 +17,7 @@ GCE_COLOR_DOMAIN_PAIRS = [\
 # see https://datadrivendiscovery.org/wiki/pages/viewpage.action?spaceKey=gov&title=Creating+Services
 DM_COLOR_DOMAIN_PAIRS = [\
             #('2ravens', '10.108.29.7'),  # https://2ravens.datadrivendiscovery.org/ (DM)
-            ('red-2ravens', '10.108.29.9'), # tworavens1.datadrivendiscovery.org (GCE)
+            ('red-2ravens', '10.108.29.15'), # 10.108.29.9 tworavens1.datadrivendiscovery.org (GCE)
             ('blue-2ravens', '10.108.29.10'), # tworavens1.datadrivendiscovery.org (GCE)
             ('lime-2ravens', '10.108.29.11'), # tworavens1.datadrivendiscovery.org (GCE)
             ('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
@@ -28,7 +28,7 @@ DM_COLOR_DOMAIN_PAIRS = [\
             #
             ]
 
-COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
+#COLOR_DOMAIN_PAIRS = DM_COLOR_DOMAIN_PAIRS
 #COLOR_DOMAIN_PAIRS = GCE_COLOR_DOMAIN_PAIRS
 
 def is_domain_set(dcolor, ip_address, cnt=''):
@@ -56,10 +56,10 @@ def is_domain_set(dcolor, ip_address, cnt=''):
             print('    > ERROR!')
             print('domain_info', domain_info)
 
-def check_domains():
+def check_domains(color_pairs=GCE_COLOR_DOMAIN_PAIRS):
     """Check if the domain is set to the expected IP"""
     cnt = 0
-    for dcolor, ip_address in COLOR_DOMAIN_PAIRS:
+    for dcolor, ip_address in color_pairs:
         #print(f'{dcolor}.2ravens.org')
         cnt += 1
         is_domain_set(dcolor, ip_address, cnt=cnt)
