@@ -132,14 +132,7 @@ if __name__ == '__main__':
     #               make_ALL_files=False)
 
     # Gates DM
-    #create_dm_k8s()
+    create_dm_k8s()
 
     # Gates GCE
-    create_gce_k8s()
-    #create_configs(spec_gce_gates_2020_0124,
-    #               rendered_fname_prefix='gce',
-    #               make_ALL_files=False)
-
-    #create_configs(spec_multi_brown3_NOT_automl,
-    #               rendered_fname_prefix='NOT_autoML',
-    #               make_ALL_files=False)
+    #create_gce_k8s()
