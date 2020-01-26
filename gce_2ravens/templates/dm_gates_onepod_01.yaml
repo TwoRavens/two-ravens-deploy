@@ -182,9 +182,10 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
-        readOnly: false
+      emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: eval-output-pv-claim
+      #  readOnly: false
   # ----------------------------
   # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
   # ----------------------------

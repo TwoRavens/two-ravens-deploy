@@ -197,7 +197,7 @@ spec:
          cpu: "2000m"
       #limits:
       #   memory: "6000Mi"
-      #   cpu: "4000m"
+      #   cpu: "2000m"
     ports:
       - containerPort: 8080
         name: http
@@ -293,9 +293,10 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
-        readOnly: false
+      emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: eval-output-pv-claim
+      #  readOnly: false
   # ----------------------------
   # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
   # ----------------------------

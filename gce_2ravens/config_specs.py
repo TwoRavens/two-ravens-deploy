@@ -290,16 +290,17 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     #   memory requested, memory limit, cpu requested, cpu limit
     #
     ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+    #
     # 14 CPUs and 56GB, that was our configuration for summer evaluation
     #
+    nginx_resources=['256Mi', '500Mi', '500m', '500m'],
     ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
-    celery_resources=['4500Mi', '6000Mi', '2000m', '4000m'],
+    celery_resources=['4500Mi', '6000Mi', '2000m', '2000m'],
     #
     rook_resources=['1000Mi', '2000Mi', '500m', '1000m'],
     #
     mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
     redis_resources=['500Mi', '1000Mi', '500m', '500m'],
-    nginx_resources=['256Mi', '500Mi', '500m', '500m'],
     ))
 
 
