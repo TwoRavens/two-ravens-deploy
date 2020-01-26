@@ -275,7 +275,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     D3MOUTPUTDIR='/ravens_volume/test_output',
     #
     ta2_image='registry.datadrivendiscovery.org/zshang/docker_images:ta2',
-    tworavens_container_tag='comfrey2', # 'dec-test',
+    tworavens_container_tag='comfrey3', # 'dec-test',
     #
     TA2_D3M_SOLVER_ENABLED='True',
     TA2_WRAPPED_SOLVERS='["two-ravens", "mlbox", "tpot"]',
@@ -311,7 +311,7 @@ spec_gce_gates_2020_0124 = dict(spec_automl_gates_2020_0119, **dict(\
     ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',
     #
     pull_policy_ravens_main='Always', #'Always', 'IfNotPresent',
-    tworavens_container_tag='comfrey2', # 'dec-test',
+    tworavens_container_tag='comfrey3', # 'dec-test',
     #
     DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
     #

@@ -135,4 +135,4 @@ if __name__ == '__main__':
     create_dm_k8s()
 
     # Gates GCE
-    #create_gce_k8s()
+    create_gce_k8s()
