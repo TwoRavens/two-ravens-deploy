@@ -385,8 +385,9 @@ kind: ConfigMap
 metadata:
   name: ravens-django-config-cyan
 data:
-  TEST_DATASETS: "TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon TR85_Ethiopia_zone_mon_sub TR86_Ethiopia_zone_mon_sub_con TR87_Ethiopia_zone_mon_con TR61_Ethiopia_Large_2017-2018 TR60_Ethiopia_Small_2017-2018 TR50_PRIO_GRID 185_baseball 196_autoMpg"
-  # DA_poverty_estimation
+  # Example of setting test datasets via an env varaible
+  #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
+  #
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
@@ -441,7 +442,7 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/TR61_Ethiopia_Large_2017-2018/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"

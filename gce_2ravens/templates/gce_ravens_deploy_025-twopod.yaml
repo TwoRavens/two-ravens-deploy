@@ -286,6 +286,9 @@ data:
   DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
   #
+  # Example of setting test datasets via an env varaible
+  #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
+  #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "{{ TA2_D3M_SOLVER_ENABLED }}"
   TA2_WRAPPED_SOLVERS: '{{ TA2_WRAPPED_SOLVERS }}'
