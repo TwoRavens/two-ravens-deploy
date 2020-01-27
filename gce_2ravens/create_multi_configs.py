@@ -132,7 +132,7 @@ if __name__ == '__main__':
     #               make_ALL_files=False)
 
     # Gates DM
-    create_dm_k8s()
+    #create_dm_k8s()
 
     # Gates GCE
     create_gce_k8s()
