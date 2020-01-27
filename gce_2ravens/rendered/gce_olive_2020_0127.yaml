@@ -321,7 +321,7 @@ spec:
   # -------------------------
   - name: rook-service
     image: tworavens/ravens-r-service:comfrey3
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
     # ----------------------------------
