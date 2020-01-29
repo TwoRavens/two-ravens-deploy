@@ -7,15 +7,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ta2-service-magenta
+  name: ta2-service-blue
   labels:
-    app: ta2-magenta
+    app: ta2-blue
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
   selector:
-    app: ta2-magenta
+    app: ta2-blue
   ports:
     - name: ta23-port
       port: 45042
@@ -28,9 +28,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ta2-pod-magenta
+  name: ta2-pod-blue
   labels:
-    app: ta2-magenta
+    app: ta2-blue
 spec:
   restartPolicy: Never
   containers:
@@ -61,14 +61,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magenta
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-magenta
+          name: ravens-config-d3m-blue
     env:
       - name: D3MRUN
         value: "ta2"
@@ -92,17 +92,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-magenta
+  name: tworavens-service-blue
   labels:
-    app: ta3-magenta
+    app: ta3-blue
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 35.222.247.157
+  loadBalancerIP: 35.225.184.21
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-magenta
+    app: ta3-blue
   ports:
     - name: http
       port: 80
@@ -115,9 +115,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-magenta
+  name: tworavensweb-blue
   labels:
-    app: ta3-magenta
+    app: ta3-blue
 spec:
   restartPolicy: Never
   containers:
@@ -143,7 +143,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magenta
+          name: ravens-django-config-blue
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -151,7 +151,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -205,14 +205,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magenta
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-magenta
+          name: ravens-config-d3m-blue
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -264,7 +264,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
     # ---------------------------------
@@ -272,9 +272,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magenta
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-magenta
+          name: ravens-config-d3m-blue
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -313,7 +313,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -339,7 +339,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-magenta
+        subPath: 2ravens_org-blue
         readOnly: false
       # ----------------------------------
     ports:
@@ -348,9 +348,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-magenta
+          name: ravens-django-config-blue
       - configMapRef:
-          name: ravens-config-d3m-magenta
+          name: ravens-config-d3m-blue
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -383,14 +383,14 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-magenta
+  name: ravens-django-config-blue
 data:
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "magenta.datadrivendiscovery.org"
-  SESSION_COOKIE_NAME: "ravens_magenta_cookie"
-  CSRF_COOKIE_NAME: "ravens_magenta_csrf_cookie"
+  RAVENS_SERVER_NAME: "blue.datadrivendiscovery.org"
+  SESSION_COOKIE_NAME: "ravens_blue_cookie"
+  CSRF_COOKIE_NAME: "ravens_blue_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -403,8 +403,8 @@ data:
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
   TA2_WRAPPED_SOLVERS: '["two-ravens", "mlbox", "tpot"]'
-  #TA2_TEST_SERVER_URL: "tworavensweb-magenta:45042"
-  TA2_TEST_SERVER_URL: "ta2-service-magenta:45042"
+  #TA2_TEST_SERVER_URL: "tworavensweb-blue:45042"
+  TA2_TEST_SERVER_URL: "ta2-service-blue:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -436,7 +436,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-magenta
+  name: ravens-config-d3m-blue
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"

@@ -1,18 +1,27 @@
 """List of colors / IPs for domains"""
 import socket
 
-GCE_COLOR_DOMAIN_PAIRS = [\
-            ('apricot', '35.223.135.139'),  # apricot.2ravens.org (GCE)
-            ('blue', '35.225.184.21'),      # blue.2ravens.org (GCE)
-            ('cyan', '104.154.189.22'),     # cyan.2ravens.org (GCE)
-            ('lime', '34.67.169.83'),       # lime.2ravens.org (GCE)
-            ('magenta', '35.222.247.157'),  # magenta.2ravens.org (GCE)
-            ('olive', '35.232.148.148'),    # olive.2ravens.org (GCE)
-            ('', '104.197.235.238'),        # 2ravens.org (GCE)
-            #
+alt_problem_path = ('/ravens_volume/test_data/TR85_Ethiopia_zone_mon_sub'
+                    '/TRAIN/problem_TRAIN/problemDoc.json')
+alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 
-            #('', '10.108.29.7'), # 2ravens.datadrivendiscovery.org
-            ]
+GCE_COLOR_DOMAIN_PAIRS = [\
+        ('apricot', '35.223.135.139', {}),  # apricot.2ravens.org (GCE)
+        ('blue', '35.225.184.21', {}),      # blue.2ravens.org (GCE)
+        ('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)
+
+        ('lime', '34.67.169.83', {}),       # lime.2ravens.org (GCE)
+        ('magenta', '35.222.247.157', {}),  # magenta.2ravens.org (GCE)
+        ('olive', '35.232.148.148', {}),    # olive.2ravens.org (GCE)
+
+        ('mint', '34.67.169.159', alt_problem_args), # mint.2ravens.org (GCE)
+        ('navy', '35.225.84.224', alt_problem_args), # navy.2ravens.org (GCE)
+        ('red', '35.223.111.107', alt_problem_args), # red.2ravens.org (GCE)
+
+        ('', '104.197.235.238', {}),  # 2ravens.org (GCE)
+
+        #('', '10.108.29.7'), # 2ravens.datadrivendiscovery.org
+        ]
 
 # see https://datadrivendiscovery.org/wiki/pages/viewpage.action?spaceKey=gov&title=Creating+Services
 DM_COLOR_DOMAIN_PAIRS = [\

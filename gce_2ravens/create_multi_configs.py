@@ -3,6 +3,7 @@ Used for the 11/2019 user testing
 """
 from os.path import abspath, dirname, join
 import sys
+import copy
 from datetime import datetime
 
 CURRENT_DIR = dirname(abspath(__file__))
@@ -75,8 +76,14 @@ def create_configs(the_specs, color_domains, rendered_fname_prefix, make_ALL_fil
     file_list = []
     cnt = 0
 
-    for dcolor, ip_address in color_domains:
+    for dcolor, ip_address, other_args in color_domains:
         cnt += 1
+
+        single_domain_specs = copy.deepcopy(the_specs)
+
+        if other_args:
+            single_domain_specs.update(other_args)
+
         #if cnt < 11: continue
         if dcolor in ['terra',]:
             continue
@@ -87,7 +94,7 @@ def create_configs(the_specs, color_domains, rendered_fname_prefix, make_ALL_fil
         params = dict(rendered_fname_prefix=rendered_fname_prefix,
                       cnt=cnt)
 
-        new_k8s_file = create_single_test_config(the_specs, dcolor,
+        new_k8s_file = create_single_test_config(single_domain_specs, dcolor,
                                                  ip_address, **params)
         file_list.append(new_k8s_file)
         #if cnt == 10:
