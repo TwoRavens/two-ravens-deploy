@@ -304,11 +304,13 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
     ))
 
 
-spec_gce_gates_2020_0124 = dict(spec_automl_gates_2020_0119, **dict(\
+spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     #template_name='dm_gates_onepod_01.yaml',
     template_name='gce_ravens_deploy_025-twopod.yaml',
     #
-    D3MPROBLEMPATH=('/ravens_volume/test_data/TR61_Ethiopia_Large_2017-2018'
+    #D3MPROBLEMPATH=('/ravens_volume/test_data/TR61_Ethiopia_Large_2017-2018'
+    #                '/TRAIN/problem_TRAIN/problemDoc.json'),
+    D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
                     '/TRAIN/problem_TRAIN/problemDoc.json'),
     #
     ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',
