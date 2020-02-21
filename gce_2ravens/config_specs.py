@@ -318,8 +318,8 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     pull_policy_ravens_main='Always', #'Always', 'IfNotPresent',
     pull_policy_rook='Always',
 
-    # tworavens_container_tag='jan-2020-gates',
-    tworavens_container_tag='comfrey3', # 'dec-test',
+    tworavens_container_tag='jan-2020-gates',
+    #tworavens_container_tag='comfrey3', # 'dec-test',
     #
     DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
     #

@@ -7,8 +7,8 @@ alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 
 GCE_COLOR_DOMAIN_PAIRS = [\
         ('apricot', '35.223.135.139', {}),  # apricot.2ravens.org (GCE)
-        #('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)
-        #('magenta', '35.222.247.157', {}),  # magenta.2ravens.org (GCE)
+        ('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)
+        ('magenta', '35.222.247.157', {}),  # magenta.2ravens.org (GCE)
 
         #('blue', '35.225.184.21', {}),      # blue.2ravens.org (GCE)
         #('lime', '34.67.169.83', {}),       # lime.2ravens.org (GCE)
