@@ -4,9 +4,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pymongo-test-pod
+  name: evtdata-test
   labels:
-    app: evtdata-conn-test
+    app: evtdata-test
 spec:
   restartPolicy: Never
   containers:
@@ -15,11 +15,11 @@ spec:
     imagePullPolicy: Always
     command: ["tail"]
     args: ["-f", "/dev/null"]
-    - volumeMounts:
-        - name: ravens-volume
-          mountPath: /ravens_volume
-          subPath: 2ravens_org-evtdata
-          readOnly: false
+    volumeMounts:
+    - name: ravens-volume
+      mountPath: /ravens_volume
+      subPath: 2ravens_org-evtdata
+      readOnly: false
   # ----------------------------
   # Volumes
   # ----------------------------
