@@ -1,0 +1,30 @@
+# -------------------------------------
+# Pod with python to test script
+# -------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pymongo-test-pod
+  labels:
+    app: evtdata-conn-test
+spec:
+  restartPolicy: Never
+  containers:
+  - name: pymongo-test
+    image: gcr.io/raven2-186120/pymongo-test:latest
+    imagePullPolicy: Always
+    command: ["tail"]
+    args: ["-f", "/dev/null"]
+    - volumeMounts:
+        - name: ravens-volume
+          mountPath: /ravens_volume
+          subPath: 2ravens_org-evtdata
+          readOnly: false
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
