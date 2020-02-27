@@ -108,7 +108,7 @@ spec:
           key: SOCIAL_AUTH_GITHUB_SECRET
     - name: EVTDATA_2_TWORAVENS_DIR
       value: "/ravens_volume/evtdata_user_datasets"
-    - name: EVENTDATA_DATASETS
+    - name: xEVENTDATA_DATASETS
       value: '["acled_africa", "acled_asia", "acled_middle_east", "cline_phoenix_fbis", "cline_phoenix_nyt", "cline_phoenix_swb", "cline_speed", "icews"]'
     # ---------------------------
     # SQL db credentials
