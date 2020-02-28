@@ -108,8 +108,11 @@ spec:
           key: SOCIAL_AUTH_GITHUB_SECRET
     - name: EVTDATA_2_TWORAVENS_DIR
       value: "/ravens_volume/evtdata_user_datasets"
-    - name: xEVENTDATA_DATASETS
-      value: '["acled_africa", "acled_asia", "acled_middle_east", "cline_phoenix_fbis", "cline_phoenix_nyt", "cline_phoenix_swb", "cline_speed", "icews"]'
+    - name: EVENTDATA_DATASETS
+      value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_speed.json","icews.json","ged.json","gtd.json","covid_19.json"]'
+      #value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_phoenix_fbis.json","cline_phoenix_nyt.json","cline_phoenix_swb.json","cline_speed.json","icews.json"]'
+    - name: EVENTDATA_TWO_RAVENS_TARGET_URL
+      value: http://apricot.2ravens.org
     # ---------------------------
     # SQL db credentials
     # ---------------------------
