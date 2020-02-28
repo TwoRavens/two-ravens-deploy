@@ -8,8 +8,8 @@ docker build -t tworavens/ravens-r-service:develop -f Dockerfile-flask-r .
 
 docker push tworavens/ravens-r-service:develop
 
-docker tag tworavens/ravens-r-service:develop tworavens/ravens-r-service:comfrey
-docker push tworavens/ravens-r-service:comfrey
+docker tag tworavens/ravens-r-service:develop tworavens/ravens-r-service:comfrey3
+docker push tworavens/ravens-r-service:comfrey3
 ```
 
 ### Build nginx if needed

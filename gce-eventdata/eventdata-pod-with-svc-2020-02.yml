@@ -113,6 +113,10 @@ spec:
       #value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_phoenix_fbis.json","cline_phoenix_nyt.json","cline_phoenix_swb.json","cline_speed.json","icews.json"]'
     - name: EVENTDATA_TWO_RAVENS_TARGET_URL
       value: http://apricot.2ravens.org
+    - name: SESSION_COOKIE_NAME
+      value: eventdata_apricot_cookie
+    - name: CSRF_COOKIE_NAME
+      value: eventdata_apricot_csrf_cookie
     # ---------------------------
     # SQL db credentials
     # ---------------------------
