@@ -7,15 +7,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ta2-service-cyan
+  name: ta2-service-apricot
   labels:
-    app: ta2-cyan
+    app: ta2-apricot
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
   selector:
-    app: ta2-cyan
+    app: ta2-apricot
   ports:
     - name: ta23-port
       port: 45042
@@ -28,9 +28,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ta2-pod-cyan
+  name: ta2-pod-apricot
   labels:
-    app: ta2-cyan
+    app: ta2-apricot
 spec:
   restartPolicy: Never
   containers:
@@ -61,14 +61,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-cyan
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-cyan
+          name: ravens-config-d3m-apricot
     env:
       - name: D3MRUN
         value: "ta2"
@@ -92,17 +92,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-cyan
+  name: tworavens-service-apricot
   labels:
-    app: ta3-cyan
+    app: ta3-apricot
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.154.189.22
+  loadBalancerIP: 35.223.135.139
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-cyan
+    app: ta3-apricot
   ports:
     - name: http
       port: 80
@@ -115,9 +115,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-cyan
+  name: tworavensweb-apricot
   labels:
-    app: ta3-cyan
+    app: ta3-apricot
 spec:
   restartPolicy: Never
   containers:
@@ -125,7 +125,7 @@ spec:
   # 1 of 6: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:jan-2020-gates
+    image: tworavens/ravens-nginx:comfrey3
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -143,7 +143,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-cyan
+          name: ravens-django-config-apricot
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -151,7 +151,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -180,7 +180,7 @@ spec:
   # 3 of 6: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:jan-2020-gates
+    image: tworavens/ravens-main:comfrey3
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -205,14 +205,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-cyan
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-cyan
+          name: ravens-config-d3m-apricot
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -239,7 +239,7 @@ spec:
   # 4 of 6: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:jan-2020-gates
+    image: tworavens/ravens-main:comfrey3
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -264,7 +264,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     # ---------------------------------
@@ -272,9 +272,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-cyan
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-cyan
+          name: ravens-config-d3m-apricot
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -313,14 +313,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
   # -------------------------
   # 6 of 6: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:jan-2020-gates
+    image: tworavens/ravens-r-service:comfrey3
     imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
@@ -339,7 +339,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-cyan
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     ports:
@@ -348,9 +348,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-cyan
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-cyan
+          name: ravens-config-d3m-apricot
   # ----------------------------
   # Volumes
   # ----------------------------
@@ -383,15 +383,15 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-cyan
+  name: ravens-django-config-apricot
 data:
   SORT_BY_GATES_DATASETS: "True"
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "cyan.datadrivendiscovery.org"
-  SESSION_COOKIE_NAME: "ravens_cyan_cookie"
-  CSRF_COOKIE_NAME: "ravens_cyan_csrf_cookie"
+  RAVENS_SERVER_NAME: "apricot.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_apricot_cookie"
+  CSRF_COOKIE_NAME: "ravens_apricot_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -404,8 +404,8 @@ data:
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
   TA2_WRAPPED_SOLVERS: '["two-ravens", "mlbox", "tpot"]'
-  #TA2_TEST_SERVER_URL: "tworavensweb-cyan:45042"
-  TA2_TEST_SERVER_URL: "ta2-service-cyan:45042"
+  #TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
+  TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -437,7 +437,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-cyan
+  name: ravens-config-d3m-apricot
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"
