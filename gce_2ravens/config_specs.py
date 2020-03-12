@@ -322,7 +322,8 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     RAVENS_SERVER_NAME='2ravens.org',
     #
     #tworavens_container_tag='jan-2020-gates',
-    tworavens_container_tag='comfrey3', # 'dec-test',
+    #tworavens_container_tag='comfrey3', # 'dec-test',
+    tworavens_container_tag='latest', # 'dec-test',
     #
     DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
     #
