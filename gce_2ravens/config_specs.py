@@ -313,7 +313,8 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     #D3MPROBLEMPATH=('/ravens_volume/test_data/185_baseball'
     #                '/TRAIN/problem_TRAIN/problemDoc.json'),
     #
-    ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',
+    # ta2_image='gcr.io/raven2-186120/brown-ta2:2019-11',
+    ta2_image='dmartinez05/tamuta2:latest',
     #
     pull_policy_ravens_main='Always', #'Always', 'IfNotPresent',
     pull_policy_rook='Always',
