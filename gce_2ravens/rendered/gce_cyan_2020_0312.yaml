@@ -125,7 +125,7 @@ spec:
   # 1 of 6: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:latest
+    image: tworavens/ravens-nginx:comfrey3
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -180,7 +180,7 @@ spec:
   # 3 of 6: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:latest
+    image: tworavens/ravens-main:comfrey3
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -239,7 +239,7 @@ spec:
   # 4 of 6: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:latest
+    image: tworavens/ravens-main:comfrey3
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -320,7 +320,7 @@ spec:
   # 6 of 6: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:latest
+    image: tworavens/ravens-r-service:comfrey3
     imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
@@ -366,12 +366,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
@@ -395,7 +395,7 @@ data:
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
-  DEBUG: "False"
+  DEBUG: "True"
   DISPLAY_DATAMART_UI: "True"
   #
   # Example of setting test datasets via an env varaible
