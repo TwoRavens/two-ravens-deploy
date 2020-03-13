@@ -37,7 +37,7 @@ spec:
   restartPolicy: Never
   containers:
   # -------------------------
-  # 1 of 1: TA2
+  # -> TA2
   # -------------------------
   - name: ta2-container
     # {{ ta2_image_comment }}
