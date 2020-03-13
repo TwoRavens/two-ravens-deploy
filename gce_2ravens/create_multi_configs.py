@@ -16,9 +16,10 @@ from config_specs import \
      #spec_multi_brown2a, # less cpu/memory
      #spec_multi_brown3_NOT_automl,
      #spec_d3m_automl_dec,
-     spec_automl_brown_2020_01,
-     spec_automl_gates_2020_0119,
-     spec_gce_gates_2020_0212)
+     #spec_automl_brown_2020_01,
+     #spec_automl_gates_2020_0119,
+     spec_gce_gates_2020_0212,
+     spec_gce_gates_2020_0313)
 from gce_ips.color_ip_table import \
     (DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
@@ -124,7 +125,7 @@ def create_gce_k8s():
 
 def create_dm_k8s():
     # data machines
-    create_configs(spec_automl_gates_2020_0119,
+    create_configs(spec_gce_gates_2020_0313,
                    DM_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='dm',
                    make_ALL_files=False)
@@ -142,4 +143,5 @@ if __name__ == '__main__':
     #create_dm_k8s()
 
     # Gates GCE
-    create_gce_k8s()
+    create_dm_k8s()
+    #create_gce_k8s()

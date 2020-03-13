@@ -26,12 +26,12 @@ GCE_COLOR_DOMAIN_PAIRS = [\
 # see https://datadrivendiscovery.org/wiki/pages/viewpage.action?spaceKey=gov&title=Creating+Services
 DM_COLOR_DOMAIN_PAIRS = [\
             #('2ravens', '10.108.29.7'),  # https://2ravens.datadrivendiscovery.org/ (DM)
-            ('red-2ravens', '10.108.29.15'), # 10.108.29.9 tworavens1.datadrivendiscovery.org (GCE)
-            ('blue-2ravens', '10.108.29.10'), # tworavens1.datadrivendiscovery.org (GCE)
-            ('lime-2ravens', '10.108.29.11'), # tworavens1.datadrivendiscovery.org (GCE)
-            ('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
-            ('white-2ravens', '10.108.29.13'), # tworavens1.datadrivendiscovery.org (GCE)
-            ('orange-2ravens', '10.108.29.14'), # tworavens1.datadrivendiscovery.org (GCE)
+            #('red-2ravens', '10.108.29.15'), # 10.108.29.9 tworavens1.datadrivendiscovery.org (GCE)
+            ('blue-2ravens', '10.108.29.10', {}), # tworavens1.datadrivendiscovery.org (GCE)
+            #('lime-2ravens', '10.108.29.11'), # tworavens1.datadrivendiscovery.org (GCE)
+            #('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
+            #('white-2ravens', '10.108.29.13'), # tworavens1.datadrivendiscovery.org (GCE)
+            #('orange-2ravens', '10.108.29.14'), # tworavens1.datadrivendiscovery.org (GCE)
             #('lime', '34.67.169.83'),   # lime.2ravens.org (GCE)
             #('', '104.197.235.238'), # 2ravens.org (GCE)
             #

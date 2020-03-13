@@ -305,7 +305,7 @@ spec_automl_gates_2020_0119 = dict(spec_automl_brown_2020_01, **dict(\
 
 
 spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
-    #template_name='dm_gates_onepod_01.yaml',
+    #
     template_name='gce_ravens_deploy_025-twopod.yaml',
     #
     D3MPROBLEMPATH=('/ravens_volume/test_data/TR85_Ethiopia_zone_mon_sub'
@@ -330,7 +330,7 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     #   memory requested, memory limit, cpu requested, cpu limit
     #
     RESOURCES_TEMPLATE_FILENAME='resources_01.yaml',
-    ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+    ta2_resources=['20000Mi', '25000Mi', '3000m', '6000m'],
     # 14 CPUs and 56GB, that was our configuration for summer evaluation
     #
     nginx_resources=['256Mi', '500Mi', '500m', '500m'],
@@ -341,4 +341,14 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
     #
     mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
     redis_resources=['500Mi', '1000Mi', '500m', '500m'],
+    ))
+
+
+spec_gce_gates_2020_0313 = dict(spec_gce_gates_2020_0212, **dict(\
+    #
+    template_name='dm_state_one_pod_02.yaml',
+    #
+    # VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
+    RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
+    RAVENS_SERVER_NAME='datadrivendiscovery.org',
     ))
