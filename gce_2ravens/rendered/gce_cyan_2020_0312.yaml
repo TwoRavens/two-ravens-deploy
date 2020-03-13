@@ -366,12 +366,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
@@ -395,7 +395,7 @@ data:
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
-  DEBUG: "True"
+  DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
   #
   # Example of setting test datasets via an env varaible
