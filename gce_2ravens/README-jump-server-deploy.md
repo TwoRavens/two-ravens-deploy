@@ -55,14 +55,14 @@ kubectl describe pod tworavensweb # check on the pod
 kubectl get svc # check the svc and IP
 
 # view logs for a specific container
-kubectl logs -f tworavensweb-blue-2ravens -c ravens-nginx
-kubectl logs -f tworavensweb-blue-2ravens -c mongo-2ravens
-kubectl logs -f tworavensweb-blue-2ravens -c redis
+kubectl logs -f tworavensweb-2ravens-summer -c ravens-nginx
+kubectl logs -f tworavensweb-2ravens-summer -c mongo-2ravens
+kubectl logs -f tworavensweb-2ravens-summer -c redis
 
-kubectl logs -f tworavensweb-blue-2ravens -c ta3-main
-kubectl logs -f tworavensweb-blue-2ravens -c ta2-container
-kubectl logs -f tworavensweb-blue-2ravens -c celery-worker
-kubectl logs -f tworavensweb-blue-2ravens -c rook-service
+kubectl logs -f tworavensweb-2ravens-summer -c ta3-main
+kubectl logs -f tworavensweb-2ravens-summer -c ta2-container
+kubectl logs -f tworavensweb-2ravens-summer -c celery-worker
+kubectl logs -f tworavensweb-2ravens-summer -c rook-service
 
 # log into a running container
 kubectl exec -ti tworavensweb -c ravens-nginx /bin/bash
