@@ -25,9 +25,10 @@ GCE_COLOR_DOMAIN_PAIRS = [\
 
 # see https://datadrivendiscovery.org/wiki/pages/viewpage.action?spaceKey=gov&title=Creating+Services
 DM_COLOR_DOMAIN_PAIRS = [\
-            #('2ravens', '10.108.29.7'),  # https://2ravens.datadrivendiscovery.org/ (DM)
-            #('red-2ravens', '10.108.29.15'), # 10.108.29.9 tworavens1.datadrivendiscovery.org (GCE)
-            ('blue-2ravens', '10.108.29.10', {}), # tworavens1.datadrivendiscovery.org (GCE)
+            ('2ravens', '10.108.29.7', {}),  # https://2ravens.datadrivendiscovery.org/ (DM)
+
+            #('red-2ravens', '10.108.29.15', {}), # 10.108.29.9 tworavens1.datadrivendiscovery.org (GCE)
+            #('blue-2ravens', '10.108.29.10', {}), # tworavens1.datadrivendiscovery.org (GCE)
             #('lime-2ravens', '10.108.29.11'), # tworavens1.datadrivendiscovery.org (GCE)
             #('maroon-2ravens', '10.108.29.12'), # tworavens1.datadrivendiscovery.org (GCE)
             #('white-2ravens', '10.108.29.13'), # tworavens1.datadrivendiscovery.org (GCE)
