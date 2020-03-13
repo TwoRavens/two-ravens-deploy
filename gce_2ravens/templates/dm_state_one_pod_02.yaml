@@ -244,7 +244,7 @@ metadata:
   name: ravens-django-config{{ serviceNameSuffix}}
 data:
   SORT_BY_GATES_DATASETS: "True"
-  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "{{ RAVENS_SERVER_NAME}}"

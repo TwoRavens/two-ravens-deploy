@@ -185,11 +185,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      - name: GCE_CREDS_INFO
-        valueFrom:
-          secretKeyRef:
-            name: gce-creds-variable
-            key: GCE_CREDS_INFO
+      #- name: GCE_CREDS_INFO
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: gce-creds-variable
+      #      key: GCE_CREDS_INFO
   # -------------------------
   # 4 of 6: celery worker
   # -------------------------
@@ -335,12 +335,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
@@ -355,7 +355,7 @@ metadata:
   name: ravens-django-config-blue-2ravens
 data:
   SORT_BY_GATES_DATASETS: "True"
-  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "blue-2ravens.datadrivendiscovery.org"
