@@ -66,8 +66,8 @@ kubectl logs -f tworavensweb-2ravens-summer -c rook-service
 
 # log into a running container
 kubectl exec -ti tworavensweb -c ravens-nginx /bin/bash
-kubectl exec -ti tworavensweb -c ta3-main /bin/bash
+kubectl exec -ti tworavensweb-2ravens-summer -c ta3-main /bin/bash
 kubectl exec -ti tworavensweb -c celery-worker /bin/bash
-kubectl exec -ti tworavensweb -c ta2-container /bin/bash
+kubectl exec -ti tworavensweb-2ravens-summer -c ta2-container /bin/bash
 kubectl exec -ti tworavensweb -c rook-service /bin/bash
 ```

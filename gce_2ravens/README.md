@@ -126,6 +126,24 @@ kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
 
 ```
 
+## Delete user files on persistent volume
+
+```
+# Example deleting cyan data
+
+# Login into redis which has access to volumes for all instances
+#
+kubectl exec -ti  tworavensweb-cyan -c redis /bin/
+bash
+
+# Example of deleting cyan data
+#
+rm -rf /ravens_volume/2ravens_org-cyan/TwoRavens_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-cyan/evtdata_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-cyan/test_output/*
+
+```
+
 ## downsize cluster
 
 - Set size to zero
