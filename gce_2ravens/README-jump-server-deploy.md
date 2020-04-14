@@ -55,19 +55,20 @@ kubectl describe pod tworavensweb # check on the pod
 kubectl get svc # check the svc and IP
 
 # view logs for a specific container
-kubectl logs -f tworavensweb-2ravens-summer -c ravens-nginx
-kubectl logs -f tworavensweb-2ravens-summer -c mongo-2ravens
-kubectl logs -f tworavensweb-2ravens-summer -c redis
+kubectl logs -f tworavensweb-cyan -c ravens-nginx
+kubectl logs -f tworavensweb-cyan -c mongo-2ravens
+kubectl logs -f tworavensweb-cyan -c redis
+kubectl logs -f tworavensweb-cyan -c ravens-postgres
 
-kubectl logs -f tworavensweb-2ravens-summer -c ta3-main
-kubectl logs -f tworavensweb-2ravens-summer -c ta2-container
-kubectl logs -f tworavensweb-2ravens-summer -c celery-worker
-kubectl logs -f tworavensweb-2ravens-summer -c rook-service
+kubectl logs -f tworavensweb-cyan -c ta3-main
+kubectl logs -f tworavensweb-cyan -c ta2-main
+kubectl logs -f tworavensweb-cyan -c celery-worker
+kubectl logs -f tworavensweb-cyan -c rook-service
 
 # log into a running container
 kubectl exec -ti tworavensweb -c ravens-nginx /bin/bash
-kubectl exec -ti tworavensweb-2ravens-summer -c ta3-main /bin/bash
+kubectl exec -ti tworavensweb-cyan -c ta3-main /bin/bash
 kubectl exec -ti tworavensweb -c celery-worker /bin/bash
-kubectl exec -ti tworavensweb-2ravens-summer -c ta2-container /bin/bash
+kubectl exec -ti tworavensweb-cyan -c ta2-container /bin/bash
 kubectl exec -ti tworavensweb -c rook-service /bin/bash
 ```
