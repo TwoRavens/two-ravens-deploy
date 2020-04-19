@@ -124,7 +124,7 @@ def create_gce_k8s():
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
-def create_dm_k8s():
+def create_data_machines_k8s():
     # data machines
     create_configs(spec_gce_gates_2020_0313,
                    DM_COLOR_DOMAIN_PAIRS,
@@ -144,5 +144,5 @@ if __name__ == '__main__':
     #create_dm_k8s()
 
     # Gates GCE
-    #create_dm_k8s()
-    create_gce_k8s()
+    create_data_machines_k8s()
+    #create_gce_k8s()

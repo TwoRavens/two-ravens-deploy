@@ -145,7 +145,6 @@ spec:
       - name: POSTGRES_PASSWORD
         value: ephemeral_data
   # -------------------------
-  # -------------------------
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
@@ -448,6 +447,7 @@ data:
   #
   #
   # Postgres credentials
+  #
   DB_ENGINE: 'django.db.backends.postgresql'
   DB_NAME: 'raven_1'
   DB_USER: 'raven_user'

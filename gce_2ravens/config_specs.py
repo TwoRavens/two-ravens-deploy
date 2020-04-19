@@ -346,11 +346,18 @@ spec_gce_gates_2020_0212 = dict(spec_automl_gates_2020_0119, **dict(\
 
 spec_gce_gates_2020_0313 = dict(spec_gce_gates_2020_0212, **dict(\
     #
-    template_name='dm_state_one_pod_02.yaml',
+    template_name='dm_state_one_pod_03.yaml',
+    #
+    tworavens_container_tag='comfrey4', # 'dec-test',
+    #
+    # TAMU TA2
+    ta2_image='dmartinez05/tamuta2:latest',
     #
     # VOLUME_MOUNTS_TEMPLATE_FILENAME='dm_volume_mounts_01.yaml',
     RESOURCES_TEMPLATE_FILENAME='dm_resources_01.yaml',
     RAVENS_SERVER_NAME='datadrivendiscovery.org',
+    #
+    postgres_resources=['1000Mi', '2000Mi', '500m', '1000m'],
     ))
 
 

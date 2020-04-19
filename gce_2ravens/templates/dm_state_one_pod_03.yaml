@@ -1,73 +1,5 @@
 ---
 # -------------------------------------
-#   TA2 Service
-#   - communication is with the TA3 in another pod
-#   template: {{ template_name }}
-# -------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  name: ta2-service{{ serviceNameSuffix}}
-  labels:
-    app: ta2{{ serviceNameSuffix}}
-    kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: monitoring-raven
-spec:
-  type: LoadBalancer
-  selector:
-    app: ta2{{ serviceNameSuffix}}
-  ports:
-    - name: ta23-port
-      port: 45042
-      protocol: TCP
-      targetPort: 45042
----
-# -------------------------------------
-#   TA2 Pod
-# -------------------------------------
-apiVersion: v1
-kind: Pod
-metadata:
-  name: ta2-pod{{ serviceNameSuffix}}
-  labels:
-    app: ta2{{ serviceNameSuffix}}
-spec:
-  restartPolicy: Never
-  containers:
-  # -------------------------
-  # 1 of 1: TA2
-  # -------------------------
-  - name: ta2-container
-    # {{ ta2_image_comment }}
-    image: {{ ta2_image }}
-    imagePullPolicy: {{ pull_policy_ta2 }}
-{{ ta2_resources }}
-    ports:
-      - containerPort: 45042
-        protocol: TCP
-    volumeMounts:
-{{ shared_volume_mounts }}
-    envFrom:
-      - configMapRef:
-          name: ravens-django-config{{ serviceNameSuffix}}
-      - configMapRef:
-          name: ravens-config-d3m{{ serviceNameSuffix}}
-    env:
-      - name: D3MRUN
-        value: "ta2"
-      #- name: AM_ENV
-      #  value: "DEBUG"
-  # ----------------------------
-  # Volumes
-  # ----------------------------
-  volumes:
-    - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
----
-# -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
 #   template: {{ template_name }}
@@ -103,7 +35,30 @@ metadata:
     app: ta3{{ serviceNameSuffix}}
 spec:
   restartPolicy: Never
-  containers:
+  :
+  # -------------------------
+  # -> TA2
+  # -------------------------
+  - name: ta2-container
+    # {{ ta2_image_comment }}
+    image: {{ ta2_image }}
+    imagePullPolicy: {{ pull_policy_ta2 }}
+{{ ta2_resources }}
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+{{ shared_volume_mounts }}
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config{{ serviceNameSuffix}}
+      - configMapRef:
+          name: ravens-config-d3m{{ serviceNameSuffix}}
+    env:
+      - name: D3MRUN
+        value: "ta2"
+      #- name: AM_ENV
+      #  value: "DEBUG"
   # -------------------------
   # 1 of 7: Ravens postgres
   # -------------------------
@@ -184,11 +139,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      - name: GCE_CREDS_INFO
-        valueFrom:
-          secretKeyRef:
-            name: gce-creds-variable
-            key: GCE_CREDS_INFO
+      #- name: GCE_CREDS_INFO
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: gce-creds-variable
+      #      key: GCE_CREDS_INFO
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -257,12 +212,26 @@ spec:
   # ----------------------------
   # Volumes
   # ----------------------------
+  # ----------------------------
+  # Volumes
+  # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
       #emptyDir: {}
+      persistentVolumeClaim:
+        claimName: eval-output-pv-claim
+        readOnly: false
+  # ----------------------------
+  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+  # ----------------------------
+  imagePullSecrets:
+  - name: regcred
+    #volumes:
+    #  - name: ravens-volume
+    #    persistentVolumeClaim:
+    #      claimName: raven-pvc-1
+    #      readOnly: false
+    #    #emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
@@ -289,7 +258,7 @@ metadata:
   name: ravens-django-config{{ serviceNameSuffix}}
 data:
   SORT_BY_GATES_DATASETS: "True"
-  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "{{ RAVENS_SERVER_NAME}}"
@@ -307,8 +276,8 @@ data:
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "{{ TA2_D3M_SOLVER_ENABLED }}"
   TA2_WRAPPED_SOLVERS: '{{ TA2_WRAPPED_SOLVERS }}'
-  #TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
-  TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix}}:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
+  #TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix}}:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -326,8 +295,9 @@ data:
   ROOK_USE_PRODUCTION_MODE: "yes"
   #
   #
+  # ---------------------------
   # Postgres credentials
-  #
+  # ---------------------------
   DB_ENGINE: 'django.db.backends.postgresql'
   DB_NAME: 'raven_1'
   DB_USER: 'raven_user'
