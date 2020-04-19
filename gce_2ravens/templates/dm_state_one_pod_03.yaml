@@ -35,7 +35,7 @@ metadata:
     app: ta3{{ serviceNameSuffix}}
 spec:
   restartPolicy: Never
-  :
+  containers:
   # -------------------------
   # -> TA2
   # -------------------------

@@ -35,7 +35,7 @@ metadata:
     app: ta3-2ravens-summer
 spec:
   restartPolicy: Never
-  :
+  containers:
   # -------------------------
   # -> TA2
   # -------------------------
