@@ -350,6 +350,8 @@ spec_gce_gates_2020_0313 = dict(spec_gce_gates_2020_0212, **dict(\
     #
     tworavens_container_tag='comfrey4', # 'dec-test',
     #
+    externalPort=8080,
+    #
     # TAMU TA2
     ta2_image='dmartinez05/tamuta2:latest',
     #
