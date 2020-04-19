@@ -348,6 +348,9 @@ spec_gce_gates_2020_0313 = dict(spec_gce_gates_2020_0212, **dict(\
     #
     template_name='dm_state_one_pod_03.yaml',
     #
+    D3MPROBLEMPATH=('/ravens_volume/test_data/TR102_Northern_Ireland'
+                    '/TRAIN/problem_TRAIN/problemDoc.json'),
+    #
     tworavens_container_tag='comfrey4', # 'dec-test',
     #
     externalPort=8080,

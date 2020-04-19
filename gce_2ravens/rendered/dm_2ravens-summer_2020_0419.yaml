@@ -406,7 +406,7 @@ data:
   REDIS_HOST: localhost
   #
   # valid values: "ws://" and  "wss://"
-  WEBSOCKET_PREFIX: "ws://"
+  WEBSOCKET_PREFIX: "wss://"
   #
   # Mongo db name; Mongo creds are in secrets
   TWORAVENS_MONGO_DB_NAME: "harvard"
@@ -438,7 +438,7 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/TR85_Ethiopia_zone_mon_sub/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/TR102_Northern_Ireland/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
