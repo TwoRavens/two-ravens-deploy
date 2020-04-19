@@ -127,6 +127,16 @@ spec:
   - name: ravens-postgres
     image: postgres:12
     imagePullPolicy: Always
+    # -----------------------------------
+    # postgres_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "1000Mi"
+         cpu: "500m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     env:
       - name: POSTGRES_DB
         value: raven_1

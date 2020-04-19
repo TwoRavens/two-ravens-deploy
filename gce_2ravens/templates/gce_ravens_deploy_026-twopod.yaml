@@ -110,6 +110,7 @@ spec:
   - name: ravens-postgres
     image: postgres:12
     imagePullPolicy: Always
+{{ postgres_resources }}
     env:
       - name: POSTGRES_DB
         value: raven_1

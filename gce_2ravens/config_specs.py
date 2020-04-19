@@ -382,6 +382,7 @@ spec_gce_ireland_2020_0419 = dict(spec_gce_gates_2020_0212, **dict(\
     # 14 CPUs and 56GB, that was our configuration for summer evaluation
     #
     nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+    postgres_resources=['1000Mi', '2000Mi', '500m', '1000m'],
     ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
     celery_resources=['4500Mi', '6000Mi', '2000m', '2000m'],
     #
