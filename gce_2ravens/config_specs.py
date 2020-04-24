@@ -366,7 +366,7 @@ spec_gce_gates_2020_0313 = dict(spec_gce_gates_2020_0212, **dict(\
     ))
 
 
-spec_gce_ireland_2020_0419 = dict(spec_gce_gates_2020_0212, **dict(\
+spec_gce_ireland_2020_0424 = dict(spec_gce_gates_2020_0212, **dict(\
     #
     template_name='gce_ravens_deploy_026-twopod.yaml',
     #
@@ -383,7 +383,8 @@ spec_gce_ireland_2020_0419 = dict(spec_gce_gates_2020_0212, **dict(\
     #
     RAVENS_SERVER_NAME='2ravens.org',
     #
-    tworavens_container_tag='comfrey4', # 'dec-test',
+    #tworavens_container_tag='comfrey4',  
+    tworavens_container_tag='comfrey-2020-0424',
     #
     DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
     #
