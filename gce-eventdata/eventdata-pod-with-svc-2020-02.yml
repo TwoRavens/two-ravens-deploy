@@ -44,7 +44,7 @@ spec:
         secretName: eventdata-sql-instance-credentials
   containers:
   # --------------------------------
-  # 1 of 2: Ravens nginx
+  # 1 of 3: Ravens nginx
   # - reverse proxy for ta3-main
   # --------------------------------
   - name: ravens-nginx
