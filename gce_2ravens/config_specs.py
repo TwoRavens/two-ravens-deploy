@@ -383,8 +383,10 @@ spec_gce_ireland_2020_0424 = dict(spec_gce_gates_2020_0212, **dict(\
     #
     RAVENS_SERVER_NAME='2ravens.org',
     #
-    #tworavens_container_tag='comfrey4',  
-    tworavens_container_tag='comfrey-2020-0424',
+    #tworavens_container_tag='comfrey4',
+    tworavens_container_tag='comfrey-2020-0623',
+    #TA2_WRAPPED_SOLVERS='["two-ravens", "mlbox", "tpot"]',
+    TA2_WRAPPED_SOLVERS='["two-ravens", "tpot"]',
     #
     DATAMART_URL_ISI="https://dsbox02.isi.edu:9000",
     #
