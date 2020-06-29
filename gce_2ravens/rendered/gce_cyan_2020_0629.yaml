@@ -148,7 +148,7 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:comfrey-2020-0424
+    image: tworavens/ravens-nginx:comfrey-2020-0629
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -203,7 +203,7 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:comfrey-2020-0424
+    image: tworavens/ravens-main:comfrey-2020-0629
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -262,7 +262,7 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:comfrey-2020-0424
+    image: tworavens/ravens-main:comfrey-2020-0629
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -343,7 +343,7 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:comfrey-2020-0424
+    image: tworavens/ravens-r-service:comfrey-2020-0629
     imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
@@ -426,7 +426,7 @@ data:
   #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
-  TA2_WRAPPED_SOLVERS: '["two-ravens", "mlbox", "tpot"]'
+  TA2_WRAPPED_SOLVERS: '["two-ravens", "tpot"]'
   #TA2_TEST_SERVER_URL: "tworavensweb-cyan:45042"
   TA2_TEST_SERVER_URL: "ta2-service-cyan:45042"
   #
