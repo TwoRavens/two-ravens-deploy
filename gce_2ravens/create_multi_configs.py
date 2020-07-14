@@ -10,7 +10,7 @@ CURRENT_DIR = dirname(abspath(__file__))
 sys.path.append(dirname(CURRENT_DIR))
 #sys.path.append(join(dirname(CURRENT_DIR), 'gce_ips'))
 
-from config_specs import \
+from config_specs2 import \
     (#spec_multi_brown,
      #spec_multi_brown2,
      #spec_multi_brown2a, # less cpu/memory
@@ -18,9 +18,9 @@ from config_specs import \
      #spec_d3m_automl_dec,
      #spec_automl_brown_2020_01,
      #spec_automl_gates_2020_0119,
-     spec_gce_gates_2020_0212,
-     spec_gce_gates_2020_0313,
-     spec_gce_ireland_2020_0424)
+     #spec_gce_gates_2020_0212,
+     #spec_gce_gates_2020_0313,
+     base_spec_01)
 from gce_ips.color_ip_table import \
     (DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
@@ -119,7 +119,7 @@ def create_configs(the_specs, color_domains, rendered_fname_prefix, make_ALL_fil
 
 def create_gce_k8s():
     # Gates
-    create_configs(spec_gce_ireland_2020_0424,
+    create_configs(base_spec_01,
                    GCE_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
