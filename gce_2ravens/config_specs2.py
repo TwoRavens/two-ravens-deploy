@@ -56,7 +56,7 @@ base_spec_01 = dict(\
     #
     D3MRUN="ta2ta3",
     D3MINPUTDIR="/ravens_volume/test_data",
-    D3MPROBLEMPATH="/ravens_volume/test_data/TR102_Northern_Ireland/TRAIN/problem_TRAIN/problemDoc.json",
+    D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
     D3MOUTPUTDIR="/ravens_volume/test_output",
     D3MLOCALDIR="/ravens_volume/test_output/local_dir",
     D3MSTATICDIR="/ravens_volume/test_output/static_dir",
