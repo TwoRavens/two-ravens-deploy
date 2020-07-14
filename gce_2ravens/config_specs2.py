@@ -26,7 +26,7 @@ base_spec_01 = dict(\
     #
     # NGINX
     #
-    NGINX_MAX_UPLOAD_SIZE="24M",
+    NGINX_MAX_UPLOAD_SIZE="26M",
     NGINX_SERVER_NAME=".2ravens.org",
     #
     # load balancer, changes with mutli config
