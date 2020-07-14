@@ -337,8 +337,8 @@ data:
   #
   # NGINX variables
   #
-  NGINX_MAX_UPLOAD_SIZE: '24M'
-  NGINX_SERVER_NAME: '.2ravens.org'
+  NGINX_MAX_UPLOAD_SIZE: '{{ NGINX_MAX_UPLOAD_SIZE }}'
+  NGINX_SERVER_NAME: '{{ NGINX_SERVER_NAME }}'
 ---
 # ---------------------------------------
 # D3M Configmap used by:
