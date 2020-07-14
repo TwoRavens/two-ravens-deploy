@@ -86,9 +86,10 @@ kubectl logs -f tworavensweb ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f tworavensweb ta3-main
-kubectl logs -f tworavensweb celery-worker
-kubectl logs -f tworavensweb rook-service
+kubectl logs -f tworavensweb-cyan ta3-main
+kubectl logs -f tworavensweb-cyan ravens-nginx
+kubectl logs -f tworavensweb-cyan celery-worker
+kubectl logs -f tworavensweb-cyan rook-service
 
 # The TA2!
 #
