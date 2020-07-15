@@ -1,0 +1,487 @@
+---
+# -------------------------------------
+#   TA2 Service
+#   - communication is with the TA3 in another pod
+#   template: gce_ravens_deploy_027-twopod.yaml
+# -------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: ta2-service-apricot
+  labels:
+    app: ta2-apricot
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+spec:
+  type: LoadBalancer
+  selector:
+    app: ta2-apricot
+  ports:
+    - name: ta23-port
+      port: 45042
+      protocol: TCP
+      targetPort: 45042
+---
+# -------------------------------------
+#   TA2 Pod
+# -------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ta2-pod-apricot
+  labels:
+    app: ta2-apricot
+spec:
+  restartPolicy: Never
+  containers:
+  # -------------------------
+  # 1 of 1: TA2
+  # -------------------------
+  - name: ta2-container
+    # TAMU TA2!
+    image: dmartinez05/tamuta2:latest
+    imagePullPolicy: IfNotPresent
+    # -----------------------------------
+    # ta2_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "20000Mi"
+         cpu: "2000m"
+      limits:
+         memory: "25000Mi"
+         cpu: "4000m"
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-apricot
+      - configMapRef:
+          name: ravens-config-d3m-apricot
+    env:
+      - name: D3MRUN
+        value: "ta2"
+      #- name: AM_ENV
+      #  value: "DEBUG"
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
+      #emptyDir: {}
+---
+# -------------------------------------
+#   TA3 Service
+#   https://2ravens.org
+#   template: gce_ravens_deploy_027-twopod.yaml
+# -------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: tworavens-service-apricot
+  labels:
+    app: ta3-apricot
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-raven
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 35.223.135.139
+  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
+  selector:
+    app: ta3-apricot
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+---
+# -------------------------------------
+#   TA3 Pod
+# -------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tworavensweb-apricot
+  labels:
+    app: ta3-apricot
+spec:
+  restartPolicy: Never
+  containers:
+  # -------------------------
+  # 1 of 7: Ravens postgres
+  # -------------------------
+  - name: ravens-postgres
+    image: postgres:12
+    imagePullPolicy: Always
+    # -----------------------------------
+    # postgres_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "1000Mi"
+         cpu: "500m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
+    env:
+      - name: POSTGRES_DB
+        value: raven_1
+      - name: POSTGRES_USER
+        value: raven_user
+      - name: POSTGRES_PASSWORD
+        value: ephemeral_data
+  # -------------------------
+  # 2 of 7: Ravens nginx
+  # -------------------------
+  - name: ravens-nginx
+    image: tworavens/ravens-nginx:comfrey-2020-0715
+    imagePullPolicy: Always
+    # -----------------------------------
+    # nginx_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "256Mi"
+         cpu: "500m"
+      limits:
+         memory: "500Mi"
+         cpu: "500m"
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-apricot
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+  # -------------------------
+  # 3 of 7: redis
+  # -------------------------
+  - name: redis
+    image: redis:4.0
+    # -----------------------------------
+    # redis_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "500Mi"
+         cpu: "500m"
+      limits:
+         memory: "1000Mi"
+         cpu: "500m"
+    ports:
+    - containerPort: 6379
+    volumeMounts:
+      # "backdoor": For viewing outer directories
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        readOnly: false
+  # -------------------------
+  # 4 of 7: TA3 main (web app)
+  # -------------------------
+  - name: ta3-main
+    image: tworavens/ravens-main:comfrey-2020-0715
+    #image: tworavens/ravens-main:develop
+    imagePullPolicy: Always
+    command: ["d3m_start_multiuser.sh"]
+    # -----------------------------------
+    # ta3_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "1000Mi"
+         cpu: "1000m"
+      limits:
+         memory: "3000Mi"
+         cpu: "1500m"
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-apricot
+      - configMapRef:
+          name: ravens-config-d3m-apricot
+    env:
+      - name: SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: SECRET_KEY
+      - name: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
+      - name: D3MCPU
+        value: "1"
+      - name: D3MRAM
+        value: "1Gi"
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
+  # -------------------------
+  # 5 of 7: celery worker
+  # -------------------------
+  - name: celery-worker
+    image: tworavens/ravens-main:comfrey-2020-0715
+    imagePullPolicy: Always
+    command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
+    # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
+    # -----------------------------------
+    # celery_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "4500Mi"
+         cpu: "2000m"
+      limits:
+         memory: "6000Mi"
+         cpu: "2000m"
+    ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+    # ---------------------------------
+    # environment variables passed to container
+    # ---------------------------------
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-apricot
+      - configMapRef:
+          name: ravens-config-d3m-apricot
+    env:
+      - name: MONGO_CONNECTION_STRING
+        value: "mongodb://localhost:27017"
+      - name: SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: SECRET_KEY
+      #- name: MONGO_CONNECTION_STRING
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: tworavens-web-secrets
+      #      key: MONGO_CONNECTION_STRING
+  # -------------------------
+  # 6 of 7: mongo
+  # -------------------------
+  - name: mongo-2ravens
+    image: mongo
+    # -----------------------------------
+    # mongo_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "1000Mi"
+         cpu: "500m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
+    ports:
+      - containerPort: 27017
+        protocol: TCP
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+  # -------------------------
+  # 7 of 7: rook
+  # -------------------------
+  - name: rook-service
+    image: tworavens/ravens-r-service:comfrey-2020-0715
+    imagePullPolicy: Always
+    # -----------------------------------
+    # rook_resources
+    # ----------------------------------
+    resources:
+      requests:
+         memory: "1000Mi"
+         cpu: "500m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
+    volumeMounts:
+      # ----------------------------------
+      # shared between containers
+      # ref: dm_volume_mounts_01.yaml
+      # ----------------------------------
+      - name: ravens-volume
+        mountPath: /ravens_volume
+        subPath: 2ravens_org-apricot
+        readOnly: false
+      # ----------------------------------
+    ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config-apricot
+      - configMapRef:
+          name: ravens-config-d3m-apricot
+  # ----------------------------
+  # Volumes
+  # ----------------------------
+  volumes:
+    - name: ravens-volume
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
+      #emptyDir: {}
+    # ----------------------------
+    # Volumes for jump server data
+    # ----------------------------
+    #- name: input-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: 
+    #    #type: Directory
+    #- name: static-data
+    #  emptyDir: {}
+    #  #hostPath:
+    #    #path: 
+    #    #type: Directory
+    #- name: output-data
+    #  emptyDir: {}
+---
+# ---------------------------------------
+# TA3 configmap used by:
+#   main (TA3), rook-service, celery-worker,
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-django-config-apricot
+data:
+  SORT_BY_GATES_DATASETS: "True"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
+  LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
+  #
+  RAVENS_SERVER_NAME: "apricot.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_apricot_cookie"
+  CSRF_COOKIE_NAME: "ravens_apricot_csrf_cookie"
+  # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
+  TA2_STATIC_TEST_MODE: "False"
+  #
+  DEBUG: "False"
+  DISPLAY_DATAMART_UI: "True"
+  #
+  # Example of setting test datasets via an env varaible
+  #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
+  #
+  # Reference to the gRPC server using the pod name and TA2 port
+  TA2_D3M_SOLVER_ENABLED: "True"
+  TA2_WRAPPED_SOLVERS: "['two-ravens', 'tpot']"
+  #TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
+  TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
+  #
+  # Url to TA3 R/rook web service
+  R_DEV_SERVER_BASE: "http://localhost:8000/"
+  #
+  # Redis
+  REDIS_HOST: localhost
+  #
+  # valid values: "ws://" and  "wss://"
+  WEBSOCKET_PREFIX: "ws://"
+  #
+  # Mongo db name; Mongo creds are in secrets
+  TWORAVENS_MONGO_DB_NAME: "harvard"
+  #
+  # Only used by rook--and redundant as also set to "yes" in Dockerfile
+  ROOK_USE_PRODUCTION_MODE: "yes"
+  #
+  #
+  # Postgres credentials
+  #
+  DB_ENGINE: 'django.db.backends.postgresql'
+  DB_NAME: 'raven_1'
+  DB_USER: 'raven_user'
+  DB_PASSWORD: 'ephemeral_data'
+  DB_HOST: 'localhost'
+  DB_PORT: '5432'
+  #
+  # NGINX variables
+  #
+  NGINX_MAX_UPLOAD_SIZE: '28m'
+  NGINX_SERVER_NAME: '.2ravens.org'
+---
+# ---------------------------------------
+# D3M Configmap used by:
+#   ravens-main (TA3), rook-service, celery-worker, TA2
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ravens-config-d3m-apricot
+data:
+  D3MRUN: "ta2ta3"
+  D3MINPUTDIR: "/ravens_volume/test_data"
+  D3MOUTPUTDIR: "/ravens_volume/test_output"
+  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  # Used by TA2
+  #D3MCPU: "1"
+  #D3MRAM: "512Mi"
+  #
+  D3MTIMEOUT: "600"
+  D3MCONTEXT: "TESTING"
+  #
+  DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
+  DATAMART_URL_ISI: "https://dsbox02.isi.edu:9000"
+---
