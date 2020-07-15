@@ -26,7 +26,7 @@ These steps deploy the TwoRavens EventData application using Docker images from 
 ```
 # One-time secret
 #
-kubectl apply -f k8s-secret-configs/gce-eventdata-secrets.yml
+kubectl apply -f k8s-secret-configs/gce-eventdata-secrets.yaml
 
 # (a) pull the latest config code
 #
@@ -35,16 +35,16 @@ git pull # only changes when these instructions/config files change
 
 # (b) apply configmap - This only needs be done if the configmap has changed.
 #
-kubectl apply -f eventdata-django-configmap.yml
+kubectl apply -f eventdata-django-configmap.yaml
 
 # (c) Restart the pod + svc
 #
-kubectl apply -f eventdata-pod-with-svc.yml
+kubectl apply -f eventdata-pod-with-svc.yaml
 
 # Send the stop command
 #  - This takes about a minute.
 #
-kubectl delete -f eventdata-pod-with-svc.yml  # stop the current pod/svc
+kubectl delete -f eventdata-pod-with-svc.yaml  # stop the current pod/svc
 
 # Check to make sure the pod is stopped
 #  - If the STATUS is "Terminating", keep waiting
@@ -54,7 +54,7 @@ kubectl get pods   # when the pod stops, you will no longer see "ravens-eventdat
 # Start the pod + svc
 #  - This also takes about a minute
 #
-kubectl apply -f eventdata-pod-with-svc.yml  # start the current pod/svc
+kubectl apply -f eventdata-pod-with-svc.yaml  # start the current pod/svc
 
 # Check the status
 #   - This can give you an idea of the state, whether containers are being pulled, etc
@@ -68,7 +68,7 @@ kubectl describe pod ravens-eventdata-web
 
 # Alternative Stop: stops the pod + svc immediately
 #
-kubectl delete -f eventdata-pod-with-svc.yml --grace-period=0 --force
+kubectl delete -f eventdata-pod-with-svc.yaml --grace-period=0 --force
 
 # ---------------
 # other
@@ -124,7 +124,7 @@ git pull  # get the latest k8s config info
 #   - if nothing was running, you'll see "Error from server (NotFound):..."
 #     - that's fine
 #
-kubectl delete -f eventdata-pod-with-svc.yml
+kubectl delete -f eventdata-pod-with-svc.yaml
 
 # Note: check `kubectl get pods` to make sure the pod
 # is deleted before restarting.  This can take a minute
@@ -133,7 +133,7 @@ kubectl delete -f eventdata-pod-with-svc.yml
 #   - should see a message like: deployment "ravens-eventdata-web" created
 #   - The website can take a couple of minutes to start
 #
-kubectl apply -f eventdata-pod-with-svc.yml
+kubectl apply -f eventdata-pod-with-svc.yaml
 
 
 # Wait for service to have IP assigned
@@ -153,7 +153,7 @@ kubectl describe pod ravens-eventdata-web
 ```
 cd two-ravens-deploy/gce-eventdata
 
-kubectl delete -f eventdata-pod-with-svc.yml
+kubectl delete -f eventdata-pod-with-svc.yaml
 
 ```
 

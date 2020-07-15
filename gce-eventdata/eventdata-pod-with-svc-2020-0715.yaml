@@ -1,0 +1,174 @@
+---
+# ---------------------------
+# EventData - Service
+# ---------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventdataweb
+  labels:
+    app: eventdata
+spec:
+  selector:
+    app: eventdata
+    tier: web
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+  #
+  # IP mapped to eventdata.2ravens.org
+  #
+  loadBalancerIP: 35.188.4.189
+---
+# ---------------------------
+# EventData - Kubernetes Pod File
+# ---------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ravens-eventdata-web
+  labels:
+    app: eventdata
+    tier: web
+spec:
+  restartPolicy: Always
+  volumes:
+    - name: ravens-volume
+      # emptyDir: {}
+      persistentVolumeClaim:
+        claimName: raven-pvc-1
+        readOnly: false
+    - name: eventdata-sql-instance-credentials
+      secret:
+        secretName: eventdata-sql-instance-credentials
+  containers:
+  # --------------------------------
+  # 1 of 3: Ravens nginx
+  # - reverse proxy for ta3-main
+  # --------------------------------
+  - name: ravens-nginx
+    image: tworavens/eventdata-ravens-nginx:yarrow-2020-0715
+    imagePullPolicy: Always
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    volumeMounts:
+    - name: "ravens-volume"
+      mountPath: "/ravens_volume"
+      subPath: 2ravens_org-apricot
+      readOnly: true
+  # --------------------------------
+  # 2 of 3: cloudsql proxy
+  # --------------------------------
+  - name: cloudsql-proxy
+    image: gcr.io/cloudsql-docker/gce-proxy:1.11
+    command: ["/cloud_sql_proxy",
+              "-instances=raven2-186120:us-central1:raven-sql-eventdata=tcp:3306",
+              "-credential_file=/secrets/cloudsql/credentials.json"]
+    volumeMounts:
+    - name: eventdata-sql-instance-credentials
+      mountPath: /secrets/cloudsql
+      readOnly: true
+  # --------------------------------
+  # 3 of 3: TA3 main container
+  # - includes entry point for evaluation
+  # --------------------------------
+  - name: ta3-main
+    image: tworavens/eventdata-ravens-main:yarrow-2020-0715
+    imagePullPolicy: Always
+    command: ["event_data_start.sh"]
+    ports:
+    # Main web port; nginx makes this available via port 80
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    envFrom:
+      - configMapRef:
+          name: eventdata-django-configmap
+    env:
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: SECRET_KEY
+    # ---------------------------
+    # Social auth: github creds
+    # ---------------------------
+    - name: SOCIAL_AUTH_GITHUB_KEY
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: SOCIAL_AUTH_GITHUB_KEY
+    - name: SOCIAL_AUTH_GITHUB_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: SOCIAL_AUTH_GITHUB_SECRET
+    - name: EVTDATA_2_TWORAVENS_DIR
+      value: "/ravens_volume/evtdata_user_datasets"
+    - name: EVENTDATA_DATASETS
+      value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_speed.json","icews.json","ged.json","gtd.json","covid_19.json"]'
+      #value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_phoenix_fbis.json","cline_phoenix_nyt.json","cline_phoenix_swb.json","cline_speed.json","icews.json"]'
+    - name: EVENTDATA_TWO_RAVENS_TARGET_URL
+      value: http://apricot.2ravens.org
+    - name: SESSION_COOKIE_NAME
+      value: eventdata_apricot_cookie
+    - name: CSRF_COOKIE_NAME
+      value: eventdata_apricot_csrf_cookie
+    # ---------------------------
+    # SQL db credentials
+    # ---------------------------
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-sql-db-credentials
+          key: username
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: eventdata-sql-db-credentials
+          key: password
+    # ---------------------------
+    # Mongo address/username/password
+    # ---------------------------
+    - name: EVENTDATA_MONGO_DB_ADDRESS
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: EVENTDATA_MONGO_DB_ADDRESS
+    - name: EVENTDATA_MONGO_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: EVENTDATA_MONGO_USERNAME
+    - name: EVENTDATA_MONGO_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: gce-eventdata-secrets
+          key: EVENTDATA_MONGO_PASSWORD
+    # ---------------------------
+    volumeMounts:
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: 2ravens_org-apricot
+        readOnly: false
+    # liveness is for restart
+    #
+    #livenessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 15
+    #  timeoutSeconds: 1
+    #  periodSeconds: 10
+    #  failureThreshold: 3
+    # readiness: ready for traffic
+    #
+    #readinessProbe:
+    #  httpGet:
+    #    path: /monitoring/alive
+    #    port: 8080
+    #  initialDelaySeconds: 15
+    #  periodSeconds: 10
