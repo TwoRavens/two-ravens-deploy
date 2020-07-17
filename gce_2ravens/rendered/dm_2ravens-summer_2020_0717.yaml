@@ -41,7 +41,7 @@ spec:
   # -------------------------
   - name: ta2-container
     # TAMU TA2!
-    image: registry.datadrivendiscovery.org/sheath/cmu-ta
+    image: dmartinez05/tamuta2:latest
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources
