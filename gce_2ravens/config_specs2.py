@@ -92,6 +92,19 @@ base_spec_01 = dict(\
     TA2_WRAPPED_SOLVERS=["two-ravens", "tpot"],
 )
 
+dm_summer_2020_0717 = dict(base_spec_01, **dict(\
+    template_name="dm_state_one_pod_04.yaml",
+    #
+    externalPort=8080,  # D3M proxy tool maps to 8080 on pod
+    #
+    RESOURCES_TEMPLATE_FILENAME='resources_dm_01.yaml',
+    RAVENS_SERVER_NAME='datadrivendiscovery.org',
+    #
+    #   TA2
+    #
+    #ta2_image="dmartinez05/tamuta2:latest",
+    ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta",
+    ta2_image_comment="TAMU TA2!",))
 
 """
 from collections import OrderedDict
