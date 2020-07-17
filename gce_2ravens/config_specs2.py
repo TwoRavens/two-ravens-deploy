@@ -100,6 +100,8 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     RESOURCES_TEMPLATE_FILENAME='resources_dm_01.yaml',
     RAVENS_SERVER_NAME='datadrivendiscovery.org',
     #
+    NGINX_SERVER_NAME=".datadrivendiscovery.org",
+    #
     #   TA2
     #
     #ta2_image="dmartinez05/tamuta2:latest",

@@ -425,7 +425,7 @@ data:
   # NGINX variables
   #
   NGINX_MAX_UPLOAD_SIZE: '28m'
-  NGINX_SERVER_NAME: '.2ravens.org'
+  NGINX_SERVER_NAME: '.datadrivendiscovery.org'
 ---
 # ---------------------------------------
 # D3M Configmap used by:
