@@ -36,7 +36,7 @@ base_spec_01 = dict(\
     #
     tworavens_registry="tworavens",
     # tag used for ravens_main, rook, and nginx
-    tworavens_container_tag="comfrey-2020-0715",
+    tworavens_container_tag="comfrey-2020-0719",
     #
     #   TA2
     #

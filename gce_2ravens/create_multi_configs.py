@@ -133,8 +133,7 @@ if __name__ == '__main__':
     #               make_ALL_files=False)
 
     # Data Machines
-    create_data_machines_k8s()
-
-    # Gates GCE
     #create_data_machines_k8s()
-    #create_gce_k8s()
+
+    # Summer D3M GCE
+    create_gce_k8s()
