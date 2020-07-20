@@ -97,6 +97,8 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     #
     externalPort=8080,  # D3M proxy tool maps to 8080 on pod
     #
+    loadBalancerIP="10.108.34.30",  # 2ravens.org",
+    #
     RESOURCES_TEMPLATE_FILENAME='resources_dm_01.yaml',
     RAVENS_SERVER_NAME='datadrivendiscovery.org',
     #
