@@ -106,10 +106,10 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     #
     #   TA2
     #
-    #ta2_image="dmartinez05/tamuta2:latest",
-    #ta2_image_comment="TAMU TA2!",
-    ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta:latest",
-    ta2_image_comment="CMU TA2!",
+    ta2_image="dmartinez05/tamuta2:latest",
+    ta2_image_comment="TAMU TA2!",
+    #ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta:latest",
+    #ta2_image_comment="CMU TA2!",
     ))
 
 """
