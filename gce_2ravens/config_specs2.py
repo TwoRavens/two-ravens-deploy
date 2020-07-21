@@ -36,12 +36,14 @@ base_spec_01 = dict(\
     #
     tworavens_registry="tworavens",
     # tag used for ravens_main, rook, and nginx
-    tworavens_container_tag="comfrey-2020-0719",
+    tworavens_container_tag="comfrey-2020-0720",
     #
     #   TA2
     #
-    ta2_image="dmartinez05/tamuta2:latest",
-    ta2_image_comment="TAMU TA2!",
+    #ta2_image="dmartinez05/tamuta2:latest",
+    #ta2_image_comment="TAMU TA2!",
+    ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
+    ta2_image_comment="NYU TA2!",
     #
     # pull policies
     pull_policy_ta2="IfNotPresent",
