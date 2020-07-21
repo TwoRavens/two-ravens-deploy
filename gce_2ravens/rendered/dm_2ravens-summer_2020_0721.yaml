@@ -103,7 +103,7 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:comfrey-2020-0720a
+    image: tworavens/ravens-nginx:comfrey-2020-0721
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -158,7 +158,7 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:comfrey-2020-0720a
+    image: tworavens/ravens-main:comfrey-2020-0721
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -217,7 +217,7 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:comfrey-2020-0720a
+    image: tworavens/ravens-main:comfrey-2020-0721
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -298,7 +298,7 @@ spec:
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:comfrey-2020-0720a
+    image: tworavens/ravens-r-service:comfrey-2020-0721
     imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
