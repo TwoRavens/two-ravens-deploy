@@ -1,36 +1,38 @@
 ---
 # -------------------------------------
-#   TA2 Service
-#   - communication is with the TA3 in another pod
-#   template: gce_ravens_deploy_027-twopod.yaml
+#   TA3 Service
+#   https://2ravens.org
+#   template: gce_ravens_deploy_028-onepod.yaml
 # -------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
-  name: ta2-service-apricot
+  name: tworavens-service-apricot
   labels:
-    app: ta2-apricot
+    app: ta3-apricot
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
+  loadBalancerIP: 35.223.135.139
+  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta2-apricot
+    app: ta3-apricot
   ports:
-    - name: ta23-port
-      port: 45042
+    - name: http
+      port: 80
       protocol: TCP
-      targetPort: 45042
+      targetPort: 80
 ---
 # -------------------------------------
-#   TA2 Pod
+#   TA3 Pod
 # -------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ta2-pod-apricot
+  name: tworavensweb-apricot
   labels:
-    app: ta2-apricot
+    app: ta3-apricot
 spec:
   restartPolicy: Never
   containers:
@@ -74,53 +76,6 @@ spec:
         value: "ta2"
       #- name: AM_ENV
       #  value: "DEBUG"
-  # ----------------------------
-  # Volumes
-  # ----------------------------
-  volumes:
-    - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
----
-# -------------------------------------
-#   TA3 Service
-#   https://2ravens.org
-#   template: gce_ravens_deploy_027-twopod.yaml
-# -------------------------------------
-apiVersion: v1
-kind: Service
-metadata:
-  name: tworavens-service-apricot
-  labels:
-    app: ta3-apricot
-    kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: monitoring-raven
-spec:
-  type: LoadBalancer
-  loadBalancerIP: 35.223.135.139
-  #  loadBalancerIP: 104.197.235.238  # 2ravens.org
-  selector:
-    app: ta3-apricot
-  ports:
-    - name: http
-      port: 80
-      protocol: TCP
-      targetPort: 80
----
-# -------------------------------------
-#   TA3 Pod
-# -------------------------------------
-apiVersion: v1
-kind: Pod
-metadata:
-  name: tworavensweb-apricot
-  labels:
-    app: ta3-apricot
-spec:
-  restartPolicy: Never
-  containers:
   # -------------------------
   # 1 of 7: Ravens postgres
   # -------------------------
@@ -379,10 +334,10 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: raven-pvc-1
+      #  readOnly: false
+      emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
@@ -427,8 +382,12 @@ data:
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
   TA2_WRAPPED_SOLVERS: "['two-ravens', 'tpot']"
-  #TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
-  TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
+  #
+  # TA2/TA3 in one pod
+  TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
+  #
+  # TA2/TA3 in separate pods
+  #TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"

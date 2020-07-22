@@ -214,10 +214,10 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: raven-pvc-1
+      #  readOnly: false
+      emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------

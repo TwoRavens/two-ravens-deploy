@@ -344,12 +344,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
