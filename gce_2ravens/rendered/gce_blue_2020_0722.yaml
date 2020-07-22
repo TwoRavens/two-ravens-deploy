@@ -334,22 +334,22 @@ spec:
   # ----------------------------
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: raven-pvc-1
-        readOnly: false
-      #emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: raven-pvc-1
+      #  readOnly: false
+      emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path: 
+    #    #path:
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
