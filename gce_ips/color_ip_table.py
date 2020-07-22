@@ -11,7 +11,7 @@ GCE_COLOR_DOMAIN_PAIRS = [\
         #('magenta', '35.222.247.157', {}),  # magenta.2ravens.org (GCE)
 
         ('blue', '34.71.109.123', {}),      # blue.2ravens.org (GCE)
-        #('lime', '34.67.169.83', {}),       # lime.2ravens.org (GCE)
+        ('lime', '35.184.163.150', {}),       # lime.2ravens.org (GCE)
         #('olive', '35.232.148.148', {}),    # olive.2ravens.org (GCE)
 
         #('mint', '34.67.169.159', alt_problem_args), # mint.2ravens.org (GCE)
