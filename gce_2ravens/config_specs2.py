@@ -128,6 +128,10 @@ dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
     #
     NGINX_SERVER_NAME=".datadrivendiscovery.org",
     #
+    # respository
+    tworavens_registry="registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation",
+    tworavens_container_tag="yarrow",
+    #
     # pull policies
     pull_policy_ta2="Always",
     pull_policy_ravens_main="Always",
