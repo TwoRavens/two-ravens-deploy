@@ -482,7 +482,7 @@ data:
   D3MINPUTDIR: "/input"
   D3MOUTPUTDIR: "/output"
   D3MSTATICDIR: "/static"
-  D3MPROBLEMPATH: "/input/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/input/LL1_h1b_visa_apps_7480/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/output/D3MLOCALDIR"
   # Used by TA2
   #D3MCPU: "1"
