@@ -8,19 +8,22 @@ alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 GCE_COLOR_DOMAIN_PAIRS = [\
         ('apricot', '34.69.254.93', {}),  # apricot.2ravens.org (GCE)
         ('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)
-        #('magenta', '35.222.247.157', {}),  # magenta.2ravens.org (GCE)
 
-        ('blue', '34.71.109.123', {}),      # blue.2ravens.org (GCE)
-        ('lime', '35.184.163.150', {}),       # lime.2ravens.org (GCE)
-        #('olive', '35.232.148.148', {}),    # olive.2ravens.org (GCE)
+        ('blue', '35.222.247.157', {}),      # blue.2ravens.org (GCE) raven-ip-blue
+        ('lime', '35.222.64.114', {}),       # lime.2ravens.org (GCE)    raven-ip-lime
+        ('magenta', '35.192.35.125', {}),  # magenta.2ravens.org (GCE)  raven-ip-magenta
+        ('mint', '35.225.129.2', {}), # mint.2ravens.org (GCE) raven-ip-mint
+        ('navy', '34.72.175.15', {}), # navy.2ravens.org (GCE) raven-ip-navy
 
-        #('mint', '34.67.169.159', alt_problem_args), # mint.2ravens.org (GCE)
-        #('navy', '35.225.84.224', alt_problem_args), # navy.2ravens.org (GCE)
-        #('red', '35.223.111.107', alt_problem_args), # red.2ravens.org (GCE)
+        ('olive', '35.232.148.148', {}),    # olive.2ravens.org (GCE)     raven-ip-olive
+        ('orange', '35.223.135.139', {}), # orange.2ravens.org (GCE) raven-ip-orange
+        ('purple', '34.71.71.11', {}), # purple.2ravens.org (GCE) raven-ip-purple
+        ('red', '104.197.86.199', {}), # red.2ravens.org (GCE)   raven-ip-red
+        ('yellow', '34.72.173.46', {}),   # red.2ravens.org (GCE)  raven-ip-yellow
 
-        # ('', '104.197.235.238', {}),  # 2ravens.org (GCE)
+        #('pink', ''),
+        #('white', ''),
 
-        #('', '10.108.29.7'), # 2ravens.datadrivendiscovery.org
         ]
 
 # see https://datadrivendiscovery.org/wiki/pages/viewpage.action?spaceKey=gov&title=Creating+Services
