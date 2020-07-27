@@ -160,8 +160,9 @@ dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
     #
     # Datamart
     #
-    DATAMART_NYU_URL="http://10.108.33.5:8002",
-    DATAMART_ISI_URL="http://10.108.20.4:14080"
+    # DATAMART_URL_NYU
+    DATAMART_URL_NYU="http://10.108.33.5:8002",
+    DATAMART_URL_ISI="http://10.108.20.4:14080"
     ))
 
 
