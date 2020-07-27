@@ -79,14 +79,14 @@ base_spec_01 = dict(\
     #
     # CPU/Memory Resources by Container
     #
-    ta2_resources=['20000Mi', '25000Mi', '2000m', '4000m'],
+    ta2_resources=['20000Mi', '25000Mi', '3000m', '4000m'],
     ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
     celery_resources=['4500Mi', '6000Mi', '2000m', '2000m'],
-    rook_resources=['1000Mi', '2000Mi', '500m', '1000m'],
-    mongo_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+    rook_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
+    mongo_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
     redis_resources=['500Mi', '1000Mi', '500m', '500m'],
     nginx_resources=['256Mi', '500Mi', '500m', '500m'],
-    postgres_resources=['1000Mi', '2000Mi', '500m', '1000m'],
+    postgres_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
     #
     # Wrapped solver settings
     #
