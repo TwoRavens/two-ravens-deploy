@@ -215,7 +215,7 @@ spec:
         type: Directory
     - name: static-data
       hostPath:
-        path: /d3m/static_files
+        path: /d3m/static-files
         type: Directory
     - name: output-data
       persistentVolumeClaim:
