@@ -114,6 +114,53 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     ta2_image_comment="CMU TA2!",
     ))
 
+dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
+    template_name="dm_summer_eval_pod_01.yaml",
+    #
+    externalPort=8080,  # D3M proxy tool maps to 8080 on pod
+    #
+    loadBalancerIP="10.108.34.30",  # 2ravens.org",
+    #
+    VOLUME_MOUNTS_TEMPLATE_FILENAME="dm_volume_mounts_02_eval.yaml",
+    #
+    RESOURCES_TEMPLATE_FILENAME='resources_dm_01.yaml',
+    RAVENS_SERVER_NAME='datadrivendiscovery.org',
+    #
+    NGINX_SERVER_NAME=".datadrivendiscovery.org",
+    #
+    # pull policies
+    pull_policy_ta2="Always",
+    pull_policy_ravens_main="Always",
+    pull_policy_rook="Always",
+    pull_policy_nginx="Always",
+    #
+    #   TA2
+    #
+    #ta2_image="dmartinez05/tamuta2:latest",
+    #ta2_image_comment="TAMU TA2!",
+    ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta2:latest",
+    ta2_image_comment="CMU TA2!",
+    #
+    # D3M variables
+    #
+    D3MRUN="ta2ta3",
+    D3MINPUTDIR="/input",
+    D3MOUTPUTDIR="/output",
+    D3MSTATICDIR="/static",
+    D3MPROBLEMPATH="/input/TRAIN/problem_TRAIN/problemDoc.json",
+    D3MLOCALDIR="/output/D3MLOCALDIR",
+    #D3MCPU="14",
+    #D3MRAM="56Gi",
+    D3MTIMEOUT="3600",
+    D3MCONTEXT="TESTING",
+    #
+    # Datamart
+    #
+    DATAMART_NYU_URL="http://10.108.33.5:8002",
+    DATAMART_ISI_URL="http://10.108.20.4:14080"
+    ))
+
+
 """
 from collections import OrderedDict
 from config_specs import spec_gce_ireland_2020_0424
