@@ -40,8 +40,8 @@ spec:
   # -> TA2
   # -------------------------
   - name: ta2-container
-    # NYU TA2!
-    image: registry.gitlab.com/vida-nyu/d3m/ta2:latest
+    # CMU TA2!
+    image: registry.datadrivendiscovery.org/sheath/cmu-ta2:latest
     imagePullPolicy: Always
     # -----------------------------------
     # ta2_resources
@@ -49,7 +49,7 @@ spec:
     resources:
       requests:
          memory: "20000Mi"
-         cpu: "3000m"
+         cpu: "2000m"
       #limits:
       #   memory: "25000Mi"
       #   cpu: "4000m"
@@ -99,7 +99,7 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "1000m"
+         cpu: "500m"
       #limits:
       #   memory: "2000Mi"
       #   cpu: "1000m"
@@ -305,7 +305,7 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "1000m"
+         cpu: "500m"
       #limits:
       #   memory: "2000Mi"
       #   cpu: "1000m"
@@ -345,7 +345,7 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "1000m"
+         cpu: "500m"
       #limits:
       #   memory: "2000Mi"
       #   cpu: "1000m"
