@@ -41,7 +41,8 @@ spec:
   # -------------------------
   - name: ta2-container
     # NYU TA2!
-    image: registry.gitlab.com/vida-nyu/d3m/ta2:latest
+    #image: registry.gitlab.com/vida-nyu/d3m/ta2:latest
+    image: registry.datadrivendiscovery.org/ta2-submissions/ta2-nyu/summer2020evaluation:latest
     imagePullPolicy: Always
     # -----------------------------------
     # ta2_resources
