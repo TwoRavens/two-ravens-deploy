@@ -110,8 +110,8 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     #
     #ta2_image="dmartinez05/tamuta2:latest",
     #ta2_image_comment="TAMU TA2!",
-    ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta2:latest",
-    ta2_image_comment="CMU TA2!",
+    #ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta2:latest",
+    #ta2_image_comment="CMU TA2!",
     ))
 
 dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
@@ -142,7 +142,7 @@ dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
     #
     ta2_image_comment="NYU TA2!",
     ta2_image="registry.datadrivendiscovery.org/ta2-submissions/ta2-nyu/summer2020evaluation:latest",
-    #ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
+    ##ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
     #
     #ta2_image_comment="TAMU TA2!",
     #ta2_image="dmartinez05/tamuta2:latest",
