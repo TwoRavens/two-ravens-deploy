@@ -40,10 +40,10 @@ base_spec_01 = dict(\
     #
     #   TA2
     #
-    #ta2_image="dmartinez05/tamuta2:latest",
-    #ta2_image_comment="TAMU TA2!",
-    ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
-    ta2_image_comment="NYU TA2!",
+    ta2_image="dmartinez05/tamuta2:latest",
+    ta2_image_comment="TAMU TA2!",
+    #ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
+    #ta2_image_comment="NYU TA2!",
     #
     # pull policies
     pull_policy_ta2="IfNotPresent",
