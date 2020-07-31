@@ -119,7 +119,9 @@ def create_gce_k8s():
 
 def create_data_machines_k8s():
     # data machines
-    create_configs(dm_eval_2020_0727,   #dm_summer_2020_0717,
+    create_configs(\
+                    #dm_eval_2020_0727,   
+                   dm_summer_2020_0717,
                    DM_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='dm',
                    make_ALL_files=False)
@@ -137,4 +139,4 @@ if __name__ == '__main__':
     create_data_machines_k8s()
 
     # Summer D3M GCE
-    #create_gce_k8s()
+    create_gce_k8s()
