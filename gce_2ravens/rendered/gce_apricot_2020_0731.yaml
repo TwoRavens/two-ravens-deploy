@@ -40,8 +40,8 @@ spec:
   # 1 of 1: TA2
   # -------------------------
   - name: ta2-container
-    # TAMU TA2!
-    image: dmartinez05/tamuta2:latest
+    # NYU TA2!
+    image: registry.gitlab.com/vida-nyu/d3m/ta2:latest
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources
