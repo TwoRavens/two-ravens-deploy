@@ -190,6 +190,8 @@ gce_demo_site = dict(base_spec_01, **dict(\
     TA2_WRAPPED_SOLVERS="['two-ravens']",
     #
     TEST_DATASETS="185_baseball 196_autoMpg",
+    #
+    DISPLAY_DATAMART_UI="False",
     ))
 
 """
