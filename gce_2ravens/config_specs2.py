@@ -179,6 +179,8 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 
 
 gce_demo_site = dict(base_spec_01, **dict(\
+    #
+    template_name="gce_ravens_demo-01-noTA2.yaml",
     # 2 mb
     NGINX_MAX_UPLOAD_SIZE="2m",
     # 2 mb
