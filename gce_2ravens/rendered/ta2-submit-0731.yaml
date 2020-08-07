@@ -2,7 +2,7 @@
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
-#   template: dm_summer_eval_pod_02.yaml
+#   template: dm_summer_eval_pod_01.yaml
 # -------------------------------------
 apiVersion: v1
 kind: Service
@@ -457,22 +457,17 @@ data:
   # ---------------------------
   # Postgres credentials
   # ---------------------------
-  DB_ENGINE: "django.db.backends.postgresql"
-  DB_NAME: "raven_1"
-  DB_USER: "raven_user"
-  DB_PASSWORD: "ephemeral_data"
-  DB_HOST: "localhost"
-  DB_PORT: "5432"
+  DB_ENGINE: 'django.db.backends.postgresql'
+  DB_NAME: 'raven_1'
+  DB_USER: 'raven_user'
+  DB_PASSWORD: 'ephemeral_data'
+  DB_HOST: 'localhost'
+  DB_PORT: '5432'
   #
-  # NGINX variables + Django upload max
+  # NGINX variables
   #
-  NGINX_SERVER_NAME: ".datadrivendiscovery.org"
-  #
-  #  Example for 30Mb: NGINX_MAX_UPLOAD_SIZE: "30M"
-  NGINX_MAX_UPLOAD_SIZE: "100m"
-  #
-  #  Example for 30Mb, 1024^2 * 30: DATA_UPLOAD_MAX_MEMORY_SIZE: "31457280"
-  DATA_UPLOAD_MAX_MEMORY_SIZE: "104857600"
+  NGINX_MAX_UPLOAD_SIZE: '28m'
+  NGINX_SERVER_NAME: '.datadrivendiscovery.org'
 ---
 # ---------------------------------------
 # D3M Configmap used by:
