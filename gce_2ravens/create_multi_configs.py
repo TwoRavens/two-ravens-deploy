@@ -124,7 +124,7 @@ def create_gce_demo():
     create_configs(\
                    gce_demo_site,
                    GCE_DEMO_INFO,
-                   rendered_fname_prefix='dm',
+                   rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
 def create_data_machines_k8s():
