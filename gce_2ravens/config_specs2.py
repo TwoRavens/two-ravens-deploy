@@ -148,8 +148,8 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
     #   TA2
     #
     ta2_image_comment="NYU TA2!",
-    ta2_image="registry.datadrivendiscovery.org/ta2-submissions/ta2-nyu/summer2020evaluation:latest",
-    ##ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
+    #ta2_image="registry.datadrivendiscovery.org/ta2-submissions/ta2-nyu/summer2020evaluation:latest",
+    ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
     #
     #ta2_image_comment="TAMU TA2!",
     #ta2_image="dmartinez05/tamuta2:latest",
