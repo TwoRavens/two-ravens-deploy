@@ -393,7 +393,7 @@ data:
   R_DEV_SERVER_BASE: "http://localhost:8000/"
   #
   # Redis
-  REDIS_HOST: "localhost"
+  REDIS_HOST: localhost
   #
   # valid values: "ws://" and  "wss://"
   WEBSOCKET_PREFIX: "ws://"
