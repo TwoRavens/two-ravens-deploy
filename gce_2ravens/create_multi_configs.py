@@ -13,9 +13,11 @@ sys.path.append(dirname(CURRENT_DIR))
 from config_specs2 import \
     (base_spec_01,
      dm_summer_2020_0717,
-     dm_eval_2020_0727)
+     dm_eval_2020_08,
+     gce_demo_site)
 from gce_ips.color_ip_table import \
-    (DM_COLOR_DOMAIN_PAIRS,
+    (GCE_DEMO_INFO,
+     DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
 
 from create_config import run_from_specs
@@ -117,11 +119,19 @@ def create_gce_k8s():
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
+def create_gce_demo():
+    """demo.2ravens.org"""
+    create_configs(\
+                   gce_demo_site,
+                   GCE_DEMO_INFO,
+                   rendered_fname_prefix='dm',
+                   make_ALL_files=False)
+
 def create_data_machines_k8s():
     # data machines
     create_configs(\
-                    #dm_eval_2020_0727,   
-                   dm_summer_2020_0717,
+                   dm_eval_2020_08,
+                   #dm_summer_2020_0717,
                    DM_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='dm',
                    make_ALL_files=False)
@@ -140,3 +150,6 @@ if __name__ == '__main__':
 
     # Summer D3M GCE
     create_gce_k8s()
+
+    # Demo site
+    create_gce_demo()

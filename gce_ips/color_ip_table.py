@@ -5,6 +5,8 @@ alt_problem_path = ('/ravens_volume/test_data/TR85_Ethiopia_zone_mon_sub'
                     '/TRAIN/problem_TRAIN/problemDoc.json')
 alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 
+GCE_DEMO_INFO = [('demo', '35.193.45.98', {})]
+
 GCE_COLOR_DOMAIN_PAIRS = [\
         ('apricot', '34.69.254.93', {}),  # apricot.2ravens.org (GCE)
         ('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)

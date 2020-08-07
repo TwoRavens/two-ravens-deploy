@@ -9,7 +9,7 @@ IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it
 
 base_spec_01 = dict(\
     #
-    template_name="gce_ravens_deploy_028-onepod.yaml",
+    template_name="gce_ravens_deploy_029-onepod.yaml",
     rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
     #
     # Volume mount and resource templates
@@ -26,8 +26,11 @@ base_spec_01 = dict(\
     #
     # NGINX
     #
-    NGINX_MAX_UPLOAD_SIZE="28m",
     NGINX_SERVER_NAME=".2ravens.org",
+    # 24 mb
+    NGINX_MAX_UPLOAD_SIZE="24m",
+    # 24 mb
+    DATA_UPLOAD_MAX_MEMORY_SIZE="25165824",
     #
     # load balancer, changes with mutli config
     loadBalancerIP="104.197.235.238  # 2ravens.org",
@@ -40,10 +43,10 @@ base_spec_01 = dict(\
     #
     #   TA2
     #
-    ta2_image="dmartinez05/tamuta2:latest",
-    ta2_image_comment="TAMU TA2!",
-    #ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
-    #ta2_image_comment="NYU TA2!",
+    #ta2_image="dmartinez05/tamuta2:latest",
+    #ta2_image_comment="TAMU TA2!",
+    ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
+    ta2_image_comment="NYU TA2!",
     #
     # pull policies
     pull_policy_ta2="IfNotPresent",
@@ -114,8 +117,8 @@ dm_summer_2020_0717 = dict(base_spec_01, **dict(\
     #ta2_image_comment="CMU TA2!",
     ))
 
-dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
-    template_name="dm_summer_eval_pod_01.yaml",
+dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
+    template_name="dm_summer_eval_pod_02.yaml",
     #
     externalPort=8080,  # D3M proxy tool maps to 8080 on pod
     #
@@ -128,6 +131,10 @@ dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
     #
     NGINX_SERVER_NAME=".datadrivendiscovery.org",
     #
+    # 100 mb
+    NGINX_MAX_UPLOAD_SIZE="100m",
+    # 100 mb
+    DATA_UPLOAD_MAX_MEMORY_SIZE="104857600",
     # respository
     tworavens_registry="registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation",
     tworavens_container_tag="yarrow",
@@ -170,6 +177,18 @@ dm_eval_2020_0727 = dict(dm_summer_2020_0717, **dict(\
     DATAMART_URL_ISI="http://10.108.20.4:14080"
     ))
 
+
+gce_demo_site = dict(base_spec_01, **dict(\
+    # 2 mb
+    NGINX_MAX_UPLOAD_SIZE="2m",
+    # 2 mb
+    DATA_UPLOAD_MAX_MEMORY_SIZE="2097152",
+    #
+    TA2_D3M_SOLVER_ENABLED="False",
+    TA2_WRAPPED_SOLVERS="['two-ravens']",
+    #
+    TEST_DATASETS="185_baseball 196_autoMpg",
+    ))
 
 """
 from collections import OrderedDict

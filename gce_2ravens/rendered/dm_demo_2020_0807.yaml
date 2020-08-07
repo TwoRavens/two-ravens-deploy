@@ -2,25 +2,25 @@
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
-#   template: dm_state_one_pod_04.yaml
+#   template: gce_ravens_deploy_029-onepod.yaml
 # -------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service
+  name: tworavens-service-demo
   labels:
-    app: ta3
+    app: ta3-demo
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.108.34.30
+  loadBalancerIP: 35.193.45.98
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3
+    app: ta3-demo
   ports:
     - name: http
-      port: 8080
+      port: 80
       protocol: TCP
       targetPort: 80
 ---
@@ -30,18 +30,18 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb
+  name: tworavensweb-demo
   labels:
-    app: ta3
+    app: ta3-demo
 spec:
   restartPolicy: Never
   containers:
   # -------------------------
-  # -> TA2
+  # 1 of 1: TA2
   # -------------------------
   - name: ta2-container
-    # TAMU TA2!
-    image: dmartinez05/tamuta2:latest
+    # NYU TA2!
+    image: registry.gitlab.com/vida-nyu/d3m/ta2:latest
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources
@@ -50,9 +50,9 @@ spec:
       requests:
          memory: "20000Mi"
          cpu: "3000m"
-      #limits:
-      #   memory: "25000Mi"
-      #   cpu: "4000m"
+      limits:
+         memory: "25000Mi"
+         cpu: "4000m"
     ports:
       - containerPort: 45042
         protocol: TCP
@@ -63,14 +63,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-demo
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-demo
     env:
       - name: D3MRUN
         value: "ta2"
@@ -89,9 +89,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "1000m"
-      #limits:
-      #   memory: "2000Mi"
-      #   cpu: "1000m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     env:
       - name: POSTGRES_DB
         value: raven_1
@@ -112,16 +112,16 @@ spec:
       requests:
          memory: "256Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "500Mi"
-      #   cpu: "500m"
+      limits:
+         memory: "500Mi"
+         cpu: "500m"
     ports:
       - containerPort: 80
         name: http
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-demo
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -129,7 +129,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -144,9 +144,9 @@ spec:
       requests:
          memory: "500Mi"
          cpu: "500m"
-      #limits:
-      #   memory: "1000Mi"
-      #   cpu: "500m"
+      limits:
+         memory: "1000Mi"
+         cpu: "500m"
     ports:
     - containerPort: 6379
     volumeMounts:
@@ -169,9 +169,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "1000m"
-      #limits:
-      #   memory: "3000Mi"
-      #   cpu: "1500m"
+      limits:
+         memory: "3000Mi"
+         cpu: "1500m"
     ports:
       - containerPort: 8080
         name: http
@@ -183,14 +183,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-demo
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-demo
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -208,11 +208,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      #- name: GCE_CREDS_INFO
-      #  valueFrom:
-      #    secretKeyRef:
-      #      name: gce-creds-variable
-      #      key: GCE_CREDS_INFO
+      - name: GCE_CREDS_INFO
+        valueFrom:
+          secretKeyRef:
+            name: gce-creds-variable
+            key: GCE_CREDS_INFO
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -228,9 +228,9 @@ spec:
       requests:
          memory: "4500Mi"
          cpu: "2000m"
-      #limits:
-      #   memory: "6000Mi"
-      #   cpu: "2000m"
+      limits:
+         memory: "6000Mi"
+         cpu: "2000m"
     ports:
       - containerPort: 8080
         name: http
@@ -242,7 +242,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
     # ---------------------------------
@@ -250,9 +250,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-demo
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-demo
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -278,9 +278,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "1000m"
-      #limits:
-      #   memory: "2000Mi"
-      #   cpu: "1000m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     ports:
       - containerPort: 27017
         protocol: TCP
@@ -291,7 +291,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -307,9 +307,9 @@ spec:
       requests:
          memory: "1000Mi"
          cpu: "1000m"
-      #limits:
-      #   memory: "2000Mi"
-      #   cpu: "1000m"
+      limits:
+         memory: "2000Mi"
+         cpu: "1000m"
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -317,7 +317,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org
+        subPath: 2ravens_org-demo
         readOnly: false
       # ----------------------------------
     ports:
@@ -326,29 +326,18 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config
+          name: ravens-django-config-demo
       - configMapRef:
-          name: ravens-config-d3m
+          name: ravens-config-d3m-demo
   # ----------------------------
   # Volumes
   # ----------------------------
   volumes:
     - name: ravens-volume
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
-        readOnly: false
-  # ----------------------------
-  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
-  # ----------------------------
-  imagePullSecrets:
-  - name: regcred
-    #volumes:
-    #  - name: ravens-volume
-    #    persistentVolumeClaim:
-    #      claimName: raven-pvc-1
-    #      readOnly: false
-    #    #emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: raven-pvc-1
+      #  readOnly: false
+      emptyDir: {}
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
@@ -372,15 +361,15 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config
+  name: ravens-django-config-demo
 data:
   SORT_BY_GATES_DATASETS: "True"
-  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.dev_container2"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_cookie"
-  CSRF_COOKIE_NAME: "ravens_csrf_cookie"
+  RAVENS_SERVER_NAME: "demo.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_demo_cookie"
+  CSRF_COOKIE_NAME: "ravens_demo_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -391,19 +380,23 @@ data:
   #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_D3M_SOLVER_ENABLED: "True"
-  TA2_WRAPPED_SOLVERS: "['two-ravens', 'tpot']"
-  TA2_TEST_SERVER_URL: "tworavensweb:45042"
-  #TA2_TEST_SERVER_URL: "ta2-service:45042"
+  TA2_D3M_SOLVER_ENABLED: "False"
+  TA2_WRAPPED_SOLVERS: "['two-ravens']"
+  #
+  # TA2/TA3 in one pod
+  TA2_TEST_SERVER_URL: "tworavensweb-demo:45042"
+  #
+  # TA2/TA3 in separate pods
+  #TA2_TEST_SERVER_URL: "ta2-service-demo:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
   #
   # Redis
-  REDIS_HOST: localhost
+  REDIS_HOST: "localhost"
   #
   # valid values: "ws://" and  "wss://"
-  WEBSOCKET_PREFIX: "wss://"
+  WEBSOCKET_PREFIX: "ws://"
   #
   # Mongo db name; Mongo creds are in secrets
   TWORAVENS_MONGO_DB_NAME: "harvard"
@@ -412,20 +405,24 @@ data:
   ROOK_USE_PRODUCTION_MODE: "yes"
   #
   #
-  # ---------------------------
   # Postgres credentials
-  # ---------------------------
-  DB_ENGINE: 'django.db.backends.postgresql'
-  DB_NAME: 'raven_1'
-  DB_USER: 'raven_user'
-  DB_PASSWORD: 'ephemeral_data'
-  DB_HOST: 'localhost'
-  DB_PORT: '5432'
+  #
+  DB_ENGINE: "django.db.backends.postgresql"
+  DB_NAME: "raven_1"
+  DB_USER: "raven_user"
+  DB_PASSWORD: "ephemeral_data"
+  DB_HOST: "localhost"
+  DB_PORT: "5432"
   #
   # NGINX variables
   #
-  NGINX_MAX_UPLOAD_SIZE: '28m'
-  NGINX_SERVER_NAME: '.datadrivendiscovery.org'
+  NGINX_SERVER_NAME: ".2ravens.org"
+  #
+  #  Example for 30Mb: NGINX_MAX_UPLOAD_SIZE: "30M"
+  NGINX_MAX_UPLOAD_SIZE: "2m"
+  #
+  #  Example for 30Mb, 1024^2 * 30: DATA_UPLOAD_MAX_MEMORY_SIZE: "31457280"
+  DATA_UPLOAD_MAX_MEMORY_SIZE: "2097152"
 ---
 # ---------------------------------------
 # D3M Configmap used by:
@@ -434,7 +431,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m
+  name: ravens-config-d3m-demo
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"

@@ -2,7 +2,7 @@
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
-#   template: dm_state_one_pod_04.yaml
+#   template: dm_summer_eval_pod_02.yaml
 # -------------------------------------
 apiVersion: v1
 kind: Service
@@ -40,9 +40,9 @@ spec:
   # -> TA2
   # -------------------------
   - name: ta2-container
-    # TAMU TA2!
-    image: dmartinez05/tamuta2:latest
-    imagePullPolicy: IfNotPresent
+    # NYU TA2!
+    image: registry.datadrivendiscovery.org/ta2-submissions/ta2-nyu/summer2020evaluation:latest
+    imagePullPolicy: Always
     # -----------------------------------
     # ta2_resources
     # ----------------------------------
@@ -58,13 +58,24 @@ spec:
         protocol: TCP
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
     envFrom:
       - configMapRef:
@@ -103,7 +114,7 @@ spec:
   # 2 of 7: Ravens nginx
   # -------------------------
   - name: ravens-nginx
-    image: tworavens/ravens-nginx:comfrey-2020-0731
+    image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation/ravens-nginx:yarrow
     imagePullPolicy: Always
     # -----------------------------------
     # nginx_resources
@@ -124,13 +135,24 @@ spec:
           name: ravens-django-config
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
   # -------------------------
   # 3 of 7: redis
@@ -158,7 +180,7 @@ spec:
   # 4 of 7: TA3 main (web app)
   # -------------------------
   - name: ta3-main
-    image: tworavens/ravens-main:comfrey-2020-0731
+    image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation/ravens-main:yarrow
     #image: tworavens/ravens-main:develop
     imagePullPolicy: Always
     command: ["d3m_start_multiuser.sh"]
@@ -178,13 +200,24 @@ spec:
         protocol: TCP
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
     envFrom:
       - configMapRef:
@@ -193,17 +226,9 @@ spec:
           name: ravens-config-d3m
     env:
       - name: SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tworavens-web-secrets
-            key: SECRET_KEY
+        value: f!@0^(7v_!dv6s9pc&+gqz3s2&8#c4t#!xjk433&xbw2vzo)u@'
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
-      #- name: MONGO_CONNECTION_STRING
-      #  valueFrom:
-      #    secretKeyRef:
-      #      name: tworavens-web-secrets
-      #      key: MONGO_CONNECTION_STRING
       - name: D3MCPU
         value: "1"
       - name: D3MRAM
@@ -217,7 +242,7 @@ spec:
   # 5 of 7: celery worker
   # -------------------------
   - name: celery-worker
-    image: tworavens/ravens-main:comfrey-2020-0731
+    image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation/ravens-main:yarrow
     imagePullPolicy: Always
     command: ['celery', '-A', 'tworavensproject', 'worker', '-l', 'info']
     # command: ['celery', '-A', 'tworavensproject', 'worker', '--concurrency=7', '-l', 'info']
@@ -237,13 +262,24 @@ spec:
         protocol: TCP
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
     # ---------------------------------
     # environment variables passed to container
@@ -257,15 +293,7 @@ spec:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
       - name: SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: tworavens-web-secrets
-            key: SECRET_KEY
-      #- name: MONGO_CONNECTION_STRING
-      #  valueFrom:
-      #    secretKeyRef:
-      #      name: tworavens-web-secrets
-      #      key: MONGO_CONNECTION_STRING
+        value: f!@0^(7v_!dv6s9pc&+gqz3s2&8#c4t#!xjk433&xbw2vzo)u@'
   # -------------------------
   # 6 of 7: mongo
   # -------------------------
@@ -286,19 +314,30 @@ spec:
         protocol: TCP
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
   # -------------------------
   # 7 of 7: rook
   # -------------------------
   - name: rook-service
-    image: tworavens/ravens-r-service:comfrey-2020-0731
+    image: registry.datadrivendiscovery.org/ta3-submissions/ta3-two-ravens/summer2020evaluation/ravens-r-service:yarrow
     imagePullPolicy: Always
     # -----------------------------------
     # rook_resources
@@ -312,13 +351,24 @@ spec:
       #   cpu: "1000m"
     volumeMounts:
       # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
+      # shared between containers (non-persistent)
+      # ref: dm_volume_mounts_02_eval.yaml
       # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org
+      - mountPath: "/ravens_volume"
+        name: "ravens-volume"
         readOnly: false
+      # ----------------------------------
+      # D3M config volume mounts
+      # ----------------------------------
+      - name: input-data
+        mountPath: /input
+        readOnly: true
+      - name: output-data
+        mountPath: /output
+        readOnly: false
+      - name: static-data
+        mountPath: /static
+        readOnly: true
       # ----------------------------------
     ports:
       - containerPort: 8000
@@ -329,41 +379,33 @@ spec:
           name: ravens-django-config
       - configMapRef:
           name: ravens-config-d3m
+  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
+  imagePullSecrets:
+  - name: regcred
   # ----------------------------
   # Volumes
   # ----------------------------
   volumes:
     - name: ravens-volume
-      #emptyDir: {}
-      persistentVolumeClaim:
-        claimName: eval-output-pv-claim
-        readOnly: false
-  # ----------------------------
-  # regcred notes: https://datadrivendiscovery.org/wiki/display/gov/Pulling-From-Private-Repository
-  # ----------------------------
-  imagePullSecrets:
-  - name: regcred
-    #volumes:
-    #  - name: ravens-volume
-    #    persistentVolumeClaim:
-    #      claimName: raven-pvc-1
-    #      readOnly: false
-    #    #emptyDir: {}
+      emptyDir: {}
+      #persistentVolumeClaim:
+      #  claimName: eval-output-pv-claim
+      #  readOnly: false
     # ----------------------------
     # Volumes for jump server data
     # ----------------------------
-    #- name: input-data
-    #  emptyDir: {}
-    #  #hostPath:
-    #    #path: 
-    #    #type: Directory
-    #- name: static-data
-    #  emptyDir: {}
-    #  #hostPath:
-    #    #path: 
-    #    #type: Directory
-    #- name: output-data
-    #  emptyDir: {}
+    - name: input-data
+      hostPath:
+        # path: /d3m/datasets/seed_datasets_current/LL1_h1b_visa_apps_7480
+        path: /d3m/datasets/seed_datasets_current
+        type: Directory
+    - name: static-data
+      hostPath:
+        path: /d3m/static-files
+        type: Directory
+    - name: output-data
+      persistentVolumeClaim:
+        claimName: eval-output-pv-claim
 ---
 # ---------------------------------------
 # TA3 configmap used by:
@@ -400,7 +442,7 @@ data:
   R_DEV_SERVER_BASE: "http://localhost:8000/"
   #
   # Redis
-  REDIS_HOST: localhost
+  REDIS_HOST: "localhost"
   #
   # valid values: "ws://" and  "wss://"
   WEBSOCKET_PREFIX: "wss://"
@@ -415,17 +457,22 @@ data:
   # ---------------------------
   # Postgres credentials
   # ---------------------------
-  DB_ENGINE: 'django.db.backends.postgresql'
-  DB_NAME: 'raven_1'
-  DB_USER: 'raven_user'
-  DB_PASSWORD: 'ephemeral_data'
-  DB_HOST: 'localhost'
-  DB_PORT: '5432'
+  DB_ENGINE: "django.db.backends.postgresql"
+  DB_NAME: "raven_1"
+  DB_USER: "raven_user"
+  DB_PASSWORD: "ephemeral_data"
+  DB_HOST: "localhost"
+  DB_PORT: "5432"
   #
-  # NGINX variables
+  # NGINX variables + Django upload max
   #
-  NGINX_MAX_UPLOAD_SIZE: '28m'
-  NGINX_SERVER_NAME: '.datadrivendiscovery.org'
+  NGINX_SERVER_NAME: ".datadrivendiscovery.org"
+  #
+  #  Example for 30Mb: NGINX_MAX_UPLOAD_SIZE: "30M"
+  NGINX_MAX_UPLOAD_SIZE: "100m"
+  #
+  #  Example for 30Mb, 1024^2 * 30: DATA_UPLOAD_MAX_MEMORY_SIZE: "31457280"
+  DATA_UPLOAD_MAX_MEMORY_SIZE: "104857600"
 ---
 # ---------------------------------------
 # D3M Configmap used by:
@@ -437,11 +484,11 @@ metadata:
   name: ravens-config-d3m
 data:
   D3MRUN: "ta2ta3"
-  D3MINPUTDIR: "/ravens_volume/test_data"
-  D3MOUTPUTDIR: "/ravens_volume/test_output"
-  D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
-  D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
+  D3MINPUTDIR: "/input"
+  D3MOUTPUTDIR: "/output"
+  D3MSTATICDIR: "/static"
+  D3MPROBLEMPATH: "/input/LL1_h1b_visa_apps_7480/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MLOCALDIR: "/output/D3MLOCALDIR"
   # Used by TA2
   #D3MCPU: "1"
   #D3MRAM: "512Mi"
@@ -449,6 +496,6 @@ data:
   D3MTIMEOUT: "600"
   D3MCONTEXT: "TESTING"
   #
-  DATAMART_URL_NYU: "https://auctus.vida-nyu.org"
-  DATAMART_URL_ISI: "https://dsbox02.isi.edu:9000"
+  DATAMART_URL_NYU: "http://10.108.33.5:8002"
+  DATAMART_URL_ISI: "http://10.108.20.4:14080"
 ---
