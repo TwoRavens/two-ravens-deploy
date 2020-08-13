@@ -336,6 +336,10 @@ data:
   DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
   #
+  DATASET_SHOW_TAB_PRESETS: "True"
+  DATASET_SHOW_TAB_UPLOAD: "False"
+  DATASET_SHOW_TAB_ONLINE: "False"
+  #
   # Example of setting test datasets via an env varaible
   #TEST_DATASETS: "185_baseball 196_autoMpg"
   TEST_DATASETS: "185_baseball 196_autoMpg"
