@@ -323,6 +323,7 @@ kind: ConfigMap
 metadata:
   name: ravens-django-config-demo
 data:
+  DEMO_AUTO_LOGIN: "True"
   SORT_BY_GATES_DATASETS: "True"
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup

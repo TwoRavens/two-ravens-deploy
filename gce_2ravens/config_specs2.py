@@ -192,9 +192,17 @@ gce_demo_site = dict(base_spec_01, **dict(\
     TEST_DATASETS="185_baseball 196_autoMpg",
     #
     DISPLAY_DATAMART_UI="False",
+    #
+    # Dataset mode, hide/show tabs
+    #
     DATASET_SHOW_TAB_PRESETS="True",
     DATASET_SHOW_TAB_UPLOAD="False",
     DATASET_SHOW_TAB_ONLINE="False",
+    #
+    # Auto-login
+    #
+    DEMO_AUTO_LOGIN="True"
+    #
     ))
 
 """
