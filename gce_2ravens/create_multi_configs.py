@@ -148,8 +148,8 @@ if __name__ == '__main__':
     # Data Machines
     #create_data_machines_k8s()
 
-    # Summer D3M GCE
-    #create_gce_k8s()
+    # GCE K8s - apricot, cyan
+    create_gce_k8s()
 
     # Demo site
-    create_gce_demo()
+    #create_gce_demo()
