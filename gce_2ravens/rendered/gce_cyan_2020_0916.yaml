@@ -40,8 +40,8 @@ spec:
   # 1 of 1: TA2
   # -------------------------
   - name: ta2-container
-    # TAMU TA2!
-    image: dmartinez05/tamuta2:latest
+    # CMU TA2!
+    image: gcr.io/raven2-186120/cmu-ta2:2020-0914
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources

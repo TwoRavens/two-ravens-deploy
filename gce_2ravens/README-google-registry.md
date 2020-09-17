@@ -9,22 +9,21 @@ Currently, the k8s deploy specs pull from two registries:
 ## Push the TA2 to google's registry
 
 
-## Tag push ISI TA2
+## Tag/Push CMU TA2
 
 ```
 # tag it
-docker tag docker tag registry.datadrivendiscovery.org/sheath/cmu-ta2 gcr.io/raven2-186120/isi-ta2:spring-2019 gcr.io/raven2-186120/isi-ta2:spring-2019
+docker tag registry.datadrivendiscovery.org/sheath/cmu-ta2:latest gcr.io/raven2-186120/cmu-ta2:2020-0914
 
 # push image
-gcloud docker -- push gcr.io/raven2-186120/isi-ta2:spring-2019
+gcloud docker -- push gcr.io/raven2-186120/cmu-ta2:2020-0914
 
-
-#
-# Brown TA2
-docker tag registry.datadrivendiscovery.org/zshang/docker_images:ta2 gcr.io/raven2-186120/brown-ta2:winter-2019
-gcloud docker -- push gcr.io/raven2-186120/brown-ta2:winter-2019
 
 ```
+
+---
+
+# -- OLD --
 
 ## more general tag/push
 
