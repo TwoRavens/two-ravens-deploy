@@ -86,14 +86,14 @@ kubectl logs -f tworavensweb ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f tworavensweb-cyan ta3-main
-kubectl logs -f tworavensweb-cyan ravens-nginx
-kubectl logs -f tworavensweb-cyan celery-worker
-kubectl logs -f tworavensweb-cyan rook-service
+kubectl logs -f tworavensweb-apricot ta3-main
+kubectl logs -f tworavensweb-apricot ravens-nginx
+kubectl logs -f tworavensweb-apricot celery-worker
+kubectl logs -f tworavensweb-apricot rook-service
 
 # The TA2!
 #
-kubectl logs -f tworavensweb ta2-container
+kubectl logs -f tworavensweb-apricot ta2-container
 
 
 # Redis + Mongo
@@ -130,18 +130,18 @@ kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
 ## Delete user files on persistent volume
 
 ```
-# Example deleting cyan data
+# Example deleting apricot data
 
 # Login into redis which has access to volumes for all instances
 #
-kubectl exec -ti  tworavensweb-cyan -c redis /bin/
+kubectl exec -ti  tworavensweb-apricot -c redis /bin/
 bash
 
-# Example of deleting cyan data
+# Example of deleting apricot data
 #
-rm -rf /ravens_volume/2ravens_org-cyan/TwoRavens_user_datasets/*
-rm -rf /ravens_volume/2ravens_org-cyan/evtdata_user_datasets/*
-rm -rf /ravens_volume/2ravens_org-cyan/test_output/*
+rm -rf /ravens_volume/2ravens_org-apricot/TwoRavens_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-apricot/evtdata_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-apricot/test_output/*
 
 ```
 
