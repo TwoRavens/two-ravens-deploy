@@ -13,10 +13,10 @@ Currently, the k8s deploy specs pull from two registries:
 
 ```
 # tag it
-docker tag registry.datadrivendiscovery.org/sheath/cmu-ta2:latest gcr.io/raven2-186120/cmu-ta2:2020-0914
+docker tag registry.datadrivendiscovery.org/sheath/cmu-ta2:latest gcr.io/raven2-186120/cmu-ta2:2020-0923
 
 # push image
-gcloud docker -- push gcr.io/raven2-186120/cmu-ta2:2020-0914
+docker push gcr.io/raven2-186120/cmu-ta2:2020-0923
 
 
 ```

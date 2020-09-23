@@ -86,14 +86,14 @@ kubectl logs -f tworavensweb ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f tworavensweb-apricot ta3-main
-kubectl logs -f tworavensweb-apricot ravens-nginx
-kubectl logs -f tworavensweb-apricot celery-worker
-kubectl logs -f tworavensweb-apricot rook-service
+kubectl logs -f tworavensweb-testing ta3-main
+kubectl logs -f tworavensweb-testing ravens-nginx
+kubectl logs -f tworavensweb-testing celery-worker
+kubectl logs -f tworavensweb-testing rook-service
 
 # The TA2!
 #
-kubectl logs -f tworavensweb-apricot ta2-container
+kubectl logs -f tworavensweb-testing ta2-container
 
 
 # Redis + Mongo
@@ -134,14 +134,14 @@ kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
 
 # Login into redis which has access to volumes for all instances
 #
-kubectl exec -ti  tworavensweb-apricot -c redis /bin/
+kubectl exec -ti  tworavensweb-testing -c redis /bin/
 bash
 
 # Example of deleting apricot data
 #
-rm -rf /ravens_volume/2ravens_org-apricot/TwoRavens_user_datasets/*
-rm -rf /ravens_volume/2ravens_org-apricot/evtdata_user_datasets/*
-rm -rf /ravens_volume/2ravens_org-apricot/test_output/*
+rm -rf /ravens_volume/2ravens_org-testing/TwoRavens_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-testing/evtdata_user_datasets/*
+rm -rf /ravens_volume/2ravens_org-testing/test_output/*
 
 ```
 

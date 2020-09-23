@@ -41,7 +41,7 @@ spec:
   # -------------------------
   - name: ta2-container
     # CMU TA2!
-    image: gcr.io/raven2-186120/cmu-ta2:2020-0914
+    image: gcr.io/raven2-186120/cmu-ta2:2020-0923
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources

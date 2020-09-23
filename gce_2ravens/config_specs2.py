@@ -48,7 +48,7 @@ base_spec_01 = dict(\
     #ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
     #ta2_image_comment="NYU TA2!",
     #ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta2:latest",
-    ta2_image="gcr.io/raven2-186120/cmu-ta2:2020-0914",
+    ta2_image="gcr.io/raven2-186120/cmu-ta2:2020-0923",
     ta2_image_comment="CMU TA2!",
     #
     # pull policies
