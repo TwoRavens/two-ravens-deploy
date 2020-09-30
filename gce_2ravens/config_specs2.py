@@ -97,7 +97,7 @@ base_spec_01 = dict(\
     # Wrapped solver settings
     #
     TA2_D3M_SOLVER_ENABLED="True",
-    TA2_WRAPPED_SOLVERS=["two-ravens", "tpot"],
+    TA2_WRAPPED_SOLVERS=["TwoRavens", "tpot"],
 )
 
 dm_summer_2020_0717 = dict(base_spec_01, **dict(\
@@ -190,7 +190,7 @@ gce_demo_site = dict(base_spec_01, **dict(\
     DATA_UPLOAD_MAX_MEMORY_SIZE="2097152",
     #
     TA2_D3M_SOLVER_ENABLED="False",
-    TA2_WRAPPED_SOLVERS="['two-ravens']",
+    TA2_WRAPPED_SOLVERS="['TwoRavens']",
     #
     TEST_DATASETS="185_baseball 196_autoMpg",
     #

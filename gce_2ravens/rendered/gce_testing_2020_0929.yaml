@@ -382,7 +382,7 @@ data:
   #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "True"
-  TA2_WRAPPED_SOLVERS: "['two-ravens', 'tpot']"
+  TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   #
   # TA2/TA3 in one pod
   TA2_TEST_SERVER_URL: "tworavensweb-testing:45042"
