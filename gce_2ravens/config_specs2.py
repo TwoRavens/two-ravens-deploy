@@ -39,7 +39,7 @@ base_spec_01 = dict(\
     #
     tworavens_registry="tworavens",
     # tag used for ravens_main, rook, and nginx
-    tworavens_container_tag="comfrey-2020-1005",
+    tworavens_container_tag="comfrey-2020-1008",
     #
     #   TA2
     #
@@ -64,7 +64,9 @@ base_spec_01 = dict(\
     #
     D3MRUN="ta2ta3",
     D3MINPUTDIR="/ravens_volume/test_data",
-    D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
+    #D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
+    D3MPROBLEMPATH=('/ravens_volume/test_data/TR92_pgm_grid_samp'
+                    '/TRAIN/problem_TRAIN/problemDoc.json'),
     D3MOUTPUTDIR="/ravens_volume/test_output",
     D3MLOCALDIR="/ravens_volume/test_output/local_dir",
     D3MSTATICDIR="/ravens_volume/test_output/static_dir",
@@ -85,7 +87,8 @@ base_spec_01 = dict(\
     #
     # CPU/Memory Resources by Container
     #
-    ta2_resources=['20000Mi', '25000Mi', '3000m', '4000m'],
+    #ta2_resources=['20000Mi', '25000Mi', '3000m', '4000m'],
+    ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
     ta3_resources=['1000Mi', '3000Mi', '1000m', '1500m'],
     celery_resources=['4500Mi', '6000Mi', '2000m', '2000m'],
     rook_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
