@@ -82,7 +82,7 @@ This should be run locally, then update the repository on GCE via `git pull`
 
 # Front-facing nginx webserver
 #
-kubectl logs -f tworavensweb ravens-nginx
+kubectl logs -f tworavensweb-apricot ravens-nginx
 
 # The TA3!
 #
@@ -98,8 +98,8 @@ kubectl logs -f tworavensweb-apricot ta2-container
 
 # Redis + Mongo
 #
-kubectl logs -f tworavensweb redis
-kubectl logs -f tworavensweb mongo-2ravens
+kubectl logs -f tworavensweb-apricot redis
+kubectl logs -f tworavensweb-apricot mongo-2ravens
 
 ```
 
@@ -108,7 +108,7 @@ kubectl logs -f tworavensweb mongo-2ravens
 ```
 # Front-facing nginx webserver
 #
-kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ravens-nginx /bin/bash
 
 # The TA3!
 #
