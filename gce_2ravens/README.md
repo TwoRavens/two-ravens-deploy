@@ -112,18 +112,18 @@ kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
 
 # The TA3!
 #
-kubectl exec -ti  tworavensweb -c ta3-main /bin/bash
-kubectl exec -ti  tworavensweb -c celery-worker  /bin/bash
-kubectl exec -ti  tworavensweb -c rook-service /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ta3-main /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c celery-worker  /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c rook-service /bin/bash
 
 # The TA2!
 #
-kubectl exec -ti  tworavensweb -c ta2-container /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ta2-container /bin/bash
 
 # Redis + Mongo
 #
-kubectl exec -ti  tworavensweb -c redis /bin/bash
-kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c redis /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c mongo-2ravens /bin/bash
 
 ```
 
