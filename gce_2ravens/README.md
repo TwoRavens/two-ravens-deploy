@@ -86,14 +86,14 @@ kubectl logs -f tworavensweb ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f tworavensweb-testing ta3-main
-kubectl logs -f tworavensweb-testing ravens-nginx
-kubectl logs -f tworavensweb-testing celery-worker
-kubectl logs -f tworavensweb-testing rook-service
+kubectl logs -f tworavensweb-apricot ta3-main
+kubectl logs -f tworavensweb-apricot ravens-nginx
+kubectl logs -f tworavensweb-apricot celery-worker
+kubectl logs -f tworavensweb-apricot rook-service
 
 # The TA2!
 #
-kubectl logs -f tworavensweb-testing ta2-container
+kubectl logs -f tworavensweb-apricot ta2-container
 
 
 # Redis + Mongo
