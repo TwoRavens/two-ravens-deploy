@@ -9,7 +9,7 @@ IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it
 
 base_spec_01 = dict(\
     #
-    template_name="gce_ravens_deploy_029-onepod.yaml",
+    template_name="gce_ravens_deploy_030-onepod.yaml",
     rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
     #
     # Volume mount and resource templates
@@ -39,7 +39,8 @@ base_spec_01 = dict(\
     #
     tworavens_registry="tworavens",
     # tag used for ravens_main, rook, and nginx
-    tworavens_container_tag="comfrey-2020-1013",
+    tworavens_container_tag="comfrey-2020-1110-map",
+    #tworavens_container_tag="comfrey-2020-1013",
     #
     #   TA2
     #
