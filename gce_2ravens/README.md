@@ -82,24 +82,24 @@ This should be run locally, then update the repository on GCE via `git pull`
 
 # Front-facing nginx webserver
 #
-kubectl logs -f tworavensweb ravens-nginx
+kubectl logs -f tworavensweb-apricot ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f tworavensweb-testing ta3-main
-kubectl logs -f tworavensweb-testing ravens-nginx
-kubectl logs -f tworavensweb-testing celery-worker
-kubectl logs -f tworavensweb-testing rook-service
+kubectl logs -f tworavensweb-apricot ta3-main
+kubectl logs -f tworavensweb-apricot ravens-nginx
+kubectl logs -f tworavensweb-apricot celery-worker
+kubectl logs -f tworavensweb-apricot rook-service
 
 # The TA2!
 #
-kubectl logs -f tworavensweb-testing ta2-container
+kubectl logs -f tworavensweb-apricot ta2-container
 
 
 # Redis + Mongo
 #
-kubectl logs -f tworavensweb redis
-kubectl logs -f tworavensweb mongo-2ravens
+kubectl logs -f tworavensweb-apricot redis
+kubectl logs -f tworavensweb-apricot mongo-2ravens
 
 ```
 
@@ -108,22 +108,22 @@ kubectl logs -f tworavensweb mongo-2ravens
 ```
 # Front-facing nginx webserver
 #
-kubectl exec -ti  tworavensweb -c ravens-nginx /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ravens-nginx /bin/bash
 
 # The TA3!
 #
-kubectl exec -ti  tworavensweb -c ta3-main /bin/bash
-kubectl exec -ti  tworavensweb -c celery-worker  /bin/bash
-kubectl exec -ti  tworavensweb -c rook-service /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ta3-main /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c celery-worker  /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c rook-service /bin/bash
 
 # The TA2!
 #
-kubectl exec -ti  tworavensweb -c ta2-container /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c ta2-container /bin/bash
 
 # Redis + Mongo
 #
-kubectl exec -ti  tworavensweb -c redis /bin/bash
-kubectl exec -ti  tworavensweb -c mongo-2ravens /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c redis /bin/bash
+kubectl exec -ti  tworavensweb-apricot -c mongo-2ravens /bin/bash
 
 ```
 
