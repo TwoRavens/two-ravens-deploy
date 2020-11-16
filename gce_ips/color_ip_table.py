@@ -10,6 +10,7 @@ GCE_DEMO_INFO = [('demo', '35.193.45.98', {})]
 GCE_COLOR_DOMAIN_PAIRS = [\
         ('apricot', '34.69.254.93', {}),  # apricot.2ravens.org (GCE)
         ('testing', '35.223.87.48', {}),     # cyan.2ravens.org (GCE)
+        ('demo', '35.193.45.98', {}),     # cyan.2ravens.org (GCE)
         #('cyan', '104.154.189.22', {}),     # cyan.2ravens.org (GCE)
 
         #('blue', '35.222.247.157', {}),      # blue.2ravens.org (GCE) raven-ip-blue
