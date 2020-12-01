@@ -213,13 +213,13 @@ gce_demo_site = dict(base_spec_01, **dict(\
     DEMO_AUTO_LOGIN="True",
     #
     #ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
-    ta3_resources=['1000Mi', '3000Mi', '100m', '150m'],
-    celery_resources=['4500Mi', '6000Mi', '200m', '200m'],
-    rook_resources=['1000Mi', '2000Mi', '100m', '100m'],
-    mongo_resources=['1000Mi', '2000Mi', '100m', '100m'],
-    redis_resources=['500Mi', '1000Mi', '50m', '50m'],
-    nginx_resources=['256Mi', '500Mi', '50m', '50m'],
-    postgres_resources=['1000Mi', '2000Mi', '100m', '100m'],
+    ta3_resources=['100Mi', '300Mi', '100m', '150m'],
+    celery_resources=['450Mi', '600Mi', '200m', '200m'],
+    rook_resources=['100Mi', '200Mi', '100m', '100m'],
+    mongo_resources=['100Mi', '200Mi', '100m', '100m'],
+    redis_resources=['50Mi', '100Mi', '50m', '50m'],
+    nginx_resources=['50Mi', '100Mi', '50m', '50m'],
+    postgres_resources=['100Mi', '200Mi', '100m', '100m'],
     #
     ))
 

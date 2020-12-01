@@ -47,10 +47,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "1000Mi"
+         memory: "100Mi"
          cpu: "100m"
       limits:
-         memory: "2000Mi"
+         memory: "200Mi"
          cpu: "100m"
     env:
       - name: POSTGRES_DB
@@ -70,10 +70,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "256Mi"
+         memory: "50Mi"
          cpu: "50m"
       limits:
-         memory: "500Mi"
+         memory: "100Mi"
          cpu: "50m"
     ports:
       - containerPort: 80
@@ -102,10 +102,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "500Mi"
+         memory: "50Mi"
          cpu: "50m"
       limits:
-         memory: "1000Mi"
+         memory: "100Mi"
          cpu: "50m"
     ports:
     - containerPort: 6379
@@ -127,10 +127,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "1000Mi"
+         memory: "100Mi"
          cpu: "100m"
       limits:
-         memory: "3000Mi"
+         memory: "300Mi"
          cpu: "150m"
     ports:
       - containerPort: 8080
@@ -186,10 +186,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "4500Mi"
+         memory: "450Mi"
          cpu: "200m"
       limits:
-         memory: "6000Mi"
+         memory: "600Mi"
          cpu: "200m"
     ports:
       - containerPort: 8080
@@ -236,10 +236,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "1000Mi"
+         memory: "100Mi"
          cpu: "100m"
       limits:
-         memory: "2000Mi"
+         memory: "200Mi"
          cpu: "100m"
     ports:
       - containerPort: 27017
@@ -265,10 +265,10 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "1000Mi"
+         memory: "100Mi"
          cpu: "100m"
       limits:
-         memory: "2000Mi"
+         memory: "200Mi"
          cpu: "100m"
     volumeMounts:
       # ----------------------------------
