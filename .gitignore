@@ -104,3 +104,5 @@ mtest/tkey.txt
 mtest/docker-compose.yml
 dev-notes/~$mem-check.xlsx
 gce_2ravens/rendered/harvard-ta3.yaml
+.idea/
+
