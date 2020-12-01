@@ -187,6 +187,8 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 
 gce_demo_site = dict(base_spec_01, **dict(\
     #
+    tworavens_container_tag="comfrey-2020-0812",
+    #
     template_name="gce_ravens_demo-01-noTA2.yaml",
     # 2 mb
     NGINX_MAX_UPLOAD_SIZE="2m",
@@ -208,7 +210,16 @@ gce_demo_site = dict(base_spec_01, **dict(\
     #
     # Auto-login
     #
-    DEMO_AUTO_LOGIN="True"
+    DEMO_AUTO_LOGIN="True",
+    #
+    #ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
+    ta3_resources=['1000Mi', '3000Mi', '100m', '150m'],
+    celery_resources=['4500Mi', '6000Mi', '200m', '200m'],
+    rook_resources=['1000Mi', '2000Mi', '100m', '100m'],
+    mongo_resources=['1000Mi', '2000Mi', '100m', '100m'],
+    redis_resources=['500Mi', '1000Mi', '50m', '50m'],
+    nginx_resources=['256Mi', '500Mi', '50m', '50m'],
+    postgres_resources=['1000Mi', '2000Mi', '100m', '100m'],
     #
     ))
 
