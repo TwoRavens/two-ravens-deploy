@@ -16,7 +16,8 @@ from config_specs2 import \
      dm_eval_2020_08,
      gce_demo_site)
 from gce_ips.color_ip_table import \
-    (GCE_DEMO_INFO,
+    (AZURE_DEMO_INFO,
+     GCE_DEMO_INFO,
      DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
 
@@ -123,7 +124,7 @@ def create_gce_demo():
     """demo.2ravens.org"""
     create_configs(\
                    gce_demo_site,
-                   GCE_DEMO_INFO,
+                   AZURE_DEMO_INFO,
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
