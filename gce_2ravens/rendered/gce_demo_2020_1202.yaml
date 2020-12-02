@@ -47,11 +47,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "100Mi"
-         cpu: "100m"
+         memory: "500Mi"
+         cpu: "500m"
       limits:
-         memory: "200Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "500m"
     env:
       - name: POSTGRES_DB
         value: raven_1
@@ -70,11 +70,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "50Mi"
-         cpu: "50m"
+         memory: "256Mi"
+         cpu: "500m"
       limits:
-         memory: "100Mi"
-         cpu: "50m"
+         memory: "500Mi"
+         cpu: "500m"
     ports:
       - containerPort: 80
         name: http
@@ -102,11 +102,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "50Mi"
-         cpu: "50m"
+         memory: "500Mi"
+         cpu: "500m"
       limits:
-         memory: "100Mi"
-         cpu: "50m"
+         memory: "500Mi"
+         cpu: "500m"
     ports:
     - containerPort: 6379
     volumeMounts:
@@ -127,11 +127,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "100Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "1000m"
       limits:
-         memory: "300Mi"
-         cpu: "150m"
+         memory: "2000Mi"
+         cpu: "1000m"
     ports:
       - containerPort: 8080
         name: http
@@ -186,11 +186,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "450Mi"
-         cpu: "200m"
+         memory: "4500Mi"
+         cpu: "2000m"
       limits:
-         memory: "600Mi"
-         cpu: "200m"
+         memory: "6000Mi"
+         cpu: "1500m"
     ports:
       - containerPort: 8080
         name: http
@@ -236,11 +236,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "100Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "500m"
       limits:
-         memory: "200Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "1000m"
     ports:
       - containerPort: 27017
         protocol: TCP
@@ -265,11 +265,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "100Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "800m"
       limits:
-         memory: "200Mi"
-         cpu: "100m"
+         memory: "1000Mi"
+         cpu: "800m"
     volumeMounts:
       # ----------------------------------
       # shared between containers
