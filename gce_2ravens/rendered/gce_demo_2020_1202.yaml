@@ -14,7 +14,7 @@ metadata:
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 20.62.187.48
+  loadBalancerIP: 52.146.27.49
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3-demo
