@@ -192,6 +192,7 @@ gce_demo_site = dict(base_spec_01, **dict(\
     tworavens_container_tag="comfrey-2020-1202",
     #
     DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
+    D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
     #
     template_name="gce_ravens_demo-01-noTA2.yaml",
     # 2 mb
