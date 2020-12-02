@@ -18,6 +18,8 @@ base_spec_01 = dict(\
     RESOURCES_TEMPLATE_FILENAME="resources_01.yaml",
     #
     #
+    DJANGO_SETTINGS_MODULE="tworavensproject.settings.gce_settings",
+    #
     # server and cookies
     #
     RAVENS_SERVER_NAME="2ravens.org",
@@ -187,7 +189,9 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 
 gce_demo_site = dict(base_spec_01, **dict(\
     #
-    tworavens_container_tag="comfrey-2020-0812",
+    tworavens_container_tag="comfrey-2020-1202",
+    #
+    DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
     #
     template_name="gce_ravens_demo-01-noTA2.yaml",
     # 2 mb
