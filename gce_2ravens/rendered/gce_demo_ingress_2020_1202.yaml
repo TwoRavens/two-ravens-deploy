@@ -9,10 +9,10 @@ spec:
   rules:
   - http:
       paths:
-        - path: /raven
+        - path: /tr
           backend:
             serviceName: tworavens-service-demo
-            servicePort: 80
+            servicePort: 8010
 ---
 # -------------------------------------
 #   TA3 Service
@@ -28,14 +28,14 @@ metadata:
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
   #loadBalancerIP: 20.62.247.249
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3-demo
   ports:
     - name: http
-      port: 80
+      port: 8010
       protocol: TCP
       targetPort: 80
 ---
