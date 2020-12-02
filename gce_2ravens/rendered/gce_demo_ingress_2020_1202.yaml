@@ -9,7 +9,7 @@ spec:
   rules:
   - http:
       paths:
-        - path: /
+        - path: /raven
           backend:
             serviceName: tworavens-service-demo
             servicePort: 80
