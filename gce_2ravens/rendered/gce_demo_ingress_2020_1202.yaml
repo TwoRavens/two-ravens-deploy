@@ -29,7 +29,7 @@ metadata:
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
-  #type: LoadBalancer
+  type: LoadBalancer
   loadBalancerIP: 20.62.247.249
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
