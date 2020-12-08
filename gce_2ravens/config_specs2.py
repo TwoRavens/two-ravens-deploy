@@ -9,7 +9,8 @@ IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it
 
 base_spec_01 = dict(\
     #
-    template_name="gce_ravens_deploy_030-onepod.yaml",
+    template_name="azure_ravens_deploy_031-onepod.yaml",
+    #template_name="gce_ravens_deploy_030-onepod.yaml",
     rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
     #
     # Volume mount and resource templates
