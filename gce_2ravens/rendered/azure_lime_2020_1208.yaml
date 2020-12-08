@@ -41,7 +41,7 @@ spec:
   # -------------------------
   - name: ta2-container
     # CMU TA2!
-    image: gcr.io/raven2-186120/cmu-ta2:2020-0929
+    image: ravenscontainerregistry.azurecr.io/cmu-ta2:2020-0929
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources
@@ -354,12 +354,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
