@@ -128,6 +128,15 @@ def create_gce_demo():
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
+def create_azure_demo():
+    """lime.2ravens.org"""
+    create_configs(\
+                   #gce_demo_site,
+                   base_spec_01,
+                   AZURE_DEMO_INFO,
+                   rendered_fname_prefix='azure',
+                   make_ALL_files=False)
+
 def create_data_machines_k8s():
     # data machines
     create_configs(\
@@ -153,4 +162,5 @@ if __name__ == '__main__':
     #create_gce_k8s()
 
     # Demo site
-    create_gce_demo()
+    create_azure_demo()
+    #create_gce_demo()
