@@ -213,11 +213,11 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      - name: GCE_CREDS_INFO
-        valueFrom:
-          secretKeyRef:
-            name: gce-creds-variable
-            key: GCE_CREDS_INFO
+      #- name: GCE_CREDS_INFO
+      #  valueFrom:
+      #    secretKeyRef:
+      #      name: gce-creds-variable
+      #      key: GCE_CREDS_INFO
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -435,10 +435,10 @@ data:
   NGINX_SERVER_NAME: ".2ravens.org"
   #
   #  Example for 30Mb: NGINX_MAX_UPLOAD_SIZE: "30M"
-  NGINX_MAX_UPLOAD_SIZE: "24m"
+  NGINX_MAX_UPLOAD_SIZE: "2m"
   #
   #  Example for 30Mb, 1024^2 * 30: DATA_UPLOAD_MAX_MEMORY_SIZE: "31457280"
-  DATA_UPLOAD_MAX_MEMORY_SIZE: "25165824"
+  DATA_UPLOAD_MAX_MEMORY_SIZE: "2097152"
 ---
 # ---------------------------------------
 # D3M Configmap used by:
@@ -453,7 +453,7 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/TR92_pgm_grid_samp/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"

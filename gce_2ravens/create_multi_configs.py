@@ -12,9 +12,10 @@ sys.path.append(dirname(CURRENT_DIR))
 
 from config_specs2 import \
     (base_spec_01,
+     azure_demo_site,
      dm_summer_2020_0717,
      dm_eval_2020_08,
-     gce_demo_site)
+     )
 from gce_ips.color_ip_table import \
     (AZURE_DEMO_INFO,
      GCE_DEMO_INFO,
@@ -132,7 +133,7 @@ def create_azure_demo():
     """lime.2ravens.org"""
     create_configs(\
                    #gce_demo_site,
-                   base_spec_01,
+                   azure_demo_site,
                    AZURE_DEMO_INFO,
                    rendered_fname_prefix='azure',
                    make_ALL_files=False)
