@@ -7,7 +7,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-apricot
+  name: ravensvc-apricot
   labels:
     app: ta3-apricot
     kubernetes.io/cluster-service: 'true'

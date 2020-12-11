@@ -7,7 +7,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-demo
+  name: ravensvc-demo
   labels:
     app: ta3-demo
     kubernetes.io/cluster-service: 'true'
