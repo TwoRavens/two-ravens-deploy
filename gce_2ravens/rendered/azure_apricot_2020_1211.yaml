@@ -2,7 +2,7 @@
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
-#   template: azure_ravens_deploy_031-onepod.yaml
+#   template: azure_ravens_deploy_032-onepod.yaml
 # -------------------------------------
 apiVersion: v1
 kind: Service
@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-apricot
+  name: ravenpod-apricot
   labels:
     app: ta3-apricot
 spec:
@@ -395,7 +395,7 @@ data:
   TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   #
   # TA2/TA3 in one pod
-  TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
+  TA2_TEST_SERVER_URL: "ravenpod-apricot:45042"
   #
   # TA2/TA3 in separate pods
   #TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
