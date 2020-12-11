@@ -9,8 +9,9 @@ IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it
 
 base_spec_01 = dict(\
     #
+    #template_name="gce_ravens_deploy_029-onepod.yaml",
     template_name="gce_ravens_deploy_030-onepod.yaml",
-    rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
+    #rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
     #
     # Volume mount and resource templates
     #
@@ -193,7 +194,7 @@ azure_demo_site = dict(base_spec_01, **dict(\
     #tworavens_container_tag="comfrey-2020-1202",
     #
     DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
-    D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
+    #D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
     #
     #template_name="gce_ravens_demo-01-noTA2.yaml",
     template_name="azure_ravens_deploy_031-onepod.yaml",
@@ -206,7 +207,7 @@ azure_demo_site = dict(base_spec_01, **dict(\
     #TA2_D3M_SOLVER_ENABLED="False",
     #TA2_WRAPPED_SOLVERS="['TwoRavens']",
     #
-    TEST_DATASETS="185_baseball 196_autoMpg",
+    #TEST_DATASETS="185_baseball 196_autoMpg",
     #
     DISPLAY_DATAMART_UI="False",
     #

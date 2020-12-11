@@ -7,7 +7,9 @@ alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 
 GCE_DEMO_INFO = [('demo', '35.193.45.98', {})]
 
-AZURE_DEMO_INFO = [('lime', '20.62.242.202', {})]
+AZURE_DEMO_INFO = [('lime', '20.62.242.202', {}),
+                   ('apricot', '40.76.171.8', {}),
+                                                ]
 
 
 GCE_COLOR_DOMAIN_PAIRS = [\

@@ -7,17 +7,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service-lime
+  name: tworavens-service-apricot
   labels:
-    app: ta3-lime
+    app: ta3-apricot
     kubernetes.io/cluster-service: 'true'
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 20.62.242.202
+  loadBalancerIP: 40.76.171.8
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
-    app: ta3-lime
+    app: ta3-apricot
   ports:
     - name: http
       port: 80
@@ -30,9 +30,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb-lime
+  name: tworavensweb-apricot
   labels:
-    app: ta3-lime
+    app: ta3-apricot
 spec:
   restartPolicy: Never
   containers:
@@ -63,14 +63,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-apricot
     env:
       - name: D3MRUN
         value: "ta2"
@@ -121,7 +121,7 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-apricot
     volumeMounts:
       # ----------------------------------
       # shared between containers
@@ -129,7 +129,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -183,14 +183,14 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-apricot
     env:
       - name: SECRET_KEY
         valueFrom:
@@ -213,11 +213,6 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      #- name: GCE_CREDS_INFO
-      #  valueFrom:
-      #    secretKeyRef:
-      #      name: gce-creds-variable
-      #      key: GCE_CREDS_INFO
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -247,7 +242,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     # ---------------------------------
@@ -255,9 +250,9 @@ spec:
     # ---------------------------------
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-apricot
     env:
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
@@ -301,7 +296,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
   # -------------------------
@@ -327,7 +322,7 @@ spec:
       # ----------------------------------
       - name: ravens-volume
         mountPath: /ravens_volume
-        subPath: 2ravens_org-lime
+        subPath: 2ravens_org-apricot
         readOnly: false
       # ----------------------------------
     ports:
@@ -336,9 +331,9 @@ spec:
         protocol: TCP
     envFrom:
       - configMapRef:
-          name: ravens-django-config-lime
+          name: ravens-django-config-apricot
       - configMapRef:
-          name: ravens-config-d3m-lime
+          name: ravens-config-d3m-apricot
   # ----------------------------
   # Secrets
   # ----------------------------
@@ -376,15 +371,15 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-django-config-lime
+  name: ravens-django-config-apricot
 data:
   SORT_BY_GATES_DATASETS: "True"
   DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
-  RAVENS_SERVER_NAME: "lime.2ravens.org"
-  SESSION_COOKIE_NAME: "ravens_lime_cookie"
-  CSRF_COOKIE_NAME: "ravens_lime_csrf_cookie"
+  RAVENS_SERVER_NAME: "apricot.2ravens.org"
+  SESSION_COOKIE_NAME: "ravens_apricot_cookie"
+  CSRF_COOKIE_NAME: "ravens_apricot_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
   TA2_STATIC_TEST_MODE: "False"
   #
@@ -400,10 +395,10 @@ data:
   TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   #
   # TA2/TA3 in one pod
-  TA2_TEST_SERVER_URL: "tworavensweb-lime:45042"
+  TA2_TEST_SERVER_URL: "tworavensweb-apricot:45042"
   #
   # TA2/TA3 in separate pods
-  #TA2_TEST_SERVER_URL: "ta2-service-lime:45042"
+  #TA2_TEST_SERVER_URL: "ta2-service-apricot:45042"
   #
   # Url to TA3 R/rook web service
   R_DEV_SERVER_BASE: "http://localhost:8000/"
@@ -447,13 +442,13 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ravens-config-d3m-lime
+  name: ravens-config-d3m-apricot
 data:
   D3MRUN: "ta2ta3"
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/TR92_pgm_grid_samp/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
