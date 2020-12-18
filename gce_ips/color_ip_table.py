@@ -8,8 +8,8 @@ alt_problem_args = dict(D3MPROBLEMPATH=alt_problem_path,)
 GCE_DEMO_INFO = [('demo', '35.193.45.98', {})]
 
 AZURE_DEMO_INFO = [#('apricot', '40.76.171.8', {}),
-                   ('demo', '20.62.216.240', {}),
-                   #('testing', '20.62.247.224', {}),
+                   #('demo', '20.62.216.240', {}),
+                   ('testing', '20.62.247.224', {}),
                    ]
 
 
