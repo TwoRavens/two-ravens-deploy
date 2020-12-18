@@ -191,7 +191,7 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 
 azure_demo_site = dict(base_spec_01, **dict(\
     #
-    #tworavens_container_tag="comfrey-2020-1202",
+    tworavens_container_tag="yarrow-2020-1217",
     #
     DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
     #D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
