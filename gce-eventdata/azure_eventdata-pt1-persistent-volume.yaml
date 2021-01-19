@@ -1,0 +1,27 @@
+---
+#
+# Storage for event data **files**
+#
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+     name: storage-event-data-files
+provisioner: kubernetes.io/azure-disk
+reclaimPolicy: Retain
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Managed
+---
+#
+# Storage for **MySQL files**
+#
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+     name: storage-event-data-mysql
+provisioner: kubernetes.io/azure-disk
+reclaimPolicy: Retain
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Managed
+---
