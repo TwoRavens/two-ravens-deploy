@@ -92,8 +92,8 @@ kubectl logs -f ravens-eventdata-web ravens-nginx  # nginx log
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
 #
-kubectl exec -ti  ravens-eventdata-web -c ta3-main /bin/bash
-kubectl exec -ti  ravens-eventdata-web -c ravens-nginx /bin/bash
+kubectl exec -it ravens-eventdata-web -c ta3-main -- /bin/bash
+kubectl exec -it ravens-eventdata-web -c ravens-nginx -- /bin/bash
 
 ```
 
