@@ -52,28 +52,12 @@ spec:
       #persistentVolumeClaim:
       #  claimName: pvc-event-data-mysql
       #  readOnly: false
-  containers:
+  initContainers:
   # --------------------------------
-  # 1 of 3: Ravens nginx
-  # - reverse proxy for ta3-main
+  # 1 of 3: MySQL
   # --------------------------------
-  - name: ravens-nginx
-    image: tworavens/eventdata-ravens-nginx:yarrow-2020-0722
-    imagePullPolicy: Always
-    ports:
-      - containerPort: 80
-        name: http
-        protocol: TCP
-    volumeMounts:
-    - name: "ravens-volume"
-      mountPath: "/ravens_volume"
-      subPath: 2ravens_org-apricot
-      readOnly: true
-  # --------------------------------
-  # 2 of 3: MySQL
-  # --------------------------------
-  - image: mysql:5.7.33
-    name: raven-mysql
+  - name: raven-mysql
+    image: mysql:5.7.33
     envFrom:
     - configMapRef:
         # Includes MYSQL_DATABASE
@@ -100,6 +84,23 @@ spec:
     volumeMounts:
     - name: mysql-persistent-volume
       mountPath: "/var/lib/mysql"
+  containers:
+  # --------------------------------
+  # 2 of 3: Ravens nginx
+  # - reverse proxy for ta3-main
+  # --------------------------------
+  - name: ravens-nginx
+    image: tworavens/eventdata-ravens-nginx:yarrow-2020-0722
+    imagePullPolicy: Always
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    volumeMounts:
+    - name: "ravens-volume"
+      mountPath: "/ravens_volume"
+      subPath: 2ravens_org-apricot
+      readOnly: true
   # --------------------------------
   # 3 of 3: TA3 main container
   # - includes entry point for evaluation
