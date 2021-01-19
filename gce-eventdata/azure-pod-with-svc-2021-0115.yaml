@@ -44,11 +44,11 @@ spec:
       #  readOnly: false
       # emptyDir: {}
     - name: mysql-persistent-volume
-      #emptyDir: {}
-      azureDisk:
-        kind: Managed
-        diskName: storage-event-data-mysql
-        diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourcegroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-mysql
+      emptyDir: {}
+      #azureDisk:
+      #  kind: Managed
+      #  diskName: storage-event-data-mysql
+      #  diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourcegroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-mysql
       #persistentVolumeClaim:
       #  claimName: pvc-event-data-mysql
       #  readOnly: false
