@@ -49,7 +49,7 @@ kubectl delete -f eventdata-pod-with-svc.yaml  # stop the current pod/svc
 # Check to make sure the pod is stopped
 #  - If the STATUS is "Terminating", keep waiting
 #
-kubectl get pods   # when the pod stops, you will no longer see "ravens-eventdata-web" in the list
+kubectl get pods   # when the pod stops, you will no longer see "pod-eventdata" in the list
 
 # Start the pod + svc
 #  - This also takes about a minute
@@ -59,7 +59,7 @@ kubectl apply -f eventdata-pod-with-svc.yaml  # start the current pod/svc
 # Check the status
 #   - This can give you an idea of the state, whether containers are being pulled, etc
 #
-kubectl describe pod ravens-eventdata-web
+kubectl describe pod pod-eventdata
 
 #   Note: It's ok to see the message below--I have to adjust some of the startup timings for the 1st check:
 #
@@ -74,26 +74,28 @@ kubectl delete -f eventdata-pod-with-svc.yaml --grace-period=0 --force
 # other
 # ---------------
 
-# list pods, the name of the eventdata pod is "ravens-eventdata-web"
+# list pods, the name of the eventdata pod is "pod-eventdata"
 #
 kubectl get pods
 
 # describe pod using name from "kubectl get pods"
 #   - will tell if there are errors starting containers
 #
-kubectl describe pod ravens-eventdata-web
+kubectl describe pod pod-eventdata
 
 # See a log for a container, e.g. what you see in the rook Terminal when running locally
 #   - `kubectl logs -f .....` will stream the log
 #
-kubectl logs -f ravens-eventdata-web ta3-main  # python server log
-kubectl logs -f ravens-eventdata-web ravens-nginx  # nginx log
+kubectl logs -f pod-eventdata ta3-main  # python server log
+kubectl logs -f pod-eventdata ravens-nginx  # nginx log
+kubectl logs -f pod-eventdata raven-mysql  # mysql log
 
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
 #
-kubectl exec -it ravens-eventdata-web -c ta3-main -- /bin/bash
-kubectl exec -it ravens-eventdata-web -c ravens-nginx -- /bin/bash
+kubectl exec -it pod-eventdata -c ta3-main -- /bin/bash
+kubectl exec -it pod-eventdata -c ravens-nginx -- /bin/bash
+kubectl exec -it pod-eventdata -c raven-mysql  -- /bin/bash
 
 ```
 
@@ -130,7 +132,7 @@ kubectl delete -f eventdata-pod-with-svc.yaml
 # is deleted before restarting.  This can take a minute
 
 # Create a new pod + svc
-#   - should see a message like: deployment "ravens-eventdata-web" created
+#   - should see a message like: deployment "pod-eventdata" created
 #   - The website can take a couple of minutes to start
 #
 kubectl apply -f eventdata-pod-with-svc.yaml
@@ -143,7 +145,7 @@ kubectl get svc
 # Check progress
 #
 kubectl get pods
-kubectl describe pod ravens-eventdata-web
+kubectl describe pod pod-eventdata
 ```
 
 ## Stop the Pod + Svc (again)
@@ -164,7 +166,7 @@ kubectl delete -f eventdata-pod-with-svc.yaml
 ### local run
 
 ```
-sudo kubectl port-forward ravens-eventdata-web-833262626-v1mgs 80:80
+sudo kubectl port-forward pod-eventdata-833262626-v1mgs 80:80
 ```
 
 ### downsize cluster
