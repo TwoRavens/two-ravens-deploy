@@ -35,14 +35,22 @@ spec:
   restartPolicy: Always
   volumes:
     - name: ravens-volume
-      persistentVolumeClaim:
-        claimName: pvc-event-data-files
-        readOnly: false
+      azureDisk:
+        kind: Managed
+        diskName: storage-event-data-files
+        diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourceGroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-files
+          #persistentVolumeClaim:
+      #  claimName: pvc-event-data-files
+      #  readOnly: false
       # emptyDir: {}
     - name: mysql-persistent-volume
-      persistentVolumeClaim:
-        claimName: pvc-event-data-mysql
-        readOnly: false
+      azureDisk:
+        kind: Managed
+        diskName: storage-event-data-mysql
+        diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourceGroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-mysql
+      #persistentVolumeClaim:
+      #  claimName: pvc-event-data-mysql
+      #  readOnly: false
   containers:
   # --------------------------------
   # 1 of 3: Ravens nginx
