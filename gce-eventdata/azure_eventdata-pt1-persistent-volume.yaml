@@ -2,10 +2,8 @@
 #
 # Storage for event data **files**
 #
-apiVersion: v1
-kind: PersistentVolume
-#kind: StorageClass
-#apiVersion: storage.k8s.io/v1
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
   name: storage-event-data-files
 provisioner: kubernetes.io/azure-disk
@@ -17,10 +15,8 @@ parameters:
 #
 # Storage for **MySQL files**
 #
-apiVersion: v1
-kind: PersistentVolume
-#kind: StorageClass
-#apiVersion: storage.k8s.io/v1
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
   name: storage-event-data-mysql
 provisioner: kubernetes.io/azure-disk
