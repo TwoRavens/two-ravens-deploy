@@ -10,7 +10,7 @@ metadata:
   #  volume.beta.kubernetes.io/storage-class: storage-event-data-files
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: storage-event-data-files
   resources:
     requests:
@@ -27,7 +27,7 @@ metadata:
   #  volume.beta.kubernetes.io/storage-class: storage-event-data-mysql
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: storage-event-data-mysql
   resources:
     requests:
