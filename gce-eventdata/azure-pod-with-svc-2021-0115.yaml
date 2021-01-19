@@ -52,7 +52,7 @@ spec:
       #persistentVolumeClaim:
       #  claimName: pvc-event-data-mysql
       #  readOnly: false
-  initContainers:
+  containers:
   # --------------------------------
   # 1 of 3: MySQL
   # --------------------------------
@@ -84,7 +84,6 @@ spec:
     volumeMounts:
     - name: mysql-persistent-volume
       mountPath: "/var/lib/mysql"
-  containers:
   # --------------------------------
   # 2 of 3: Ravens nginx
   # - reverse proxy for ta3-main
