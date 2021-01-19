@@ -14,7 +14,7 @@ metadata:
   name: azure-managed-disk
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   storageClassName: managed-premium-retain
   resources:
     requests:
