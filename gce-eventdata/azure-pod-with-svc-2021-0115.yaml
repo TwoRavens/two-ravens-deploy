@@ -67,8 +67,8 @@ spec:
     name: mysql
     envFrom:
     - configMapRef:
-      # Includes MYSQL_DATABASE
-      name: event-data-configmap
+        # Includes MYSQL_DATABASE
+        name: event-data-configmap
     env:
     - name: MYSQL_ROOT_PASSWORD
       valueFrom:
@@ -106,7 +106,7 @@ spec:
       protocol: TCP
     envFrom:
     - configMapRef:
-      name: event-data-configmap
+        name: event-data-configmap
     env:
     - name: SECRET_KEY
       valueFrom:
