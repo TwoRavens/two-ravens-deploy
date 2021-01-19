@@ -5,7 +5,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: eventdataweb
+  name: eventdata-svc
   labels:
     app: eventdata
 spec:
@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-eventdata
+  name: eventdata-web
   labels:
     app: eventdata
     tier: web
