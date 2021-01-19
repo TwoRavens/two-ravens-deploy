@@ -72,7 +72,7 @@ spec:
   # --------------------------------
   # 2 of 3: MySQL
   # --------------------------------
-  - image: mysql:8
+  - image: mysql:5.7.33
     name: raven-mysql
     envFrom:
     - configMapRef:
