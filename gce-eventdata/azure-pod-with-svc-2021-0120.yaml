@@ -75,6 +75,7 @@ spec:
     volumeMounts:
     - name: postgres-persistent-volume
       mountPath: "/var/lib/postgresql/data"
+      subPath: eventdata
   # --------------------------------
   # 2 of 3: Ravens nginx
   # - reverse proxy for ta3-main
