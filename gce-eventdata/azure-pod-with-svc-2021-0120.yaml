@@ -58,6 +58,7 @@ spec:
     envFrom:
     - configMapRef:
         name: event-data-configmap
+    env:
     - name: POSTGRES_USER
       valueFrom:
         secretKeyRef:
