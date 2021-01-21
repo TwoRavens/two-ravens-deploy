@@ -88,14 +88,14 @@ kubectl describe pod eventdata-web
 #
 kubectl logs -f eventdata-web ta3-main  # python server log
 kubectl logs -f eventdata-web ravens-nginx  # nginx log
-kubectl logs -f eventdata-web raven-mysql  # mysql log
+kubectl logs -f eventdata-web raven-postgres  # mysql log
 
 # Log into a running container with full admin rights
 #   - e.g. look around, see if files are being created, stop/start things, etc
 #
 kubectl exec -it eventdata-web -c ta3-main -- /bin/bash
 kubectl exec -it eventdata-web -c ravens-nginx -- /bin/bash
-kubectl exec -it eventdata-web -c raven-mysql  -- /bin/bash
+kubectl exec -it eventdata-web -c raven-postgres  -- /bin/bash
 
 ```
 
