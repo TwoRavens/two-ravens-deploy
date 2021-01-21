@@ -80,7 +80,7 @@ spec:
   # - reverse proxy for ta3-main
   # --------------------------------
   - name: ravens-nginx
-    image: tworavens/eventdata-ravens-nginx:yarrow-2020-0722
+    image: tworavens/eventdata-ravens-nginx:yarrow-2021-0120
     imagePullPolicy: Always
     ports:
       - containerPort: 80
@@ -96,7 +96,7 @@ spec:
   # - includes entry point for evaluation
   # --------------------------------
   - name: ta3-main
-    image: tworavens/eventdata-ravens-main:yarrow-2020-0722
+    image: tworavens/eventdata-ravens-main:yarrow-2021-0120
     imagePullPolicy: Always
     command: ["event_data_start.sh"]
     ports:
