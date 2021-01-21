@@ -57,7 +57,6 @@ spec:
     image: postgres:12
     envFrom:
     - configMapRef:
-        # Includes POSTGRES_DB
         name: event-data-configmap
     - name: POSTGRES_USER
       valueFrom:
@@ -184,8 +183,8 @@ metadata:
   name: event-data-configmap
 data:
   # These two variables should have the same value (kludge):
-  POSTGRES_DB: "gce_raven_eventdata"
-  DB_NAME: "gce_raven_eventdata"
+  POSTGRES_DB: "azure_raven_eventdata"
+  DB_NAME: "azure_raven_eventdata"
   #
   #
   # Same env variables for django + celery
