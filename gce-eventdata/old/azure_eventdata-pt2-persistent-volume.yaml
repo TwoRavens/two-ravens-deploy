@@ -1,0 +1,35 @@
+---
+#
+# PersistentVolumeClaim for event data **files**
+#
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-event-data-files
+  #annotations:
+  #  volume.beta.kubernetes.io/storage-class: storage-event-data-files
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: storage-event-data-files
+  resources:
+    requests:
+      storage: 8Gi
+---
+#
+# PersistentVolumeClaim for **MySQL files**
+#
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-event-data-mysql
+  #annotations:
+  #  volume.beta.kubernetes.io/storage-class: storage-event-data-mysql
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: storage-event-data-mysql
+  resources:
+    requests:
+      storage: 8Gi
+---

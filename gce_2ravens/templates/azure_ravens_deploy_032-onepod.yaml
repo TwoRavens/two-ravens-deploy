@@ -7,7 +7,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tworavens-service{{ serviceNameSuffix}}
+  name: ravensvc{{ serviceNameSuffix}}
   labels:
     app: ta3{{ serviceNameSuffix}}
     kubernetes.io/cluster-service: 'true'
@@ -30,12 +30,35 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: tworavensweb{{ serviceNameSuffix}}
+  name: ravenpod{{ serviceNameSuffix}}
   labels:
     app: ta3{{ serviceNameSuffix}}
 spec:
   restartPolicy: Never
   containers:
+  # -------------------------
+  # 1 of 1: TA2
+  # -------------------------
+  - name: ta2-container
+    # {{ ta2_image_comment }}
+    image: {{ ta2_image }}
+    imagePullPolicy: {{ pull_policy_ta2 }}
+{{ ta2_resources }}
+    ports:
+      - containerPort: 45042
+        protocol: TCP
+    volumeMounts:
+{{ shared_volume_mounts }}
+    envFrom:
+      - configMapRef:
+          name: ravens-django-config{{ serviceNameSuffix}}
+      - configMapRef:
+          name: ravens-config-d3m{{ serviceNameSuffix}}
+    env:
+      - name: D3MRUN
+        value: "ta2"
+      #- name: AM_ENV
+      #  value: "DEBUG"
   # -------------------------
   # 1 of 7: Ravens postgres
   # -------------------------
@@ -70,7 +93,7 @@ spec:
   # 3 of 7: redis
   # -------------------------
   - name: redis
-    image: redis:4.0
+    image: redis:6
 {{ redis_resources }}
     ports:
     - containerPort: 6379
@@ -105,6 +128,11 @@ spec:
           secretKeyRef:
             name: tworavens-web-secrets
             key: SECRET_KEY
+      - name: MAPBOX_ACCESS_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: MAPBOX_ACCESS_TOKEN
       - name: MONGO_CONNECTION_STRING
         value: "mongodb://localhost:27017"
       #- name: MONGO_CONNECTION_STRING
@@ -116,11 +144,6 @@ spec:
         value: "1"
       - name: D3MRAM
         value: "1Gi"
-      #- name: GCE_CREDS_INFO
-      #  valueFrom:
-      #    secretKeyRef:
-      #      name: gce-creds-variable
-      #      key: GCE_CREDS_INFO
   # -------------------------
   # 5 of 7: celery worker
   # -------------------------
@@ -152,6 +175,11 @@ spec:
           secretKeyRef:
             name: tworavens-web-secrets
             key: SECRET_KEY
+      - name: MAPBOX_ACCESS_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: tworavens-web-secrets
+            key: MAPBOX_ACCESS_TOKEN
       #- name: MONGO_CONNECTION_STRING
       #  valueFrom:
       #    secretKeyRef:
@@ -187,6 +215,11 @@ spec:
       - configMapRef:
           name: ravens-config-d3m{{ serviceNameSuffix}}
   # ----------------------------
+  # Secrets
+  # ----------------------------
+  imagePullSecrets:
+    - name: secret-raven-registry
+  # ----------------------------
   # Volumes
   # ----------------------------
   volumes:
@@ -220,9 +253,8 @@ kind: ConfigMap
 metadata:
   name: ravens-django-config{{ serviceNameSuffix}}
 data:
-  DEMO_AUTO_LOGIN: "True"
   SORT_BY_GATES_DATASETS: "True"
-  DJANGO_SETTINGS_MODULE: "{{ DJANGO_SETTINGS_MODULE}}"
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.gce_settings"
   LOCAL_SETUP_DIR: /ravens_volume/2ravens_local_setup
   #
   RAVENS_SERVER_NAME: "{{ RAVENS_SERVER_NAME}}"
@@ -234,20 +266,16 @@ data:
   DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
   #
-  DATASET_SHOW_TAB_PRESETS: "True"
-  DATASET_SHOW_TAB_UPLOAD: "False"
-  DATASET_SHOW_TAB_ONLINE: "False"
   #
   # Example of setting test datasets via an env varaible
-  #TEST_DATASETS: "185_baseball 196_autoMpg"
-  TEST_DATASETS: "{{ TEST_DATASETS }}"
+  #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
   #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "{{ TA2_D3M_SOLVER_ENABLED }}"
   TA2_WRAPPED_SOLVERS: "{{ TA2_WRAPPED_SOLVERS }}"
   #
   # TA2/TA3 in one pod
-  TA2_TEST_SERVER_URL: "tworavensweb{{ serviceNameSuffix}}:45042"
+  TA2_TEST_SERVER_URL: "ravenpod{{ serviceNameSuffix}}:45042"
   #
   # TA2/TA3 in separate pods
   #TA2_TEST_SERVER_URL: "ta2-service{{ serviceNameSuffix}}:45042"

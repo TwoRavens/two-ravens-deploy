@@ -9,14 +9,17 @@ IMPORTANT: When adding a new dict, make sure the name has 'spec' or 'SPEC' in it
 
 base_spec_01 = dict(\
     #
+    #template_name="gce_ravens_deploy_029-onepod.yaml",
     template_name="gce_ravens_deploy_030-onepod.yaml",
-    rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
+    #rendered_filename="gce_2ravens_2020_0714.yaml",   # overwritten for multi configs
     #
     # Volume mount and resource templates
     #
     VOLUME_MOUNTS_TEMPLATE_FILENAME="dm_volume_mounts_01.yaml",
     RESOURCES_TEMPLATE_FILENAME="resources_01.yaml",
     #
+    #
+    DJANGO_SETTINGS_MODULE="tworavensproject.settings.gce_settings",
     #
     # server and cookies
     #
@@ -49,7 +52,8 @@ base_spec_01 = dict(\
     #ta2_image="registry.gitlab.com/vida-nyu/d3m/ta2:latest",
     #ta2_image_comment="NYU TA2!",
     #ta2_image="registry.datadrivendiscovery.org/sheath/cmu-ta2:latest",
-    ta2_image="gcr.io/raven2-186120/cmu-ta2:2020-0929",
+    #ta2_image="gcr.io/raven2-186120/cmu-ta2:2020-0929",
+    ta2_image="ravenscontainerregistry.azurecr.io/cmu-ta2:2020-0929",
     ta2_image_comment="CMU TA2!",
     #
     # pull policies
@@ -185,18 +189,25 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
     ))
 
 
-gce_demo_site = dict(base_spec_01, **dict(\
+azure_demo_site = dict(base_spec_01, **dict(\
     #
-    template_name="gce_ravens_demo-01-noTA2.yaml",
+    tworavens_container_tag="yarrow-2020-1217",
+    #
+    DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
+    #D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
+    #
+    #template_name="gce_ravens_demo-01-noTA2.yaml",
+    template_name="azure_ravens_deploy_032-onepod.yaml",
+    #
     # 2 mb
     NGINX_MAX_UPLOAD_SIZE="2m",
     # 2 mb
     DATA_UPLOAD_MAX_MEMORY_SIZE="2097152",
     #
-    TA2_D3M_SOLVER_ENABLED="False",
-    TA2_WRAPPED_SOLVERS="['TwoRavens']",
+    #TA2_D3M_SOLVER_ENABLED="False",
+    #TA2_WRAPPED_SOLVERS="['TwoRavens']",
     #
-    TEST_DATASETS="185_baseball 196_autoMpg",
+    #TEST_DATASETS="185_baseball 196_autoMpg",
     #
     DISPLAY_DATAMART_UI="False",
     #
@@ -208,7 +219,16 @@ gce_demo_site = dict(base_spec_01, **dict(\
     #
     # Auto-login
     #
-    DEMO_AUTO_LOGIN="True"
+    #DEMO_AUTO_LOGIN="True",
+    #
+    #ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
+    #nginx_resources=['256Mi', '500Mi', '500m', '500m'],
+    #ta3_resources=['1000Mi', '2000Mi', '1000m', '1000m'],
+    #celery_resources=['4500Mi', '6000Mi', '1000m', '1500m'],
+    #rook_resources=['1000Mi', '1000Mi', '800m', '800m'],
+    #mongo_resources=['1000Mi', '1000Mi', '500m', '1000m'],
+    #redis_resources=['500Mi', '500Mi', '500m', '500m'],
+    #postgres_resources=['500Mi', '1000Mi', '500m', '500m'],
     #
     ))
 

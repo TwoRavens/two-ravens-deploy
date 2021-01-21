@@ -12,11 +12,13 @@ sys.path.append(dirname(CURRENT_DIR))
 
 from config_specs2 import \
     (base_spec_01,
+     azure_demo_site,
      dm_summer_2020_0717,
      dm_eval_2020_08,
-     gce_demo_site)
+     )
 from gce_ips.color_ip_table import \
-    (GCE_DEMO_INFO,
+    (AZURE_DEMO_INFO,
+     GCE_DEMO_INFO,
      DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
 
@@ -123,8 +125,17 @@ def create_gce_demo():
     """demo.2ravens.org"""
     create_configs(\
                    gce_demo_site,
-                   GCE_DEMO_INFO,
+                   AZURE_DEMO_INFO,
                    rendered_fname_prefix='gce',
+                   make_ALL_files=False)
+
+def create_azure_demo():
+    """lime.2ravens.org"""
+    create_configs(\
+                   #gce_demo_site,
+                   azure_demo_site,
+                   AZURE_DEMO_INFO,
+                   rendered_fname_prefix='azure',
                    make_ALL_files=False)
 
 def create_data_machines_k8s():
@@ -149,7 +160,8 @@ if __name__ == '__main__':
     #create_data_machines_k8s()
 
     # GCE K8s - apricot, cyan
-    create_gce_k8s()
+    #create_gce_k8s()
 
     # Demo site
+    create_azure_demo()
     #create_gce_demo()

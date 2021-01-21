@@ -1,0 +1,210 @@
+---
+# ---------------------------
+# EventData - Service
+# ---------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventdata-svc
+  labels:
+    app: eventdata
+spec:
+  selector:
+    app: eventdata
+    tier: web
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+  #
+  # IP mapped to eventdata.2ravens.org
+  #
+  loadBalancerIP: 52.146.49.234
+---
+# ---------------------------
+# EventData - Kubernetes Pod File
+# ---------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: eventdata-web
+  labels:
+    app: eventdata
+    tier: web
+spec:
+  restartPolicy: Always
+  volumes:
+    - name: ravens-volume
+      azureDisk:
+        kind: Managed
+        diskName: storage-event-data-files
+        diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourcegroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-files
+          #persistentVolumeClaim:
+      #  claimName: pvc-event-data-files
+      #  readOnly: false
+      # emptyDir: {}
+    - name: postgres-persistent-volume
+      #emptyDir: {}
+      azureDisk:
+        kind: Managed
+        diskName: storage-event-data-postgres
+        diskURI: /subscriptions/14d2f886-16d9-4a5b-87f0-7aa1c4608026/resourcegroups/MC_twoRavensResourceGroup_ravensCluster02-EventData_eastus/providers/Microsoft.Compute/disks/storage-event-data-postgres
+  containers:
+  # --------------------------------
+  # 1 of 3: Postgres
+  # --------------------------------
+  - name: raven-postgres
+    image: postgres:12
+    envFrom:
+    - configMapRef:
+        name: event-data-configmap
+    env:
+    - name: POSTGRES_USER
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: POSTGRES_USER
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: POSTGRES_PASSWORD
+    ports:
+    - containerPort: 5432
+      name: postgres-port
+    volumeMounts:
+    - name: postgres-persistent-volume
+      mountPath: "/var/lib/postgresql/data"
+      subPath: eventdata
+  # --------------------------------
+  # 2 of 3: Ravens nginx
+  # - reverse proxy for ta3-main
+  # --------------------------------
+  - name: ravens-nginx
+    image: tworavens/eventdata-ravens-nginx:yarrow-2021-0120
+    imagePullPolicy: Always
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+    volumeMounts:
+    - name: "ravens-volume"
+      mountPath: "/ravens_volume"
+      subPath: 2ravens_org-apricot
+      readOnly: true
+  # --------------------------------
+  # 3 of 3: TA3 main container
+  # - includes entry point for evaluation
+  # --------------------------------
+  - name: ta3-main
+    image: tworavens/eventdata-ravens-main:yarrow-2021-0120
+    imagePullPolicy: Always
+    command: ["event_data_start.sh"]
+    ports:
+    # Main web port; nginx makes this available via port 80
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    envFrom:
+    - configMapRef:
+        name: event-data-configmap
+    env:
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: SECRET_KEY
+    # ---------------------------
+    # Social auth: github creds
+    # ---------------------------
+    - name: SOCIAL_AUTH_GITHUB_KEY
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: SOCIAL_AUTH_GITHUB_KEY
+    - name: SOCIAL_AUTH_GITHUB_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: SOCIAL_AUTH_GITHUB_SECRET
+    - name: EVTDATA_2_TWORAVENS_DIR
+      value: "/ravens_volume/evtdata_user_datasets"
+    - name: EVENTDATA_DATASETS
+      value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_speed.json","icews.json","ged.json","gtd.json","covid_19.json"]'
+      #value: '["acled_africa.json","acled_asia.json","acled_middle_east.json","cline_phoenix_fbis.json","cline_phoenix_nyt.json","cline_phoenix_swb.json","cline_speed.json","icews.json"]'
+    - name: EVENTDATA_TWO_RAVENS_TARGET_URL
+      value: http://apricot.2ravens.org
+    - name: SESSION_COOKIE_NAME
+      value: eventdata_apricot_cookie
+    - name: CSRF_COOKIE_NAME
+      value: eventdata_apricot_csrf_cookie
+    # ---------------------------
+    # SQL db credentials
+    # ---------------------------
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: POSTGRES_USER
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: POSTGRES_PASSWORD
+    # ---------------------------
+    # Mongo address/username/password
+    # ---------------------------
+    - name: EVENTDATA_MONGO_DB_ADDRESS
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: EVENTDATA_MONGO_DB_ADDRESS
+    - name: EVENTDATA_MONGO_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: EVENTDATA_MONGO_USERNAME
+    - name: EVENTDATA_MONGO_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: azure-eventdata-secrets
+          key: EVENTDATA_MONGO_PASSWORD
+    # ---------------------------
+    volumeMounts:
+      - name: "ravens-volume"
+        mountPath: "/ravens_volume"
+        subPath: 2ravens_org-apricot
+        readOnly: false
+---
+# ---------------------------------------
+# Configmap
+# ---------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: event-data-configmap
+data:
+  # These two variables should have the same value (kludge):
+  POSTGRES_DB: "azure_raven_eventdata"
+  DB_NAME: "azure_raven_eventdata"
+  #
+  #
+  # Same env variables for django + celery
+  #
+  DJANGO_SETTINGS_MODULE: "tworavensproject.settings.event_data_azure"
+  RAVENS_SESSION_COOKIE_NAME: "azure_event_data"
+  #
+  # No TA2 used
+  #
+  TA2_STATIC_TEST_MODE: "True"
+  #
+  # Open database settings
+  #
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "5432"
+  #
+  # Use python social auth, e.g. sign-in with GitHub
+  #
+  ALLOW_SOCIAL_AUTH: "False"
+  GITHUB_REDIRECT_URI: "http://eventdata.2ravens.org/oauth/complete/github/"
+  #
