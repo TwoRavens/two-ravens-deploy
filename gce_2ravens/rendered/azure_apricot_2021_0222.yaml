@@ -41,7 +41,7 @@ spec:
   # -------------------------
   - name: ta2-container
     # CMU TA2!
-    image: ravenscontainerregistry.azurecr.io/cmu-ta2:2020-0929
+    image: ravenscontainerregistry.azurecr.io/cmu-ta2:2021-0222
     imagePullPolicy: IfNotPresent
     # -----------------------------------
     # ta2_resources

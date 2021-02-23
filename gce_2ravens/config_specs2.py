@@ -193,6 +193,8 @@ azure_demo_site = dict(base_spec_01, **dict(\
     #
     tworavens_container_tag="yarrow-2021-0222b", #"yarrow-2020-1217",
     #
+    ta2_image="ravenscontainerregistry.azurecr.io/cmu-ta2:2021-0222",
+    #
     DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
     #D3MPROBLEMPATH="/ravens_volume/test_data/185_baseball/TRAIN/problem_TRAIN/problemDoc.json",
     #
