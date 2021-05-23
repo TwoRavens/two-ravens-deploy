@@ -17,8 +17,7 @@ from config_specs2 import \
      dm_eval_2020_08,
      )
 from gce_ips.color_ip_table import \
-    (AZURE_DEMO_INFO,
-     GCE_DEMO_INFO,
+    (GCE_DEMO_INFO,
      DM_COLOR_DOMAIN_PAIRS,
      GCE_COLOR_DOMAIN_PAIRS)
 
@@ -129,14 +128,6 @@ def create_gce_demo():
                    rendered_fname_prefix='gce',
                    make_ALL_files=False)
 
-def create_azure_demo():
-    """lime.2ravens.org"""
-    create_configs(\
-                   #gce_demo_site,
-                   azure_demo_site,
-                   AZURE_DEMO_INFO,
-                   rendered_fname_prefix='azure',
-                   make_ALL_files=False)
 
 def create_data_machines_k8s():
     # data machines
@@ -145,6 +136,21 @@ def create_data_machines_k8s():
                    #dm_summer_2020_0717,
                    DM_COLOR_DOMAIN_PAIRS,
                    rendered_fname_prefix='dm',
+                   make_ALL_files=False)
+
+def create_azure_demo():
+    """apricot.2ravens.org, demo.2ravens.org, testing.2ravens.org"""
+    AZURE_IP_INFO = [
+                   #('apricot', '40.76.171.8', {}),
+                   #('demo', '20.62.216.240', {}),
+                   ('testing', '20.62.247.224', {}),
+                   ]
+
+    create_configs(\
+                   #gce_demo_site,
+                   azure_demo_site,     # from config_specs2
+                   AZURE_IP_INFO,
+                   rendered_fname_prefix='azure',
                    make_ALL_files=False)
 
 if __name__ == '__main__':

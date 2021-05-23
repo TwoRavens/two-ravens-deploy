@@ -1,7 +1,0 @@
-      # ----------------------------------
-      # shared between containers (non-persistent)
-      # ----------------------------------
-      - mountPath: "/ravens_volume"
-        name: "ravens-volume"
-        readOnly: false
-      # ----------------------------------

@@ -2,7 +2,7 @@
 # PVC
 
 ## 1. Create a static volume
-  - https://docs.microsoft.com/en-us/azure/aks/azure-disk-volume-EventData_eastus
+  - https://docs.microsoft.com/en-us/azure/aks/azure-disk-volume
 
 ```
 az aks show --resource-group twoRavensResourceGroup --name ravensCluster02-EventData --query nodeResourceGroup -o tsv
