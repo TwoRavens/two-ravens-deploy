@@ -354,12 +354,12 @@ spec:
     #- name: input-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: static-data
     #  emptyDir: {}
     #  #hostPath:
-    #    #path:
+    #    #path: 
     #    #type: Directory
     #- name: output-data
     #  emptyDir: {}
@@ -448,7 +448,7 @@ data:
   D3MINPUTDIR: "/ravens_volume/test_data"
   D3MOUTPUTDIR: "/ravens_volume/test_output"
   D3MSTATICDIR: "/ravens_volume/test_output/static_dir"
-  D3MPROBLEMPATH: "/ravens_volume/test_data/TR103_germany_state/TRAIN/problem_TRAIN/problemDoc.json"
+  D3MPROBLEMPATH: "/ravens_volume/test_data/TR104_Police_Incidents/TRAIN/problem_TRAIN/problemDoc.json"
   D3MLOCALDIR: "/ravens_volume/test_output/local_dir"
   # Used by TA2
   #D3MCPU: "1"
