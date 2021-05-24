@@ -192,7 +192,7 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 azure_demo_site = dict(base_spec_01, **dict(\
     #
     tworavens_registry="ghcr.io/tworavens/tworavens",
-    tworavens_container_tag="2021-0523-disco-922",
+    tworavens_container_tag="2021-0524-disco-922",
     #
     #ta2_image="ravenscontainerregistry.azurecr.io/cmu-ta2:2021-0222",
     #
