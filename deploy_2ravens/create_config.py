@@ -29,7 +29,7 @@ class TemplateRenderHelper(object):
     def __init__(self, template_dict, template_name, **kwargs):
         """execute main method"""
         self.jinja_env = Environment(\
-            loader=PackageLoader('gce_2ravens'),
+            loader=PackageLoader('deploy_2ravens'),
             autoescape=select_autoescape(['html', 'xml']))
 
         self.content_string = None
