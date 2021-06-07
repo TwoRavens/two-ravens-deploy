@@ -19,7 +19,7 @@ spec:
   #
   # IP mapped to eventdata.2ravens.org
   #
-  loadBalancerIP: 52.146.49.234
+  loadBalancerIP: 13.82.61.146
 ---
 # ---------------------------
 # EventData - Kubernetes Pod File

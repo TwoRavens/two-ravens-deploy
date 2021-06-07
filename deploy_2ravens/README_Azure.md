@@ -43,16 +43,25 @@ git clone https://github.com/TwoRavens/two-ravens-deploy.git
 
 # Go to the correct directory and update it
 #
-cd two-ravens-deploy/deploy_2ravens/rendered
+cd two-ravens-deploy/
 git pull
-
-# For any file in the directory 'two-ravens-deploy/deploy_2ravens/rendered'
-#   (example: using file "ta3.yaml")
 
 ```
 
+4. **Run one of the configs**
 
+```
+# Assumes you are in the Azure shell
+cd ~/two-ravens-deploy/deploy_2ravens/rendered/
 
+# list files. At time of writing, includes "azure_testing_2021_0603.yaml"
+#
+ls  
+
+# Start up a pod containing the TwoRavens system
+#
+kc apply -f azure_testing_2021_0603.yaml
+```
 # start the system
 #
 kubectl apply -f ta3.yaml
