@@ -275,7 +275,7 @@ spec:
   # 6 of 7: mongo
   # -------------------------
   - name: mongo-2ravens
-    image: mongo
+    image: mongo:4.4.6
     # -----------------------------------
     # mongo_resources
     # ----------------------------------
