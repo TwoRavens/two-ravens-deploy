@@ -192,13 +192,13 @@ dm_eval_2020_08 = dict(dm_summer_2020_0717, **dict(\
 azure_demo_site = dict(base_spec_01, **dict(\
     #
     tworavens_registry="ghcr.io/tworavens/tworavens",
-    tworavens_container_tag="2021-0524-disco-922",
+    tworavens_container_tag="2021-0626-disco-922",
     #
     #ta2_image="ravenscontainerregistry.azurecr.io/cmu-ta2:2021-0222",
     #
     DJANGO_SETTINGS_MODULE="tworavensproject.settings.azure_settings",
-    #D3MPROBLEMPATH="/ravens_volume/test_data/TR103_germany_state/TRAIN/problem_TRAIN/problemDoc.json",
-    D3MPROBLEMPATH="/ravens_volume/test_data/TR104_Police_Incidents/TRAIN/problem_TRAIN/problemDoc.json",
+    D3MPROBLEMPATH="/ravens_volume/test_data/TR103_germany_state/TRAIN/problem_TRAIN/problemDoc.json",
+    #D3MPROBLEMPATH="/ravens_volume/test_data/TR104_Police_Incidents/TRAIN/problem_TRAIN/problemDoc.json",
     #
     #template_name="gce_ravens_demo-01-noTA2.yaml",
     template_name="azure_ravens_deploy_032-onepod.yaml",
