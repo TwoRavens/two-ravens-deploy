@@ -383,7 +383,7 @@ data:
   SESSION_COOKIE_NAME: "ravens_testing_cookie"
   CSRF_COOKIE_NAME: "ravens_testing_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
-  TA2_STATIC_TEST_MODE: "True"
+  TA2_STATIC_TEST_MODE: "False"
   #
   DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
@@ -393,7 +393,7 @@ data:
   #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_D3M_SOLVER_ENABLED: "True"
+  TA2_D3M_SOLVER_ENABLED: "False"
   TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   #
   # TA2/TA3 in one pod
