@@ -1,4 +1,6 @@
 ---
+# 12.26.2021 - notes
+# - set TA2_STATIC_TEST_MODE to 'True'
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
@@ -381,7 +383,7 @@ data:
   SESSION_COOKIE_NAME: "ravens_testing_cookie"
   CSRF_COOKIE_NAME: "ravens_testing_csrf_cookie"
   # When TA2_STATIC_TEST_MODE is set to True, TA2 is ignored
-  TA2_STATIC_TEST_MODE: "False"
+  TA2_STATIC_TEST_MODE: "True"
   #
   DEBUG: "False"
   DISPLAY_DATAMART_UI: "True"
