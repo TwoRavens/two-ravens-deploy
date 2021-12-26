@@ -130,24 +130,24 @@ This should be run locally, then update the repository on GCE via `git pull`
 
 # Front-facing nginx webserver
 #
-kubectl logs -f ravenpod-apricot ravens-nginx
+kubectl logs -f ravenpod-demo ravens-nginx
 
 # The TA3!
 #
-kubectl logs -f ravenpod-apricot ta3-main
-kubectl logs -f ravenpod-apricot ravens-nginx
-kubectl logs -f ravenpod-apricot celery-worker
-kubectl logs -f ravenpod-apricot rook-service
+kubectl logs -f ravenpod-demo ta3-main
+kubectl logs -f ravenpod-demo ravens-nginx
+kubectl logs -f ravenpod-demo celery-worker
+kubectl logs -f ravenpod-demo rook-service
 
 # The TA2!
 #
-kubectl logs -f ravenpod-apricot ta2-container
+kubectl logs -f ravenpod-demo ta2-container
 
 
 # Redis + Mongo
 #
-kubectl logs -f ravenpod-apricot redis
-kubectl logs -f ravenpod-apricot mongo-2ravens
+kubectl logs -f ravenpod-demo redis
+kubectl logs -f ravenpod-demo mongo-2ravens
 
 ```
 
@@ -156,22 +156,22 @@ kubectl logs -f ravenpod-apricot mongo-2ravens
 ```
 # Front-facing nginx webserver
 #
-kubectl exec -ti  ravenpod-apricot -c ravens-nginx /bin/bash
+kubectl exec -ti  ravenpod-demo -c ravens-nginx /bin/bash
 
 # The TA3!
 #
-kubectl exec -ti  ravenpod-apricot -c ta3-main /bin/bash
-kubectl exec -ti  ravenpod-apricot -c celery-worker  /bin/bash
-kubectl exec -ti  ravenpod-apricot -c rook-service /bin/bash
+kubectl exec -ti  ravenpod-demo -c ta3-main /bin/bash
+kubectl exec -ti  ravenpod-demo -c celery-worker  /bin/bash
+kubectl exec -ti  ravenpod-demo -c rook-service /bin/bash
 
 # The TA2!
 #
-kubectl exec -ti  ravenpod-apricot -c ta2-container /bin/bash
+kubectl exec -ti  ravenpod-demo -c ta2-container /bin/bash
 
 # Redis + Mongo
 #
-kubectl exec -ti  ravenpod-apricot -c redis /bin/bash
-kubectl exec -ti  ravenpod-apricot -c mongo-2ravens /bin/bash
+kubectl exec -ti  ravenpod-demo -c redis /bin/bash
+kubectl exec -ti  ravenpod-demo -c mongo-2ravens /bin/bash
 
 ```
 
