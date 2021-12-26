@@ -1,6 +1,7 @@
 ---
 # 12.26.2021 - notes
-#   1) TA2_WRAPPED_SOLVERS - set to only TwoRavens
+#   1) TA2_WRAPPED_SOLVERS - set to only "['TwoRavens']"
+#   2) TA2_D3M_SOLVER_ENABLED - set to "False"
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
@@ -38,46 +39,6 @@ metadata:
 spec:
   restartPolicy: Never
   containers:
-  # -------------------------
-  # 1 of 1: TA2
-  # -------------------------
-  - name: ta2-container
-    # CMU TA2!
-    image: ravenscontainerregistry.azurecr.io/cmu-ta2:2020-0929
-    imagePullPolicy: IfNotPresent
-    # -----------------------------------
-    # ta2_resources
-    # ----------------------------------
-    resources:
-      requests:
-         memory: "20000Mi"
-         cpu: "6000m"
-      limits:
-         memory: "25000Mi"
-         cpu: "8000m"
-    ports:
-      - containerPort: 45042
-        protocol: TCP
-    volumeMounts:
-      # ----------------------------------
-      # shared between containers
-      # ref: dm_volume_mounts_01.yaml
-      # ----------------------------------
-      - name: ravens-volume
-        mountPath: /ravens_volume
-        subPath: 2ravens_org-demo
-        readOnly: false
-      # ----------------------------------
-    envFrom:
-      - configMapRef:
-          name: ravens-django-config-demo
-      - configMapRef:
-          name: ravens-config-d3m-demo
-    env:
-      - name: D3MRUN
-        value: "ta2"
-      #- name: AM_ENV
-      #  value: "DEBUG"
   # -------------------------
   # 1 of 7: Ravens postgres
   # -------------------------
@@ -393,7 +354,7 @@ data:
   #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_D3M_SOLVER_ENABLED: "True"
+  TA2_D3M_SOLVER_ENABLED: "False"
   TA2_WRAPPED_SOLVERS: "['TwoRavens']"
   # TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   #
