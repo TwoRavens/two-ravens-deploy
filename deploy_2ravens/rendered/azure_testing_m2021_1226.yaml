@@ -1,6 +1,8 @@
 ---
 # 12.26.2021 - notes
-# - set TA2_STATIC_TEST_MODE to 'True'
+#   1) set TA2_D3M_SOLVER_ENABLED to 'False'
+#   2) remove loadbalancer static IP
+#   3) TA2_WRAPPED_SOLVERS - set to only TwoRavens
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
@@ -394,7 +396,8 @@ data:
   #
   # Reference to the gRPC server using the pod name and TA2 port
   TA2_D3M_SOLVER_ENABLED: "False"
-  TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
+  # TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
+  TA2_WRAPPED_SOLVERS: "['TwoRavens']"
   #
   # TA2/TA3 in one pod
   TA2_TEST_SERVER_URL: "ravenpod-testing:45042"
