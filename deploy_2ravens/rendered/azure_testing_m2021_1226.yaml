@@ -2,6 +2,7 @@
 # 12.26.2021 - notes
 #   1) remove loadbalancer static IP
 #   2) TA2_WRAPPED_SOLVERS - set to only TwoRavens
+#   3) TA2_D3M_SOLVER_ENABLED - set to "False"
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
@@ -10,7 +11,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ravensvc-testing
+  name: ravensvc-testing2
   labels:
     app: ta3-testing
     kubernetes.io/cluster-service: 'true'
@@ -394,7 +395,7 @@ data:
   #TEST_DATASETS: "185_baseball 196_autoMpg TR81_Ethiopia_phemyear TR82_Ethiopia_phemlarge TR83_Ethiopia_gdl_sub TR84_Ethiopia_zone_mon"
   #
   # Reference to the gRPC server using the pod name and TA2 port
-  TA2_D3M_SOLVER_ENABLED: "True"
+  TA2_D3M_SOLVER_ENABLED: "False"
   # TA2_WRAPPED_SOLVERS: "['TwoRavens', 'tpot']"
   TA2_WRAPPED_SOLVERS: "['TwoRavens']"
   #
