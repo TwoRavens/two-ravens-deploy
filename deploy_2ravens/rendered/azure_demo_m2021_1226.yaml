@@ -2,6 +2,7 @@
 # 12.26.2021 - notes
 #   1) TA2_WRAPPED_SOLVERS - set to only "['TwoRavens']"
 #   2) TA2_D3M_SOLVER_ENABLED - set to "False"
+#   3) Remove TA2  container
 # -------------------------------------
 #   TA3 Service
 #   https://2ravens.org
@@ -17,7 +18,7 @@ metadata:
     kubernetes.io/name: monitoring-raven
 spec:
   type: LoadBalancer
-  loadBalancerIP: 20.62.216.240
+  loadBalancerIP: 20.124.23.35
   #  loadBalancerIP: 104.197.235.238  # 2ravens.org
   selector:
     app: ta3-demo
