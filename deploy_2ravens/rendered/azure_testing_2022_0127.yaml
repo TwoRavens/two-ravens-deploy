@@ -48,10 +48,10 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "500m"
+         cpu: "400m"
       limits:
          memory: "1500Mi"
-         cpu: "500m"
+         cpu: "400m"
     env:
       - name: POSTGRES_DB
         value: raven_1
@@ -102,11 +102,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "500Mi"
-         cpu: "250m"
-      limits:
          memory: "1000Mi"
-         cpu: "250m"
+         cpu: "500m"
+      limits:
+         memory: "1500Mi"
+         cpu: "500m"
     ports:
     - containerPort: 6379
     volumeMounts:
@@ -128,10 +128,10 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "750m"
+         cpu: "500m"
       limits:
          memory: "2000Mi"
-         cpu: "750m"
+         cpu: "500m"
     ports:
       - containerPort: 8080
         name: http
@@ -187,10 +187,10 @@ spec:
     resources:
       requests:
          memory: "2000Mi"
-         cpu: "750m"
+         cpu: "500m"
       limits:
          memory: "3000Mi"
-         cpu: "750m"
+         cpu: "500m"
     ports:
       - containerPort: 8080
         name: http
@@ -241,11 +241,11 @@ spec:
     # ----------------------------------
     resources:
       requests:
-         memory: "1000Mi"
-         cpu: "500m"
+         memory: "500Mi"
+         cpu: "250m"
       limits:
-         memory: "1500Mi"
-         cpu: "500m"
+         memory: "1000Mi"
+         cpu: "250m"
     ports:
       - containerPort: 27017
         protocol: TCP
@@ -271,10 +271,10 @@ spec:
     resources:
       requests:
          memory: "1000Mi"
-         cpu: "750m"
+         cpu: "500m"
       limits:
          memory: "2000Mi"
-         cpu: "750m"
+         cpu: "500m"
     volumeMounts:
       # ----------------------------------
       # shared between containers

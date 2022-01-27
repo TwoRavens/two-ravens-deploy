@@ -278,14 +278,15 @@ azure_demo_site_no_ta2 = dict(base_spec_01, **dict(\
     #
     #ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
     nginx_resources=['256Mi', '256Mi', '250m', '250m'],
-    ta3_resources=['1000Mi', '2000Mi', '750m', '750m'],
-    celery_resources=['2000Mi', '3000Mi', '750m', '750m'],
-    rook_resources=['1000Mi', '2000Mi', '750m', '750m'],
-    mongo_resources=['1000Mi', '1500Mi', '500m', '500m'],
-    redis_resources=['500Mi', '1000Mi', '250m', '250m'],
-    postgres_resources=['1000Mi', '1500Mi', '500m', '500m'],
+    ta3_resources=['1000Mi', '2000Mi', '500m', '500m'],
+    celery_resources=['2000Mi', '3000Mi', '500m', '500m'],
+    rook_resources=['1000Mi', '2000Mi', '500m', '500m'],
+    mongo_resources=['500Mi', '1000Mi', '250m', '250m'],
+    redis_resources=['1000Mi', '1500Mi', '500m', '500m'],
+    postgres_resources=['1000Mi', '1500Mi', '400m', '400m'],
     #
     ))
+
 
 """
 from collections import OrderedDict
