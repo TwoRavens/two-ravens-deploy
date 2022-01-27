@@ -277,13 +277,13 @@ azure_demo_site_no_ta2 = dict(base_spec_01, **dict(\
     #DEMO_AUTO_LOGIN="True",
     #
     #ta2_resources=['20000Mi', '25000Mi', '6000m', '8000m'],
-    nginx_resources=['256Mi', '256Mi', '250m', '250m'],
+    nginx_resources=['256Mi', '500Mi', '250m', '250m'],
     ta3_resources=['1000Mi', '2000Mi', '500m', '500m'],
     celery_resources=['2000Mi', '3000Mi', '500m', '500m'],
     rook_resources=['1000Mi', '2000Mi', '500m', '500m'],
     mongo_resources=['500Mi', '1000Mi', '250m', '250m'],
-    redis_resources=['1000Mi', '1500Mi', '500m', '500m'],
-    postgres_resources=['1000Mi', '1500Mi', '400m', '400m'],
+    redis_resources=['1000Mi', '2000Mi', '500m', '500m'],
+    postgres_resources=['1000Mi', '2000Mi', '400m', '400m'],
     #
     ))
 
