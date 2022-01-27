@@ -13,6 +13,7 @@ sys.path.append(dirname(CURRENT_DIR))
 from config_specs2 import \
     (base_spec_01,
      azure_demo_site,
+     azure_demo_site_no_ta2,
      dm_summer_2020_0717,
      dm_eval_2020_08,
      )
@@ -148,10 +149,11 @@ def create_azure_demo():
 
     create_configs(\
                    #gce_demo_site,
-                   azure_demo_site,     # from config_specs2
+                   azure_demo_site_no_ta2,     # from config_specs2
                    AZURE_IP_INFO,
                    rendered_fname_prefix='azure',
                    make_ALL_files=False)
+
 
 if __name__ == '__main__':
     # spec_multi_brown2,
