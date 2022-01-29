@@ -144,7 +144,7 @@ def create_azure_demo():
     AZURE_IP_INFO = [
                    #('apricot', '40.76.171.8', {}),
                    #('demo', '20.62.216.240', {}),
-                   ('testing', '20.62.247.224', {}),
+                   ('testing', '20.124.30.5', {}),
                    ]
 
     create_configs(\
